@@ -9,22 +9,23 @@ using a specific TODO syntax
 
 # Usage
 
-
 # TODO
 
 - [ ] Core Application
   - [ ] Read all files
-  - [ ] Find comments by regex
-  - [ ] Parse the file by interpreting the comment
+  - [x] Find comments by regex
+  - [x] Parse the file by interpreting the comment
   - [ ] Create a config file inside .taskify directory
   - [ ] Add all task inside
   - [ ] Update the task by comparing the content
-  - [ ] Remove the TODO comment when the task is done
+  - [x] Remove the TODO from the file after scanning
 - [ ] CLI App
   - [ ] Create a command that scan your directory
-  - [ ] Create a command that update the directory
-  - [ ] Create a command that remove the TODO if it's not necessary
-  - [ ] Create a command that can change the state of a TODO
+  - [ ] Show the board
+  - [ ] Create command that moves task inside the board
+  - [ ] Create a command that remove or update task
+  - [ ] Create a command that search a task from the board
+  - [ ] Create a sorting and filtering task method
 - [ ] Desktop App
   - [ ] Create a graphic interface that show your board with all TODOs
   - [ ] Allow users to search a specific task
