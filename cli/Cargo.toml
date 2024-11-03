@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 taskify = { path = "../taskify" }
 regex = { workspace = true }
+notify = {workspace = true }
