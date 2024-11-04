@@ -4,4 +4,5 @@ resolver = "2"
 
 [workspace.dependencies]
 regex = "1.11.0"
-notify = "7.0.0"
+notify-debouncer-mini = "0.4.1"
+notify = { version = "7.0.0", features = ["serde"] }

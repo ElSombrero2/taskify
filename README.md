@@ -24,6 +24,7 @@ But you can add other regex that support you own language as you need.
   - [ ] Create a config file inside .taskify directory
   - [ ] Add all task inside
   - [x] Remove the TODO from the file after scanning
+  - [x] Add file watching feature
 - [ ] CLI App
   - [ ] Create a command that scan your directory
   - [ ] Show the board
