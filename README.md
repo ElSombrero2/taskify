@@ -3,6 +3,11 @@
 Taskify is a TODO to KANBAN tool that allow you to create a KANBAN Board from your TODO comment by
 using a specific TODO syntax
 
+# Language Support
+
+Now this tool only support C based language like C++, Rust, Java, C#, Javascript, Typescript and Kotlin.
+But you can add other regex that support you own language as you need.
+
 # Why should I use Taskify?
 
 # VS Code Integration
@@ -12,13 +17,14 @@ using a specific TODO syntax
 # TODO
 
 - [ ] Core Application
+  - [ ] Create regex and language support as Plugin.
   - [ ] Read all files
   - [x] Find comments by regex
   - [x] Parse the file by interpreting the comment
   - [ ] Create a config file inside .taskify directory
   - [ ] Add all task inside
-  - [ ] Update the task by comparing the content
   - [x] Remove the TODO from the file after scanning
+  - [x] Add file watching feature
 - [ ] CLI App
   - [ ] Create a command that scan your directory
   - [ ] Show the board

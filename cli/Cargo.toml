@@ -8,3 +8,5 @@ edition = "2021"
 [dependencies]
 taskify = { path = "../taskify" }
 regex = { workspace = true }
+notify-debouncer-mini = { workspace = true }
+notify = { workspace = true, features = ["serde"] }
