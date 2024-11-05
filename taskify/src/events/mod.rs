@@ -1,8 +1,8 @@
 use std::{path::Path, sync::mpsc};
 use notify::{Config, Error, Event, RecursiveMode, Watcher};
-use crate::task::{self, task::Task};
+use crate::task::Task;
 
-pub fn on_file_change<F>(directory: String, callback: F) where F: Fn(Result<Task, Error>) -> () {
+pub fn on_file_change<F>(directory: String, callback: F) where F: Fn(Vec<Task>) -> () {
   let config = Config::default()
   .with_manual_polling();
 
@@ -15,12 +15,13 @@ pub fn on_file_change<F>(directory: String, callback: F) where F: Fn(Result<Task
       match res {
         Ok(event) => {
           for path in event.paths {
-            for task in task::find_all(path.to_str().unwrap().to_string(), true) {
-              callback(Ok(task));
-            } 
+            let tasks = Task::find_all(path.to_str().unwrap().to_string(), true);
+            if tasks.len() > 0 {
+              callback(tasks);
+            }
           }
         },
-        Err(e) => { callback(Err(e)); },
+        _ => {},
       }
     }
   }
