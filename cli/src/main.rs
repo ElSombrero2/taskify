@@ -1,21 +1,17 @@
-use notify::Error;
-use taskify::{events, task::task::Task};
+use taskify::{board, events, task::Task};
 
-fn on_task (task: Result<Task, Error>) {
-  if let Ok(task) = task {
-    println!("----------------------------------");
-    println!("[{}] {}", task.state, task.title);
-    if let Some(description) = task.description {
-      println!("\n{} ", description);
-    }
-    print!("\nTags: ");
-    for tag in task.tags {
-      print!("{} ", tag);
-    }
-    println!("\n----------------------------------");
-  }
+fn on_task () -> Box<dyn Fn(Vec<Task>) -> ()> {
+  println!("File watching is enabled");
+  return Box::new(move |mut tasks: Vec<Task>| {
+    let dir = ".examples/node-app".to_string();
+    let mut board = board::Board::load(dir.clone());
+    let task_count = tasks.len();
+    board.tasks.append(&mut tasks);
+    board.save(dir);
+    println!("Board updated: {} tasks added", task_count);
+  });
 }
 
 fn main() {
-  events::on_file_change(String::from(".examples/node-app"), on_task);  
+  events::on_file_change(".examples/node-app".to_string(), on_task());
 }
