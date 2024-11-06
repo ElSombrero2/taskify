@@ -16,15 +16,15 @@ But you can add other regex that support you own language as you need.
 
 # TODO
 
-- [ ] Core Application
-  - [ ] Create regex and language support as Plugin.
-  - [ ] Read all files
+- [x] Core Application
+  - [x] Read all files
   - [x] Find comments by regex
   - [x] Parse the file by interpreting the comment
   - [x] Create a config file inside .taskify directory
   - [x] Add all task inside
   - [x] Remove the TODO from the file after scanning
   - [x] Add file watching feature
+  - [x] Add ignoring dir or file feature
 - [ ] CLI App
   - [ ] Create a command that scan your directory
   - [ ] Show the board
