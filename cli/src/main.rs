@@ -13,5 +13,10 @@ fn on_task () -> Box<dyn Fn(Vec<Task>) -> ()> {
 }
 
 fn main() {
+  let dir = ".examples/node-app".to_string();
+  let mut tasks = Task::scan(dir.clone());
+  let mut board = board::Board::load(dir.clone());
+  board.tasks.append(&mut tasks);
+  board.save(dir);
   events::on_file_change(".examples/node-app".to_string(), on_task());
 }
