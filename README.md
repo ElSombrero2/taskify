@@ -3,12 +3,12 @@
 Taskify is a TODO to KANBAN tool that allow you to create a KANBAN Board from your TODO comment by
 using a specific TODO syntax
 
-#### Language Support
+### Language Support
 
 Now this tool only support **C based** language like **C++**, **Rust**, **Java**, **C#**, **Javascript**, **Typescript** and **Kotlin**.
 But you can add other regex that support you own language as you need.
 
-#### Why should I use Taskify?
+### Why should I use Taskify?
 
 **Taskify** will load all your **TODO** comments and add it into a **KANBAN board**.
 It allow you to have a personal Board that will contains all the tasks that you have
