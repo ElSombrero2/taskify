@@ -2,7 +2,7 @@ use std::{path::Path, sync::mpsc};
 use notify::{Config, Error, Event, RecursiveMode, Watcher};
 use crate::task::Task;
 
-pub fn on_file_change<F>(directory: String, callback: F) where F: Fn(Vec<Task>) -> () {
+pub fn on_file_change<F>(root_directory: String, callback: F) where F: Fn(Vec<Task>, &String) -> () {
   let config = Config::default()
   .with_manual_polling();
 
@@ -10,18 +10,19 @@ pub fn on_file_change<F>(directory: String, callback: F) where F: Fn(Vec<Task>) 
 
   if let Ok(mut watcher) = notify::recommended_watcher(tx) {
     watcher.configure(config).unwrap();
-    watcher.watch(Path::new(&directory), RecursiveMode::NonRecursive).unwrap();
-    for res in rx {
-      match res {
-        Ok(event) => {
-          for path in event.paths {
-            let tasks = Task::find_all(path.to_str().unwrap().to_string(), true);
-            if tasks.len() > 0 {
-              callback(tasks);
+    if watcher.watch(Path::new(&root_directory), RecursiveMode::Recursive).is_ok() {
+      for res in rx {
+        match res {
+          Ok(event) => {
+            for path in event.paths {
+              let tasks = Task::find_all(path.to_str().unwrap().to_string(), true);
+              if tasks.len() > 0 {
+                callback(tasks, &root_directory);
+              }
             }
-          }
-        },
-        _ => {},
+          },
+          _ => {}
+        }
       }
     }
   }

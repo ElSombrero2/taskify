@@ -18,35 +18,18 @@ to do inside your code.
 You can directly create a multiline comment that follows this current syntax
 
 ```javascript
-/*
-  [TODO]: <title>
-  <description: can be multilines>
-*/
 function myFunction() {
   // ignored comment
   // [TODO]: Ignored TODO
-  /*
-    [READY]: Not ignored TODO
-    With description and #tags
-  */
 }
 ```
 For now all the states authorized are: **TODO**, **READY**, **TESTING** and **DONE**
 
 ```rust
-/*
-  [TESTING]: Create Unit test for the function Something
-  Add some long description
-  with tags like #math and #calculus
-*/
 fn add(a: u16, b: u16) -> u16 {
   return a + b;
 }
 
-/*
-  [READY]: Write the implementation of the multiply function
-  This function must returns a x b
-*/
 fn multiply(a: u16, b: u16) -> u16 {
   return 0;
 }
@@ -54,10 +37,44 @@ fn multiply(a: u16, b: u16) -> u16 {
 
 # Usage
 
-First, don't forget to add **.taskify** directory inside your **.gitignore** file.
+First, add **.taskify** inside your **.gitignore** file.
+Taskify must be only in your local project for preventing 
+git conflict.
 
 ## CLI
-Work in progress.
+Just call the scan command to scan your directory
+
+```bash
+taskify scan ./
+# Or you can watch the changes of your directory
+# by using --watch
+taskify scan ./ --watch
+```
+You can run **taskify --help** to see whats are all commands you can use
+```bash
+ _____                 _      _    __               _
+|_   _|   __ _   ___  | | __ (_)  / _|  _   _      (_)   ___
+  | |    / _` | / __| | |/ / | | | |_  | | | |     | |  / _ \
+  | |   | (_| | \__ \ |   <  | | |  _| | |_| |  _  | | | (_) |
+  |_|    \__,_| |___/ |_|\_\ |_| |_|    \__, | (_) |_|  \___/
+                                        |___/
+                                        
+Welcome to Taskify CLI.
+Visit https://github.com/ElSombrero2/taskify
+
+Usage: cli.exe <COMMAND>
+
+Commands:
+  scan  Command that scan directory, use
+        taskify scan --help
+        command for more information
+  help  Print this message or the help of the given subcommand(s)
+
+Options:
+  -h, --help Print help (see a summary with '-h')
+
+  -V, --version Print version
+```
 ## Web Integration
 
 ## Desktop App
@@ -76,7 +93,7 @@ Work in progress.
   - [x] Add file watching feature
   - [x] Add ignoring dir or file feature
 - [ ] CLI App
-  - [ ] Create a command that scan your directory
+  - [x] Create a command that scan your directory
   - [ ] Show the board
   - [ ] Create command that moves task inside the board
   - [ ] Create a command that remove or update task
