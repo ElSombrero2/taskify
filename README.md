@@ -18,18 +18,35 @@ to do inside your code.
 You can directly create a multiline comment that follows this current syntax
 
 ```javascript
+/*
+  [TODO]: <title>
+  <description: can be multilines>
+*/
 function myFunction() {
   // ignored comment
   // [TODO]: Ignored TODO
+  /*
+    [READY]: Not ignored TODO
+    With description and #tags
+  */
 }
 ```
 For now all the states authorized are: **TODO**, **READY**, **TESTING** and **DONE**
 
 ```rust
+/*
+  [TESTING]: Create Unit test for the function Something
+  Add some long description
+  with tags like #math and #calculus
+*/
 fn add(a: u16, b: u16) -> u16 {
   return a + b;
 }
 
+/*
+  [READY]: Write the implementation of the multiply function
+  This function must returns a x b
+*/
 fn multiply(a: u16, b: u16) -> u16 {
   return 0;
 }
