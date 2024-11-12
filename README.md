@@ -111,7 +111,7 @@ Options:
   - [x] Add ignoring dir or file feature
 - [ ] CLI App
   - [x] Create a command that scan your directory
-  - [ ] Show the board
+  - [x] Show the board
   - [ ] Create command that moves task inside the board
   - [ ] Create a command that remove or update task
   - [ ] Create a command that search a task from the board
