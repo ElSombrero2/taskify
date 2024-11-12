@@ -1,6 +1,7 @@
 use crate::utils;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
+use state::TaskState;
 use std::{
   collections::LinkedList, fs::{self, DirEntry}, vec
 };
@@ -8,11 +9,11 @@ use std::{
 mod common;
 pub mod state;
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct Task {
   pub title: String,
   pub description: Option<String>,
-  pub state: String,
+  pub state: TaskState,
   pub tags: Vec<String>,
 }
 
@@ -24,7 +25,7 @@ impl Task {
     ) {
       if let Ok(file) = fs::read_to_string(&filename) {
         let (vec, str) = utils::regex::capture_all::<Task>(regex, file, task);
-        if rewrite && vec.len() > 0 {
+        if rewrite && !vec.is_empty() {
           fs::write(filename, str).unwrap();
         }
         return vec;
@@ -38,7 +39,7 @@ impl Task {
     let mut stack: LinkedList<String> = LinkedList::new();
     let names = Task::read_ignore_file(directory.clone());
     stack.push_back(directory.clone());
-    while stack.len() > 0 {
+    while !stack.is_empty() {
       if let Some(dir) = stack.pop_back() {
         if let Ok(files) = fs::read_dir(dir) {
           for file in files.flatten() {
@@ -49,7 +50,7 @@ impl Task {
         }
       }
     }
-    return tasks;
+    tasks
   }
 
   fn get_path(file: DirEntry, stack: &mut LinkedList<String>) -> Vec<Task> {
@@ -62,10 +63,10 @@ impl Task {
         }
       }
     }
-    return vec![];
+    vec![]
   }
 
-  fn read_ignore_file<'a>(directory: String) -> Vec<String> {
+  fn read_ignore_file(directory: String) -> Vec<String> {
     if let Ok(ignored_files) = fs::read_to_string(directory + "/.taskifyignore") {
       let names = ignored_files
         .split("\r\n")
@@ -73,7 +74,7 @@ impl Task {
         .collect::<Vec<String>>();
       return names;
     }
-    return vec![];
+    vec![]
   }
 
   fn is_ignored(names: &Vec<String>, file: &DirEntry) -> bool {
@@ -87,6 +88,6 @@ impl Task {
         }
       }
     }
-    return false;
+    false
   }
 }

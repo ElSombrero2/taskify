@@ -1,9 +1,7 @@
-
-use clap::Parser;
-use scan::Scan;
+use clap::{Parser, Subcommand};
 
 pub mod controllers;
-pub mod scan;
+
 ///{n}
 ///_____                 _      _    __               _
 ///{n}|_   _|   __ _   ___  | | __ (_)  / _|  _   _      (_)   ___
@@ -18,5 +16,26 @@ pub mod scan;
 #[command(version = "0.1.0")]
 pub struct Cli {
   #[command(subcommand)]
-  pub scan: Scan,
+  pub subcommand: SubCommand,
+}
+
+#[derive(Subcommand)]
+pub enum SubCommand {
+  /// Command that scan directory, use 
+  /// {n}taskify scan --help
+  /// {n}command for more information
+  Scan {
+    /// Path of your directory
+    path: String,
+    /// Watch file changes inside the current directory
+    #[arg(long, short = 'w', action)]
+    watch: bool,
+  },
+  // Command that for the board 
+  Board {
+    #[arg(long, short = 's', action)]
+    show: bool,
+    #[arg(long, short = 'r', action)]
+    remove: bool,
+  }
 }
