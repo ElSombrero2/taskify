@@ -1,13 +1,16 @@
+use std::fmt::Display;
+
 use super::TaskState;
 
-impl ToString for TaskState {
-  fn to_string(&self) -> String {
+impl Display for TaskState {
+  
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     match self {
-      TaskState::TODO => "Todo".to_string(),
-      TaskState::READY => "Ready".to_string(),
-      TaskState::WIP => "Work in Progress".to_string(),
-      TaskState::TESTING => "Testing".to_string(),
-      TaskState::DONE => "Done".to_string(),
+      TaskState::TODO => write!(f, "Todo"),
+      TaskState::READY => write!(f, "Ready"),
+      TaskState::WIP => write!(f, "Work in Progress"),
+      TaskState::TESTING => write!(f, "Testing"),
+      TaskState::DONE => write!(f, "Done"),
     }
   }
 }

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  docs:
+    build:
+      context: .docs
+    develop:
+      watch:
+        - path: ./.docs
+          target: /opt/app/
+          action: sync
+          ignore:
+            - 'node_modules'
+            - '.vitepress/dist'
+            - '.vitepress/cache'
+    ports:
+      - '5173:5173'
