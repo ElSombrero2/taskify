@@ -4,12 +4,12 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Taskify",
   description: "Taskify documentation",
+  base: '/taskify/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
     ],
-
     sidebar: [
       {
         text: 'Basic',
@@ -25,7 +25,6 @@ export default defineConfig({
         ]
       }
     ],
-
     // socialLinks: [
     //   { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     // ]
