@@ -30,7 +30,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Install dependencies
-        run: npm postinstall
+        run: npm run docs:install
       - name: Build with VitePress
         run: npm run docs:build
       - name: Upload artifact
