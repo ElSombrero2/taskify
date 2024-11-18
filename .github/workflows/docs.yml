@@ -27,6 +27,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: debug
+        run: git branch
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Install dependencies
