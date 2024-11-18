@@ -43,6 +43,7 @@ impl Transform<Option<Task>> for Task {
         description: if !description.is_empty() { Some(description) } else { None },
         state: TaskState::from(state.as_str()),
         tags,
+        filename: "".to_string(),
       })
     }
     Option::None

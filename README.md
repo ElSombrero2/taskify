@@ -20,7 +20,7 @@ You can directly create a multiline comment that follows this current syntax
 ```javascript
 /*
   [TODO]: <title>
-  <description: can be multilines>
+  <description: can be multi lines>
 */
 function myFunction() {
   // ignored comment
