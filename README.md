@@ -126,9 +126,16 @@ Options:
   - [x] Create a command that scan your directory
   - [x] Show the board
   - [x] Create a command that export the board
-  - [ ] Create command that moves task inside the board
   - [x] Create a command that search a task from the board
-  - [ ] Create a sorting and filtering task method
+  - [ ] Create command that moves task inside the board
+- [ ] API
+  - [ ] Create a REST API
+    - [x] Create an endpoint that returns the board
+    - [ ] Create an endpoint that change the state of a specific ticket
+    - [ ] Create an endpoint that remove a specific ticket
+  - [ ] Add a websocket feature for a realtime update
+  - [ ] Create an OpenAPI Documentation for the Web API
+  - [x] Create a serve command that serve the API to specific port
 - [ ] Desktop App
   - [ ] Create a graphic interface that show your board with all TODOs
   - [ ] Allow users to search a specific task

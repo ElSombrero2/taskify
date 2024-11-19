@@ -1,12 +1,12 @@
 use std::collections::{btree_map::Keys, LinkedList};
 use taskify::{board::Board, task::{state::TaskState, Task}};
-use crate::cli::controllers::common::{file::current_filename, table::create_table, task::format_task};
+use crate::cli::controllers::common::{table::create_table, task::format_task};
 
 pub struct BoardController {}
 
 impl BoardController {
   pub fn show() {
-    let board = Self::create_board();
+    let board = Board::load(".".to_string());
     if board.tasks.is_empty() {
       return println!("The board is empty, add TODOs comments to see them here.");
     }
@@ -40,18 +40,11 @@ impl BoardController {
   }
 
   pub fn export (filename: String) {
-    let board = Self::create_board();
+    let board = Board::load(".".to_string());
     if board.save(filename.clone()) {
       println!("Board successfully exported to: {}", filename);
     } else {
       println!("An error occurred, please check if your file is exported to an existing directory");
-    }
-  }
-
-  fn create_board() -> Board {
-    Board { 
-      name: current_filename(),
-      tasks: Task::scan(".".to_string())
     }
   }
 }
