@@ -10,6 +10,11 @@ pub struct Board {
 
 const BOARD_BASE_PATH: &str = "/.taskify/board.json";
 
+/*
+  [TODO]: Create a TODO export for this file
+  Create a TODO json export
+  that contains the details of this task
+*/
 impl Board {
   pub fn load(directory: String) -> Board {
     let path = directory.to_owned() + BOARD_BASE_PATH;
@@ -20,9 +25,12 @@ impl Board {
     }
     Board { name: directory, tasks: vec![] }
   }
-
+  /*
+    [TESTING]: Create a testing file
+    Test your exportation here
+  */
   pub fn save(&self, filename: String) -> bool {
-    let json = serde_json::to_string(&self).unwrap();
+    let json = serde_json::to_string_pretty(&self).unwrap();
     fs::write(Path::new(&filename), json).is_ok()
   }
 

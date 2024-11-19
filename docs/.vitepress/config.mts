@@ -21,6 +21,14 @@ export default defineConfig({
           {
             text: 'Ignore files',
             link: '/basic/ignore'
+          },
+          {
+            text: 'CLI tool',
+            link: '/basic/cli'
+          },
+          {
+            text: 'Server',
+            link: '/basic/server'
           }
         ]
       }

@@ -2,7 +2,9 @@
 prev:
   text: 'Syntax'
   link: '/basic/syntax'
-next: false
+next:
+  text: 'CLI'
+  link: '/basic/cli'
 ---
 
 # Ignore
@@ -27,8 +29,12 @@ inside your .taskifyignore file
 
 ```text
 # Inside the .taskifyignore file
-
 node_modules
 .gitignore
 dist
+.git
 ```
+::: warning
+Not ignoring some directories like **.git**, **target** or **node_modules** 
+can greatly affect the performance and display speed of your board
+:::
