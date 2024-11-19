@@ -1,38 +1,26 @@
-use std::{collections::{btree_map::Keys, LinkedList}, env};
-
-use comfy_table::{modifiers::UTF8_ROUND_CORNERS, presets::UTF8_FULL, ContentArrangement, Table};
+use std::collections::{btree_map::Keys, LinkedList};
 use taskify::{board::Board, task::{state::TaskState, Task}};
-
-use crate::cli::SubCommand;
+use crate::cli::controllers::common::{file::current_filename, table::create_table, task::format_task};
 
 pub struct BoardController {}
 
 impl BoardController {
-  pub fn board(cmd: &SubCommand) {
-    match cmd {
-      SubCommand::Board {show, ..} if *show => {
-      Self::show();
+  pub fn show() {
+    let board = Self::create_board();
+    if board.tasks.is_empty() {
+      return println!("The board is empty, add TODOs comments to see them here.");
     }
-      _ => {}
-    }
-  }
 
-  fn show() {
-    let board = Board::load(Self::path());
     let mut map = board.group_by_state();
-    let mut table = Table::new();
-    table
-    .load_preset(UTF8_FULL)
-      .apply_modifier(UTF8_ROUND_CORNERS)
-      .set_content_arrangement(ContentArrangement::Dynamic)
-      .set_header(Self::set_headers(map.keys()));
-    
+    let mut table = create_table();
+
+    table.set_header(Self::set_headers(map.keys()));
     while !map.is_empty() {
       let mut all_empty = true;
       let mut row: Vec<String> = vec![];
       for list in map.values_mut() {
         if let Some(task) = list.pop_front() {
-          row.push(format!("{}\n\n{}", task.title, task.description.unwrap_or_default()));
+          row.push(format_task(&task));
         } else { row.push("".to_string()); }
         all_empty = all_empty && list.is_empty();
       }
@@ -43,18 +31,27 @@ impl BoardController {
     println!("{table}");
   }
 
-  fn path () -> String {
-    return env::current_dir()
-      .unwrap_or_default()
-      .to_string_lossy()
-      .to_string();  
-  }
-
   fn set_headers (keys: Keys<TaskState, LinkedList<Task>>) -> Vec<String> {
     let mut headers: Vec<String> = vec![];
     for key in keys {
       headers.push(key.to_string());
     }
     headers
+  }
+
+  pub fn export (filename: String) {
+    let board = Self::create_board();
+    if board.save(filename.clone()) {
+      println!("Board successfully exported to: {}", filename);
+    } else {
+      println!("An error occurred, please check if your file is exported to an existing directory");
+    }
+  }
+
+  fn create_board() -> Board {
+    Board { 
+      name: current_filename(),
+      tasks: Task::scan(".".to_string())
+    }
   }
 }

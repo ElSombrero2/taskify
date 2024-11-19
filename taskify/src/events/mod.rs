@@ -13,7 +13,7 @@ pub fn on_file_change<F>(root_directory: String, callback: F) where F: Fn(Vec<Ta
     if watcher.watch(Path::new(&root_directory), RecursiveMode::Recursive).is_ok() {
       for event in rx.iter().flatten() {
         for path in event.paths {
-          let tasks = Task::find_all(path.to_str().unwrap().to_string(), true);
+          let tasks = Task::match_regex(path.to_str().unwrap().to_string(), false);
           if !tasks.is_empty() {
             callback(tasks, &root_directory);
           }

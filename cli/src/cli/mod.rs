@@ -21,21 +21,14 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum SubCommand {
-  /// Command that scan directory, use 
-  /// {n}taskify scan --help
-  /// {n}command for more information
-  Scan {
-    /// Path of your directory
-    path: String,
-    /// Watch file changes inside the current directory
-    #[arg(long, short = 'w', action)]
-    watch: bool,
-  },
-  // Command that for the board 
+  /// Show your board from your current directory
   Board {
-    #[arg(long, short = 's', action)]
-    show: bool,
-    #[arg(long, short = 'r', action)]
-    remove: bool,
+    #[arg(long, short = 'e')]
+    export: Option<String>
+  },
+  /// Create a server that serve your board (Work in Progress)
+  Serve {
+    #[arg(long, short = 'p')]
+    port: u16,
   }
 }

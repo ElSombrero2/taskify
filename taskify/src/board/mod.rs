@@ -21,11 +21,9 @@ impl Board {
     Board { name: directory, tasks: vec![] }
   }
 
-  pub fn save(&self, root_directory: String) -> bool {
-    let path = root_directory.to_owned() + BOARD_BASE_PATH;
-    Board::create_directory(&(root_directory + "/.taskify"));
+  pub fn save(&self, filename: String) -> bool {
     let json = serde_json::to_string(&self).unwrap();
-    fs::write(path, json).is_ok()
+    fs::write(Path::new(&filename), json).is_ok()
   }
 
   pub fn group_by_state(&self) -> BTreeMap<TaskState, LinkedList<Task>> {
@@ -40,12 +38,5 @@ impl Board {
       }
     }
     map
-  }
-
-  fn create_directory (path: &String) -> bool {
-    if !Path::new(path).exists() {
-      return fs::create_dir(path).is_ok();
-    }
-    false
   }
 }
