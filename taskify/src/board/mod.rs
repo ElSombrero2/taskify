@@ -1,4 +1,4 @@
-use crate::task::{state::TaskState, Task};
+use crate::{task::{state::TaskState, Task}, utils::file::current_filename};
 use std::{collections::{BTreeMap, LinkedList}, fs::{self}, path::Path, vec};
 use serde::{Deserialize, Serialize};
 
@@ -8,16 +8,16 @@ pub struct Board {
   pub tasks: Vec<Task>,
 }
 
-const BOARD_BASE_PATH: &str = "/.taskify/board.json";
-
-/*
-  [TODO]: Create a TODO export for this file
-  Create a TODO json export
-  that contains the details of this task
-*/
 impl Board {
   pub fn load(directory: String) -> Board {
-    let path = directory.to_owned() + BOARD_BASE_PATH;
+    Board { 
+      name: current_filename(),
+      tasks: Task::scan(directory)
+    }
+  }
+
+  pub fn load_from_file(directory: String) -> Board {
+    let path = directory.to_owned();
     if let Ok(content) = fs::read_to_string(Path::new(&path)) {
       if let Ok(board) = serde_json::from_str::<Board>(&content) {
         return board;
@@ -25,10 +25,7 @@ impl Board {
     }
     Board { name: directory, tasks: vec![] }
   }
-  /*
-    [TESTING]: Create a testing file
-    Test your exportation here
-  */
+
   pub fn save(&self, filename: String) -> bool {
     let json = serde_json::to_string_pretty(&self).unwrap();
     fs::write(Path::new(&filename), json).is_ok()
@@ -47,4 +44,6 @@ impl Board {
     }
     map
   }
+
+  
 }

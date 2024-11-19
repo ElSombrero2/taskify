@@ -1,5 +1,6 @@
 use clap::Parser;
 use cli::{controllers::board::BoardController, Cli};
+use taskify::server;
 
 mod cli;
 
@@ -10,6 +11,8 @@ fn main() {
       if let Some(filename) = export { BoardController::export(filename); }
       else { BoardController::show(); }
     },
-    cli::SubCommand::Serve { .. } => println!("<Work in progress>"),
+    cli::SubCommand::Serve { port } => {
+      server::serve(port);
+    },
   }
 }

@@ -28,7 +28,7 @@ pub enum SubCommand {
   },
   /// Create a server that serve your board (Work in Progress)
   Serve {
-    #[arg(long, short = 'p')]
+    #[arg(long, short = 'p', default_value = "8000")]
     port: u16,
   }
 }
