@@ -20,7 +20,7 @@ You can directly create a multiline comment that follows this current syntax
 ```javascript
 /*
   [TODO]: <title>
-  <description: can be multilines>
+  <description: can be multi lines>
 */
 function myFunction() {
   // ignored comment
@@ -54,18 +54,30 @@ fn multiply(a: u16, b: u16) -> u16 {
 
 # Usage
 
-First, add **.taskify** inside your **.gitignore** file.
-Taskify must be only in your local project for preventing 
-git conflict.
+Create a **.taskifyignore** file that contains all the
+directory you have to ignore and start your taskify command
+ 
+  
+Here is an example of **.taskifyignore** file
+```
+target
+.examples
+README.md
+node_modules
+docs
+.git
+.examples
+```
+
 
 ## CLI
-Just call the scan command to scan your directory
+Just call the board command to show the board
 
 ```bash
-taskify scan ./
-# Or you can watch the changes of your directory
-# by using --watch
-taskify scan ./ --watch
+taskify board
+# You can also export the board to json file by calling
+# this command
+taskify board --export my-board.json
 ```
 You can run **taskify --help** to see whats are all commands you can use
 ```bash
@@ -75,22 +87,23 @@ You can run **taskify --help** to see whats are all commands you can use
   | |   | (_| | \__ \ |   <  | | |  _| | |_| |  _  | | | (_) |
   |_|    \__,_| |___/ |_|\_\ |_| |_|    \__, | (_) |_|  \___/
                                         |___/
-                                        
+
 Welcome to Taskify CLI.
 Visit https://github.com/ElSombrero2/taskify
 
 Usage: cli.exe <COMMAND>
 
 Commands:
-  scan  Command that scan directory, use
-        taskify scan --help
-        command for more information
-  help  Print this message or the help of the given subcommand(s)
+  board  Show your board from your current directory
+  serve  Create a server that serve your board (Work in Progress)
+  help   Print this message or the help of the given subcommand(s)
 
 Options:
-  -h, --help Print help (see a summary with '-h')
+  -h, --help
+          Print help (see a summary with '-h')
 
-  -V, --version Print version
+  -V, --version
+          Print version
 ```
 ## Web Integration
 
@@ -104,17 +117,17 @@ Options:
   - [x] Read all files
   - [x] Find comments by regex
   - [x] Parse the file by interpreting the comment
-  - [x] Create a config file inside .taskify directory
-  - [x] Add all task inside
-  - [x] Remove the TODO from the file after scanning
   - [x] Add file watching feature
   - [x] Add ignoring dir or file feature
+  - [x] Add use fetching by git
+  - [x] Create a web documentation
+  - [x] Create a feature that export the board to a json file
 - [ ] CLI App
   - [x] Create a command that scan your directory
   - [x] Show the board
+  - [x] Create a command that export the board
   - [ ] Create command that moves task inside the board
-  - [ ] Create a command that remove or update task
-  - [ ] Create a command that search a task from the board
+  - [x] Create a command that search a task from the board
   - [ ] Create a sorting and filtering task method
 - [ ] Desktop App
   - [ ] Create a graphic interface that show your board with all TODOs
@@ -123,3 +136,6 @@ Options:
   - [ ] Real time change detection from CLI App, Commend edit and Desktop App
 - [ ] Create a web interface that do the same things that the Desktop App but inside a web browser
 - [ ] Create a VS Code plugin that do the same things that desktop and web interface but inside VS Code
+- [ ] CI/CD
+  - [X] Create a github action for the documentation
+  - [ ] Create a documentation for release deployment

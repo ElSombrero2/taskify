@@ -10,6 +10,11 @@ pub struct Board {
 
 const BOARD_BASE_PATH: &str = "/.taskify/board.json";
 
+/*
+  [TODO]: Create a TODO export for this file
+  Create a TODO json export
+  that contains the details of this task
+*/
 impl Board {
   pub fn load(directory: String) -> Board {
     let path = directory.to_owned() + BOARD_BASE_PATH;
@@ -20,12 +25,13 @@ impl Board {
     }
     Board { name: directory, tasks: vec![] }
   }
-
-  pub fn save(&self, root_directory: String) -> bool {
-    let path = root_directory.to_owned() + BOARD_BASE_PATH;
-    Board::create_directory(&(root_directory + "/.taskify"));
-    let json = serde_json::to_string(&self).unwrap();
-    fs::write(path, json).is_ok()
+  /*
+    [TESTING]: Create a testing file
+    Test your exportation here
+  */
+  pub fn save(&self, filename: String) -> bool {
+    let json = serde_json::to_string_pretty(&self).unwrap();
+    fs::write(Path::new(&filename), json).is_ok()
   }
 
   pub fn group_by_state(&self) -> BTreeMap<TaskState, LinkedList<Task>> {
@@ -40,12 +46,5 @@ impl Board {
       }
     }
     map
-  }
-
-  fn create_directory (path: &String) -> bool {
-    if !Path::new(path).exists() {
-      return fs::create_dir(path).is_ok();
-    }
-    false
   }
 }

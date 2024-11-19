@@ -1,5 +1,4 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
 hero:
@@ -10,9 +9,9 @@ hero:
       text: Getting Started
       link: /basic/syntax
     - theme: alt
-      text: API Documentation
-      link: /api
-
+      text: Try Here
+      link: https://github.com/ElSombrero2/taskify.git
+  
 features:
   - title: CLI
     details: A CLI app that help you to see your board
@@ -24,4 +23,16 @@ features:
     details: A VS Code Plugin that simplify your experience
 ---
 
-Welcome to Taskify Documentation, the project is in WIP now, but you can directly download it [here](http://github.com/ElSombrero2/taskify.git)
+<br/></br>
+# What is Taskify?
+
+Taskify is a TODO to KANBAN tool that allow you to create a KANBAN Board from your TODO comment by
+using a specific TODO syntax <br/> <br/>
+Now this tool only support **C based** language like **C++**, **Rust**, **Java**, **C#**, **Javascript**, **Typescript** and **Kotlin**.
+But you can add other regex that support you own language as you need.
+
+## Why should I use Taskify?
+
+**Taskify** will load all your **TODO** comments and add it into a **KANBAN board**.
+It allow you to have a personal Board that will contains all the tasks that you have
+to do inside your code.
