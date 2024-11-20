@@ -1,4 +1,5 @@
 use clap::{Parser, Subcommand};
+use taskify::task::state::TaskState;
 
 pub mod controllers;
 
@@ -30,5 +31,21 @@ pub enum SubCommand {
   Serve {
     #[arg(long, short = 'p', default_value = "8000")]
     port: u16,
+  },
+  Remove {
+    #[arg(long, short = 'f')]
+    file: String,
+    #[arg(long, short = 'r')]
+    raw: String,
+  },
+  Move {
+    #[arg(long, short = 'f')]
+    file: String,
+    #[arg(long, short = 'r')]
+    raw: String,
+    #[arg(long, short = 's')]
+    from: TaskState,
+    #[arg(long, short = 't')]
+    to: TaskState,
   }
 }

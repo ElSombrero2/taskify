@@ -42,9 +42,25 @@ impl BoardController {
   pub fn export (filename: String) {
     let board = Board::load(".".to_string());
     if board.save(filename.clone()) {
-      println!("Board successfully exported to: {}", filename);
+      println!("Board successfully exported to: {}.", filename);
     } else {
-      println!("An error occurred, please check if your file is exported to an existing directory");
+      println!("An error occurred, please check if your file is exported to an existing directory!");
+    }
+  }
+
+  pub fn remove(filename: String, raw: String) {
+    if Board::remove_task(filename, raw) {
+      println!("Your task was removed!");
+    } else {
+      println!("Cannot remove the current task, please try again!");
+    }
+  }
+
+  pub fn move_task(filename: String, raw: String, from: TaskState, to: TaskState) {
+    if Board::change_state(filename, raw, from.clone(), to.clone())  {
+      println!("Your task was moved from {} to  {}!", from, to);
+    } else {
+      println!("Cannot move the current task, please try again!");
     }
   }
 }

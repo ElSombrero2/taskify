@@ -11,8 +11,10 @@ fn main() {
       if let Some(filename) = export { BoardController::export(filename); }
       else { BoardController::show(); }
     },
+    cli::SubCommand::Remove { file, raw } => BoardController::remove(file, raw),
+    cli::SubCommand::Move { file, raw, from, to } => BoardController::move_task(file, raw, from, to),
     cli::SubCommand::Serve { port } => {
       server::serve(port);
-    },
+    }
   }
 }

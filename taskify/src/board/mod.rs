@@ -1,5 +1,6 @@
 use crate::{task::{state::TaskState, Task}, utils::file::current_filename};
 use std::{collections::{BTreeMap, LinkedList}, fs::{self}, path::Path, vec};
+use base64::{prelude::BASE64_STANDARD, Engine};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -45,5 +46,34 @@ impl Board {
     map
   }
 
-  
+  pub fn remove_task(filename: String, raw: String) -> bool {
+    if let Some(comment) = Self::decode_comment(raw) {
+      let path = "./".to_owned() + &filename;
+      if let Ok(file) = fs::read_to_string(&path) {
+
+        return fs::write(&path, file.replace(&comment, "")).is_ok();
+      }
+    }
+    false
+  }
+
+  pub fn change_state (filename: String, raw: String, current_state: TaskState, state: TaskState) -> bool {
+    if let Some(comment) = Self::decode_comment(raw) {
+      let new_comment = comment.replace(&format!("[{}]: ", current_state.id()), &format!("[{}]: ", state.id()));
+      let path = "./".to_owned() + &filename;
+      if let Ok(file) = fs::read_to_string(&path) {
+        return fs::write(&path, file.replace(&comment, &new_comment)).is_ok();
+      }
+    }
+    false
+  }
+
+  fn decode_comment (raw: String) -> Option<String> {
+    if let Ok(decoded) = BASE64_STANDARD.decode(raw) {
+      if let Ok(comment) = String::from_utf8(decoded) {
+        return Some(comment);
+      }
+    }
+    None
+  }
 }

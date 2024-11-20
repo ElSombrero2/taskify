@@ -122,12 +122,13 @@ Options:
   - [x] Add use fetching by git
   - [x] Create a web documentation
   - [x] Create a feature that export the board to a json file
-- [ ] CLI App
+- [x] CLI App
   - [x] Create a command that scan your directory
   - [x] Show the board
   - [x] Create a command that export the board
   - [x] Create a command that search a task from the board
-  - [ ] Create command that moves task inside the board
+  - [x] Create command that moves task inside the board
+  - [x] Create command that removes task inside the board
 - [ ] API
   - [ ] Create a REST API
     - [x] Create an endpoint that returns the board

@@ -15,12 +15,12 @@ impl Task {
 
   pub fn is_ignored(names: &Vec<String>, file: &DirEntry) -> bool {
     let filename = file.file_name().to_string_lossy().to_string();
-    if filename.contains(".taskify") {
+    if filename.contains(".git") {
       return true;
     } else {
       for name in names {
-        if filename.eq(name) {
-            return true;
+        if name.contains(&filename) {
+          return true;
         }
       }
     }
