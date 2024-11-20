@@ -3,7 +3,6 @@ use std::fmt::Display;
 use super::TaskState;
 
 impl Display for TaskState {
-  
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     match self {
       TaskState::TODO => write!(f, "Todo"),
@@ -24,6 +23,18 @@ impl From<&str> for TaskState {
       "TESTING" => Self::from(3),
       "DONE" => Self::from(4),
       _ => Self::from(0),
+    }
+  }
+}
+
+impl TaskState {
+  pub fn id(&self) -> String {
+    match self {
+      TaskState::TODO => "TODO".to_string(),
+      TaskState::READY => "READY".to_string(),
+      TaskState::WIP => "WIP".to_string(),
+      TaskState::TESTING => "TESTING".to_string(),
+      TaskState::DONE => "DONE".to_string(),
     }
   }
 }
