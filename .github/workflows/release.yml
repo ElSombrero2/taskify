@@ -26,7 +26,7 @@ jobs:
           7z a taskify-windows.zip .build/dist/windows
           tar -czf taskify-linux.tar.gz .build/dist/linux
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             taskify-windows.zip
