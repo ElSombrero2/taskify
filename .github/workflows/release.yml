@@ -2,16 +2,13 @@ name: Deploy release
 
 on:
   push:
-    tags:
-      - '*'
-    branches: [release]
   workflow_dispatch:
-
 permissions:
   contents: write
 
 jobs:
   deploy-release:
+    if: startsWith(github.ref_name, 'release-')
     name: Build and upload
     runs-on: ubuntu-latest
     steps:

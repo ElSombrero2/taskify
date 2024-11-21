@@ -10,7 +10,7 @@ hero:
       link: /basic/syntax
     - theme: alt
       text: Try Here
-      link: https://github.com/ElSombrero2/taskify/releases/tag/taskify-0.1.0
+      link: https://github.com/ElSombrero2/taskify/releases
   
 features:
   - title: CLI
