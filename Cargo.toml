@@ -10,3 +10,7 @@ notify = { version = "7.0.0", features = ["serde"] }
 tokio = "1.41.1"
 base64 = "0.22.1"
 utoipa = {version = "5", features = ["actix_extras"] }
+
+[workspace.dependencies.openssl-sys]
+version = "0.9"
+features = ["vendored"]
