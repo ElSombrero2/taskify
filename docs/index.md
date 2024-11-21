@@ -7,7 +7,7 @@ hero:
   actions:
     - theme: brand
       text: Getting Started
-      link: /basic/syntax
+      link: /install/linux
     - theme: alt
       text: Try Here
       link: https://github.com/ElSombrero2/taskify/releases

@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   build:
-    if: startsWith(github.ref_name, 'release-')
+    if: startsWith(github.ref_name, 'release-') || startsWith(github.ref_name, 'main')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

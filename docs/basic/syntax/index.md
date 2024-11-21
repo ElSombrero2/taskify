@@ -1,4 +1,7 @@
 ---
+prev:
+  text: 'Install'
+  link: '/install/windows'
 next:
   text: 'Ignore files'
   link: '/basic/ignore'

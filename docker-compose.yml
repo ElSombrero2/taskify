@@ -14,3 +14,6 @@ services:
             - '.vitepress/cache'
     ports:
       - '5173:5173'
+  ubuntu:
+    image: ubuntu:latest
+    command: tail -f dev/null

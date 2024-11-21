@@ -12,6 +12,19 @@ export default defineConfig({
     ],
     sidebar: [
       {
+        text: 'Installation',
+        items: [
+          {
+            text: 'Linux',
+            link: '/install/linux'
+          },
+          {
+            text: 'Windows',
+            link: '/install/windows'
+          }
+        ]
+      },
+      {
         text: 'Basic',
         items: [
           {
