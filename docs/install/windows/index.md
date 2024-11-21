@@ -12,22 +12,32 @@ Download Taskify [here](https://github.com/ElSombrero2/taskify/releases/) and ex
 into a directory,  
 for example **C:/bin/taskify**
 
-## Add to path variable
+### Extract your Taskify executable to your directory
 
-Open your terminal and use that command
+![pic-1](/public/installation/windows/folder.png)
 
-```cmd
-setx PATH "<your binary file directory>;%PATH%"
-```
+### Search Environment Variable on your Windows search bar
 
-For example
+![pic-1](/public/installation/windows/search.png)
 
-```cmd
-setx PATH "C:\bin\taskify;%PATH%"
-```
+### Click on Environment Variable
 
-Now you need to restart your terminal and try your help command
+![pic-1](/public/installation/windows/environment.png)
+
+### Select **Path** and click on **edit**
+
+![pic-1](/public/installation/windows/change.png)
+
+### Add your file folder to your Path variable
+
+![pic-1](/public/installation/windows/add.png)
+
+### Save changes and open or restart your terminal
+
+Now you just have to try the taskify help command
 
 ```cmd
 taskify --help
 ```
+<br/><br/>
+![pic-1](/public/installation/windows/cmd.png)
