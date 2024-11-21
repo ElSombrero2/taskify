@@ -14,3 +14,8 @@ services:
             - '.vitepress/cache'
     ports:
       - '5173:5173'
+  linux-build:
+    image: rust:latest
+    command: tail -f dev/null
+    volumes:
+      - .:/opt/app

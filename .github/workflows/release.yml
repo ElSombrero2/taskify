@@ -30,11 +30,7 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{matrix.target}}
-      - name: Install cross-compilation tools
-        uses: taiki-e/setup-cross-toolchain-action@v1
-        with:
-          target: ${{matrix.target}}
+          targets: ${{matrix.target}}    
       - name: Build
         uses: actions-rs/cargo@v1
         with:
