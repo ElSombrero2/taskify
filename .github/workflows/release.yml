@@ -10,16 +10,17 @@ permissions:
   contents: write
 
 jobs:
-  build-and-upload:
+  deploy-release:
     name: Build and upload
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Start containers
-        run: docker-compose up --build windows linux
-      - name: Build archive
+      - name: Build release with docker compose
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: "./docker-compose.build.yml"
+      - name: Create archive for executable
         shell: bash
         run: |
           7z a taskify-windows.zip .build/dist/windows

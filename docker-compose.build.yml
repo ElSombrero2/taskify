@@ -1,0 +1,12 @@
+version: '3'
+services:
+  linux:
+    build:
+      dockerfile: '.build/os/linux/Dockerfile'
+    volumes:
+      - ./.build/dist/linux:/opt/app/dist/linux
+  windows:
+    build:
+      dockerfile: '.build/os/windows/Dockerfile'
+    volumes:
+      - ./.build/dist/windows:/opt/app/dist/windows
