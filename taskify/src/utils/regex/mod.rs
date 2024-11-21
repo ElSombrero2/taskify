@@ -13,7 +13,7 @@ pub fn match_all<T>(regex: Regex, str: String, transf: impl Transform<Option<T>>
   let mut strs: Vec<T> = vec![];
   for exp in regex.find_iter(&str) {
     let mut info = Info::new(
-      filename.clone().replace(".\\", ""),
+      sanitize_path(filename.clone()),
       (
         get_line(&str, exp.start() + 1),
         get_line(&str, exp.end()),
@@ -38,4 +38,12 @@ fn get_info_from_repository(info: &mut Info, repository: &Result<Repository, Err
       info.set_detail_from_blame_hunk(blame.get_line(info.start_line));
     }
   }
+}
+
+fn sanitize_path (mut file_path: String) -> String {
+  let regex = Regex::new(r"^(\.|/|\\)").unwrap();
+  while regex.is_match(&file_path) {
+    file_path.remove(0);
+  }
+  file_path
 }
