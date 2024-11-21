@@ -1,0 +1,32 @@
+name: Deploy release
+
+on:
+  pull_request:
+    branches: [main]
+    types: [closed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-upload:
+    name: Build and upload
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Start containers
+        run: docker-compose up --build windows linux
+      - name: Build archive
+        shell: bash
+        run: |
+          7z a taskify-windows.zip .build/dist/windows
+          tar -czf taskify-linux.tar.gz .build/dist/linux
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            taskify-windows.zip
+            taskify-linux.tar.gz
