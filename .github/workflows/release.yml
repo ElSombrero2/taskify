@@ -1,9 +1,10 @@
 name: Deploy release
 
 on:
-  pull_request:
-    branches: [main]
-    types: [closed]
+  push:
+    tags:
+      - '*'
+    branches: [release]
   workflow_dispatch:
 
 permissions:
@@ -25,10 +26,11 @@ jobs:
         run: |
           7z a taskify-windows.zip .build/dist/windows
           tar -czf taskify-linux.tar.gz .build/dist/linux
+          echo "Version: ${{github.ref_name}}"
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "0.1.0"
+          tag_name: ${{github.ref_name}}
           files: |
             taskify-windows.zip
             taskify-linux.tar.gz
