@@ -130,12 +130,12 @@ Options:
   - [x] Create command that moves task inside the board
   - [x] Create command that removes task inside the board
 - [ ] API
-  - [ ] Create a REST API
+  - [x] Create a REST API
     - [x] Create an endpoint that returns the board
-    - [ ] Create an endpoint that change the state of a specific ticket
-    - [ ] Create an endpoint that remove a specific ticket
+    - [x] Create an endpoint that change the state of a specific ticket
+    - [x] Create an endpoint that remove a specific ticket
   - [ ] Add a websocket feature for a realtime update
-  - [ ] Create an OpenAPI Documentation for the Web API
+  - [x] Create an OpenAPI Documentation for the Web API
   - [x] Create a serve command that serve the API to specific port
 - [ ] Desktop App
   - [ ] Create a graphic interface that show your board with all TODOs
@@ -144,6 +144,6 @@ Options:
   - [ ] Real time change detection from CLI App, Commend edit and Desktop App
 - [ ] Create a web interface that do the same things that the Desktop App but inside a web browser
 - [ ] Create a VS Code plugin that do the same things that desktop and web interface but inside VS Code
-- [ ] CI/CD
+- [x] CI/CD
   - [X] Create a github action for the documentation
-  - [ ] Create a documentation for release deployment
+  - [x] Create a documentation for release deployment
