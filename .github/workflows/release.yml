@@ -2,7 +2,6 @@ name: Deploy release
 
 on:
   push:
-  workflow_dispatch:
 permissions:
   contents: write
 
