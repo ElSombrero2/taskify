@@ -22,29 +22,37 @@ pub struct Cli {
 
 #[derive(Subcommand)]
 pub enum SubCommand {
-  /// Show your board from your current directory
+  /// Show your board from your current directory.
   Board {
     #[arg(long, short = 'e')]
     export: Option<String>
   },
-  /// Create a server that serve your board (Work in Progress)
+  /// Create a server that serve your board (Work in Progress).
   Serve {
     #[arg(long, short = 'p', default_value = "8000")]
     port: u16,
   },
+  /// Remove a TODO comment inside your file
   Remove {
+    /// Your file name.
     #[arg(long, short = 'f')]
     file: String,
+    /// Raw is an unique base64 String that represent your comment.
     #[arg(long, short = 'r')]
     raw: String,
   },
+  /// Change the state of your task. 
   Move {
+    /// Your file name.
     #[arg(long, short = 'f')]
     file: String,
+    /// Raw is an unique base64 String that represent your comment.
     #[arg(long, short = 'r')]
     raw: String,
+    /// Your current task State, possible value (TODO, READY, WIP, DONE, TESTING).
     #[arg(long, short = 's')]
     from: TaskState,
+    /// Your target task State, possible value (TODO, READY, WIP, DONE, TESTING).
     #[arg(long, short = 't')]
     to: TaskState,
   }

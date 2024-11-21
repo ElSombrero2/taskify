@@ -3,6 +3,7 @@ use git2::{Error, Repository};
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use state::TaskState;
+use utoipa::ToSchema;
 use std::{collections::LinkedList, fs::{self, DirEntry}, vec};
 
 mod common;
@@ -10,7 +11,7 @@ pub mod state;
 pub mod transform;
 pub mod ignore;
 
-#[derive(Debug, Default, Serialize, Deserialize, Clone)]
+#[derive(Debug, Default, Serialize, Deserialize, Clone, ToSchema)]
 pub struct Task {
   pub title: String,
   pub description: Option<String>,

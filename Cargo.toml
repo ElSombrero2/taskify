@@ -1,5 +1,5 @@
 [workspace]
-members = [ "cli", "desktop","taskify"]
+members = [ "api", "cli", "desktop","taskify"]
 resolver = "2"
 
 [workspace.dependencies]
@@ -9,3 +9,4 @@ serde_json = "1.0.114"
 notify = { version = "7.0.0", features = ["serde"] }
 tokio = "1.41.1"
 base64 = "0.22.1"
+utoipa = {version = "5", features = ["actix_extras"] }
