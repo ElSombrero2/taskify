@@ -12,61 +12,21 @@ permissions:
 jobs:
   build-and-upload:
     name: Build and upload
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        # You can add more, for any target you'd like!
-        include:
-          - build: linux
-            os: ubuntu-latest
-            target: x86_64-unknown-linux-musl
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Get the release version from the tag
-        shell: bash
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.target }}
-      
-      - name: Install openssl
-        if: matrix.os == 'ubuntu-latest'
-        run: sudo apt-get install libssl-dev
-
-      - name: Build
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          command: build
-          args: --verbose --release --target ${{ matrix.target }}
-
+      - name: Start containers
+        run: docker-compose up --build windows linux
       - name: Build archive
         shell: bash
         run: |
-          # Replace with the name of your binary
-          binary_name="<BINARY_NAME>"
-
-          dirname="$binary_name-0.1.0-${{ matrix.target }}"
-          mkdir "$dirname"
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            mv "target/${{ matrix.target }}/release/$binary_name.exe" "$dirname"
-          else
-            mv "target/${{ matrix.target }}/release/$binary_name" "$dirname"
-          fi
-
-          if [ "${{ matrix.os }}" = "windows-latest" ]; then
-            7z a "$dirname.zip" "$dirname"
-            echo "ASSET=$dirname.zip" >> $GITHUB_ENV
-          else
-            tar -czf "$dirname.tar.gz" "$dirname"
-            echo "ASSET=$dirname.tar.gz" >> $GITHUB_ENV
-          fi
-
+          7z a taskify-windows.zip .build/dist/windows
+          tar -czf taskify-linux.tar.gz .build/dist/linux
       - name: Release
         uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            taskify-windows.zip
+            taskify-linux.tar.gz

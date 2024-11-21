@@ -14,8 +14,13 @@ services:
             - '.vitepress/cache'
     ports:
       - '5173:5173'
-  linux-build:
-    image: rust:latest
-    command: tail -f dev/null
+  linux:
+    build:
+      dockerfile: '.build/os/linux/Dockerfile'
     volumes:
-      - .:/opt/app
+      - ./.build/dist/linux:/opt/app/dist/linux
+  windows:
+    build:
+      dockerfile: '.build/os/windows/Dockerfile'
+    volumes:
+      - ./.build/dist/windows:/opt/app/dist/windows
