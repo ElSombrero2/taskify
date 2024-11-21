@@ -9,70 +9,123 @@ on:
 permissions:
   contents: write
 
+env:
+  CARGO_INCREMENTAL: 0
+  CARGO_NET_RETRY: 10
+  RUSTFLAGS: "-D warnings -W unreachable-pub"
+  RUSTUP_MAX_RETRIES: 10
+  FETCH_DEPTH: 0 # pull in the tags for the version string
+  MACOSX_DEPLOYMENT_TARGET: 10.15
+  CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
+  CARGO_TARGET_ARM_UNKNOWN_LINUX_GNUEABIHF_LINKER: arm-linux-gnueabihf-gcc  
+
 jobs:
   build-and-upload:
-    name: Build
-    runs-on: ubuntu-latest
+    name: Build and upload
+    runs-on: ${{ matrix.os }}
     strategy:
-        matrix:
-            target:
-                - i686-pc-windows-gnu
-                - i686-unknown-linux-gnu
-                - x86_64-pc-windows-gnu
-                - x86_64-unknown-linux-gnu
+      matrix:
+        include:
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            code-target: win32-x64
+          - os: windows-latest
+            target: i686-pc-windows-msvc
+            code-target: win32-ia32
+          - os: windows-latest
+            target: aarch64-pc-windows-msvc
+            code-target: win32-arm64
+          - os: ubuntu-20.04
+            target: x86_64-unknown-linux-gnu
+            code-target: linux-x64
+            container: ubuntu:18.04
+          - os: ubuntu-20.04
+            target: aarch64-unknown-linux-gnu
+            code-target: linux-arm64
+          - os: ubuntu-20.04
+            target: arm-unknown-linux-gnueabihf
+            code-target: linux-armhf
+          - os: macos-11
+            target: x86_64-apple-darwin
+            code-target: darwin-x64
+          - os: macos-11
+            target: aarch64-apple-darwin
+            code-target: darwin-arm64
+    env:
+      LLM_LS_TARGET: ${{ matrix.target }}
+      name: dist (${{ matrix.target }})
+      runs-on: ${{ matrix.os }}
+      container: ${{ matrix.container }}
+
     steps:
-      - name: Clone repository
+      - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
         with:
-          toolchain: stable
-          target: ${{ matrix.target }}
-          override: true
-      - name: Install x86 Build Dependencies
-        if: ${{ matrix.target == 'i686-pc-windows-gnu' || matrix.target == 'i686-unknown-linux-gnu' }}
-        run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install libssl-dev:i386 clang
-      - name: Install x86_64 Build Dependencies
-        if: ${{ matrix.target != 'i686-pc-windows-gnu' && matrix.target != 'i686-unknown-linux-gnu' }}
-        run: sudo apt-get update && sudo apt-get install pkg-config libssl-dev clang
-      - name: Build x86
-        uses: actions-rs/cargo@v1
-        if: ${{ matrix.target == 'i686-pc-windows-gnu' || matrix.target == 'i686-unknown-linux-gnu' }}
-        env:
-            TARGET_CC: clang
-            OPENSSL_LIB_DIR: /usr/lib/i386-linux-gnu/
-            OPENSSL_INCLUDE_DIR: /usr/include/openssl/
-        with:
-            command: build
-            args: --release --target=${{ matrix.target }}
-      - name: Build x86_64
-        uses: actions-rs/cargo@v1
-        if: ${{ matrix.target != 'i686-pc-windows-gnu' && matrix.target != 'i686-unknown-linux-gnu' }}
-        env:
-          TARGET_CC: clang
-        with:
-          command: build
-          args: --release --target=${{ matrix.target }}
-      - name: Build archive
+          fetch-depth: ${{ env.FETCH_DEPTH }}
+
+      - name: Install toolchain dependencies
+        if: matrix.container == 'ubuntu:18.04'
         shell: bash
         run: |
-          # Replace with the name of your binary
-          binary_name="<BINARY_NAME>"
-      
-          dirname="$binary_name-0.1.0-${{matrix.target}}"
-          mkdir "$dirname"
-          if [ "${{ matrix.target }}" = "windows-latest" ]; then
-            mv "target/${{ matrix.target }}/release/$binary_name.exe" "$dirname"
-          else
-            mv "target/${{ matrix.target }}/release/$binary_name" "$dirname"
-          fi
-      
-          if [ "${{ matrix.target }}" = "windows-latest" ]; then
-            7z a "$dirname.zip" "$dirname"
-            echo "ASSET=$dirname.zip" >> $GITHUB_ENV
-          else
-            tar -czf "$dirname.tar.gz" "$dirname"
-            echo "ASSET=$dirname.tar.gz" >> $GITHUB_ENV
-          fi
-      - name: Upload the binaries
-        uses: softprops/action-gh-release@v1
+          apt-get update && apt-get install -y build-essential curl
+          curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused -fsSL "https://sh.rustup.rs" | sh -s -- --profile minimal --default-toolchain none -y
+          echo "${CARGO_HOME:-$HOME/.cargo}/bin" >> $GITHUB_PATH
+      - name: Install Rust toolchain
+        run: |
+          rustup update --no-self-update stable
+          rustup target add ${{ matrix.target }}
+          rustup component add rust-src
+      - name: Update apt repositories
+        if: matrix.target == 'aarch64-unknown-linux-gnu' || matrix.target == 'arm-unknown-linux-gnueabihf'
+        run: sudo apt-get update
+
+      - name: Install openssl
+        if: matrix.os == 'ubuntu-20.04'
+        run: sudo apt-get install libssl-dev
+
+      - name: Install AArch64 target toolchain
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        run: sudo apt-get install gcc-aarch64-linux-gnu
+
+      - name: Install ARM target toolchain
+        if: matrix.target == 'arm-unknown-linux-gnueabihf'
+        run: sudo apt-get install gcc-arm-linux-gnueabihf
+
+      - name: Dist
+        run: cargo xtask dist
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist-${{ matrix.target }}
+          path: ./dist
+
+  dist-x86_64-unknown-linux-musl:
+    name: dist (x86_64-unknown-linux-musl)
+    runs-on: ubuntu-latest
+    env:
+      LLM_LS_TARGET: x86_64-unknown-linux-musl
+      # For some reason `-crt-static` is not working for clang without lld
+      RUSTFLAGS: "-C link-arg=-fuse-ld=lld -C target-feature=-crt-static"
+    container:
+      image: rust:alpine
+      volumes:
+        - /usr/local/cargo/registry:/usr/local/cargo/registry
+
+    steps:
+      - name: Install dependencies
+        run: apk add --no-cache git clang lld musl-dev nodejs npm openssl-dev pkgconfig g++
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ env.FETCH_DEPTH }}
+
+      - name: Dist
+        run: cargo xtask dist
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist-x86_64-unknown-linux-musl
+          path: ./dist
