@@ -31,6 +31,9 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: ${{matrix.target}}
+      - name: Install dependencies
+        shell: bash
+        run: apt install pkg-config libssl-dev musl-tools
       - name: Build
         uses: actions-rs/cargo@v1
         with:
@@ -43,7 +46,7 @@ jobs:
           # Replace with the name of your binary
           binary_name="<BINARY_NAME>"
       
-          dirname="$binary_name-${{env.VERSION}}-${{matrix.target}}"
+          dirname="$binary_name-0.1.0-${{matrix.target}}"
           mkdir "$dirname"
           if [ "${{ matrix.os }}" = "windows-latest" ]; then
             mv "target/${{ matrix.target }}/release/$binary_name.exe" "$dirname"
@@ -60,6 +63,3 @@ jobs:
           fi
       - name: Upload the binaries
         uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            ${{env.ASSET}}
