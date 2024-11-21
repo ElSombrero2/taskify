@@ -2,8 +2,9 @@ use crate::{task::{state::TaskState, Task}, utils::file::current_filename};
 use std::{collections::{BTreeMap, LinkedList}, fs::{self}, path::Path, vec};
 use base64::{prelude::BASE64_STANDARD, Engine};
 use serde::{Deserialize, Serialize};
+use utoipa::ToSchema;
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, ToSchema)]
 pub struct Board {
   pub name: String,
   pub tasks: Vec<Task>,

@@ -1,6 +1,5 @@
 use clap::Parser;
 use cli::{controllers::board::BoardController, Cli};
-use taskify::server;
 
 mod cli;
 
@@ -14,7 +13,7 @@ fn main() {
     cli::SubCommand::Remove { file, raw } => BoardController::remove(file, raw),
     cli::SubCommand::Move { file, raw, from, to } => BoardController::move_task(file, raw, from, to),
     cli::SubCommand::Serve { port } => {
-      server::serve(port);
+      api::server::serve(port);
     }
   }
 }

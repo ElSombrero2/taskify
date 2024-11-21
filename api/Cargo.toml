@@ -1,0 +1,14 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+taskify = { path = "../taskify" }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+actix-web = "4"
+utoipa = { workspace = true }
+utoipa-actix-web = "0.1.2"
+utoipa-swagger-ui = { version = "8", features = ["actix-web"] }
+utoipa-scalar = { version = "0.2.0", features = ["actix-web"] }

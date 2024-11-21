@@ -1,14 +1,15 @@
 use chrono::DateTime;
 use git2::BlameHunk;
 use serde::{Deserialize, Serialize};
+use utoipa::ToSchema;
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone)]
+#[derive(Serialize, Deserialize, Default, Debug, Clone, ToSchema)]
 pub struct Author {
   pub name: Option<String>,
   pub email: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug, Clone)]
+#[derive(Serialize, Deserialize, Default, Debug, Clone, ToSchema)]
 pub struct Info {
   pub filename: String,
   pub start_line: usize,

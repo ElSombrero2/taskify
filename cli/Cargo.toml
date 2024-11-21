@@ -7,8 +7,13 @@ edition = "2021"
 
 [dependencies]
 taskify = { path = "../taskify" }
+api = { path = "../api" }
 regex = { workspace = true }
 notify = { workspace = true, features = ["serde"] }
 clap = { version = "4.5.20", features = ["derive"] }
 colored = "2.1.0"
 comfy-table = "7.1.1"
+
+[[bin]]
+name = "taskify"
+path = "src/main.rs"

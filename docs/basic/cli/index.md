@@ -32,9 +32,11 @@ Visit https://github.com/ElSombrero2/taskify
 Usage: cli.exe <COMMAND>
 
 Commands:
-  board  Show your board from your current directory
-  serve  Create a server that serve your board (Work in Progress)
-  help   Print this message or the help of the given subcommand(s)
+  board   Show your board from your current directory
+  serve   Create a server that serve your board (Work in Progress)
+  remove  Remove a TODO comment inside your file
+  move    Change the state of your task
+  help    Print this message or the help of the given subcommand(s)
 
 Options:
   -h, --help
@@ -57,6 +59,13 @@ Taskify allow you to export your board to json by
 calling the board export command
 
 Just give your export action and specify your file name to export your board
+
+### Arguments
+
+| Argument    | Value               | Required    |
+| ----------- | ------------------- | ----------- |
+| export      | your json file name | Yes         |
+
 ```bash
 taskify board --export my-board.json
 ```
@@ -68,37 +77,75 @@ Here is a result example for this command
   "name": "taskify",
   "tasks": [
     {
-      "title": "Create a TODO export for this file",
-      "description": "Create a TODO json export\nthat contains the details of this task",
+      "title": "My task",
+      "description": "A long multi line\ndescription",
       "state": "TODO",
       "tags": [],
       "info": {
-        "filename": "taskify\\src\\board\\mod.rs",
-        "start_line": 13,
-        "end_line": 17,
-        "date": "2024-11-05 15:16:39 UTC",
+        "filename": "docs\\basic\\syntax\\index.md",
+        "start_line": 33,
+        "end_line": 37,
+        "date": "2024-11-18 09:29:04 UTC",
         "author": {
           "name": "John Doe",
-          "email": "john.doe@example.com"
+          "email": "john.doe@test.com"
         }
-      }
+      },
+      "raw": "LyoNCiAgW1RPRE9dOiBNeSB0YXNrDQogIEEgbG9uZyBtdWx0aSBsaW5lDQogIGRlc2NyaXB0aW9uDQoqLw0K"
     },
     {
-      "title": "Create a testing file",
-      "description": "Test your exportation here",
-      "state": "TESTING",
-      "tags": [],
+      "title": "My task",
+      "description": "A task that contains\n#ui and #frontend tag",
+      "state": "TODO",
+      "tags": [
+        "ui",
+        "frontend"
+      ],
       "info": {
-        "filename": "taskify\\src\\board\\mod.rs",
-        "start_line": 28,
-        "end_line": 32,
-        "date": "2024-11-07 13:40:10 UTC",
+        "filename": "docs\\basic\\syntax\\index.md",
+        "start_line": 48,
+        "end_line": 52,
+        "date": "2024-11-18 09:29:04 UTC",
         "author": {
           "name": "John Doe",
-          "email": "john.doe@example.com"
+          "email": "john.doe@test.com"
         }
-      }
+      },
+      "raw": "LyoNCiAgW1RPRE9dOiBNeSB0YXNrDQogIEEgdGFzayB0aGF0IGNvbnRhaW5zDQogICN1aSBhbmQgI2Zyb250ZW5kIHRhZw0KKi8NCg=="
     }
   ]
 }
+```
+
+## Remove a comment
+You can remove a comment by calling the **remove** command.
+
+### Arguments
+
+| Argument    | Value                                             | Required    |
+| ----------- | ------------------------------------------------- | ----------- |
+| file        | your file path                                    | Yes         |
+| raw         | You can find the raw in your exported json file   | Yes         |
+
+```bash
+taskify remove --file docs\\basic\\syntax\\index.md \
+--raw LyoNCiAgW1RPRE9dOiBNeSB0YXNrDQogIEEgbG9uZyBtdWx0aSBsaW5lDQogIGRlc2NyaXB0aW9uDQoqLw0K
+```
+
+## Change a task state
+You can change a task state by calling the **move** command.
+
+### Arguments
+
+| Argument    | Value                                                            | Required    |
+| ----------- | ---------------------------------------------------------------- | ----------- |
+| file        | your file path                                                   | Yes         |
+| raw         | You can find the raw in your exported json file                  | Yes         |
+| from        | your current state, possible value (TODO|WIP|READY|TESTING|DONE) | Yes         |
+| to          | your target state, possible value (TODO|WIP|READY|TESTING|DONE)  | Yes         |
+
+```bash
+taskify move --file docs\\basic\\syntax\\index.md \
+--raw LyoNCiAgW1RPRE9dOiBNeSB0YXNrDQogIEEgbG9uZyBtdWx0aSBsaW5lDQogIGRlc2NyaXB0aW9uDQoqLw0K \
+--from TODO --to READY
 ```
