@@ -16,7 +16,6 @@ jobs:
       - name: Build release with docker compose
         uses: hoverkraft-tech/compose-action@v2.0.1
         with:
-          compose-file: "./docker-compose.build.yml"
           services: |
             linux
             windows
