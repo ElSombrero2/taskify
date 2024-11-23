@@ -3,6 +3,9 @@
     "docs:install": "cd docs && npm install",
     "docs:build": "cd docs && npm run docs:build",
     "docs:dev": "cd docs && npm run docs:dev",
-    "docs:preview": "cd docs && npm run docs:preview"
+    "docs:preview": "cd docs && npm run docs:preview",
+    "desktop:install": "cd desktop && npm install",
+    "desktop:dev": "cd desktop && npx tauri dev",
+    "desktop:build": "cd desktop && npx tauri build"
   }
 }

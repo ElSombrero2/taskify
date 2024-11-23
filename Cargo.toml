@@ -1,5 +1,5 @@
 [workspace]
-members = [ "api", "cli", "desktop","taskify"]
+members = [ "api", "cli", "desktop/src-tauri","taskify"]
 resolver = "2"
 
 [workspace.dependencies]
