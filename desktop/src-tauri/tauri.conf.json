@@ -15,16 +15,20 @@
       "shell": {
         "all": false,
         "open": true
+      },
+      "window": {
+        "startDragging": true
       }
     },
     "windows": [
       {
-        "label": "taskify",
+        "label": "main",
         "fullscreen": false,
         "resizable": true,
         "title": "Taskify",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "transparent": true
       }
     ],
     "security": {

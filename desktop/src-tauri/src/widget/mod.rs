@@ -9,11 +9,12 @@ fn create_instance(handle: AppHandle) {
     tauri::WindowUrl::App("index.html".into()),
   )
   .always_on_top(true)
-  .resizable(false)
-  .minimizable(false)
   .skip_taskbar(true)
   .closable(false)
-  .inner_size(350.into(), 200.into())
+  .resizable(false)
+  .transparent(true)
+  .decorations(false)
+  .inner_size(400.into(), 270.into())
   .initialization_script("window.widget=true")
   .build().unwrap();
 }

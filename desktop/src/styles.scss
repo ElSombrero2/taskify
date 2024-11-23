@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main-window {
+  @apply p-1 w-screen h-screen text-zinc-800
+  bg-zinc-100 dark:bg-zinc-900 
+  dark:text-slate-100 rounded-lg;
+}
+
+.main {
+  @apply w-full h-full;
+}

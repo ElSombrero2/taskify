@@ -1,8 +1,8 @@
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
-    <div>
+    <div data-tauri-drag-region>
       Main App
     </div>
   );
