@@ -2,10 +2,10 @@ version: '3'
 services:
   docs:
     build:
-      context: .docs
+      context: docs
     develop:
       watch:
-        - path: ./.docs
+        - path: ./docs
           target: /opt/app/
           action: sync
           ignore:
@@ -14,6 +14,13 @@ services:
             - '.vitepress/cache'
     ports:
       - '5173:5173'
-  ubuntu:
-    image: ubuntu:latest
-    command: tail -f dev/null
+  linux:
+    build:
+      dockerfile: '.build/os/linux/Dockerfile'
+    volumes:
+      - ./.build/dist/linux:/opt/app/dist/linux
+  windows:
+    build:
+      dockerfile: '.build/os/windows/Dockerfile'
+    volumes:
+      - ./.build/dist/windows:/opt/app/dist/windows

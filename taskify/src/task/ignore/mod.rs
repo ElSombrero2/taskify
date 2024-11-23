@@ -19,7 +19,7 @@ impl Task {
       return true;
     } else {
       for name in names {
-        if name.contains(&filename) {
+        if name.eq(&filename) {
           return true;
         }
       }
