@@ -1,0 +1,24 @@
+
+.main.focused {
+  .header {
+    @apply h-[100px] opacity-100;
+  }
+
+  .tickets {
+    transform: translateY(0px);
+    @apply h-auto;
+    .ticket:not(.active) {
+      display: flex
+    }
+  }
+}
+
+.main {
+  .tickets {
+    transform: translateY(-10px);
+    @apply h-full;
+    .ticket:not(.active) {
+      display: none;
+    }
+  }
+}

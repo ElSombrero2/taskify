@@ -1,26 +1,30 @@
 use std::thread;
 
-use tauri::{AppHandle, Manager, WindowBuilder};
+use tauri::{AppHandle, Manager,WindowBuilder};
 
-fn create_instance(handle: AppHandle) {
-  WindowBuilder::new(
-    &handle,
-    "widget",
-    tauri::WindowUrl::App("index.html".into()),
-  )
-  .always_on_top(true)
-  .resizable(false)
-  .minimizable(false)
-  .skip_taskbar(true)
-  .closable(false)
-  .inner_size(350.into(), 200.into())
-  .initialization_script("window.widget=true")
-  .build().unwrap();
+fn create_instance(handle: AppHandle, theme: Option<String>) {
+  let script = format!("window.widget=true;window.theme=\"{}\"", theme.unwrap_or("dark".to_string()));
+  if handle.get_window("widget").is_none() {
+    WindowBuilder::new(
+      &handle,
+      "widget",
+      tauri::WindowUrl::App("index.html".into()),
+    )
+    .always_on_top(true)
+    .skip_taskbar(true)
+    .closable(false)
+    .resizable(false)
+    .transparent(true)
+    .decorations(false)
+    .inner_size(400.into(), 285.into())
+    .initialization_script(&script)
+    .build().unwrap();
+  }
 }
 
 #[tauri::command]
-pub fn open_widget(handle: AppHandle) {
-  thread::spawn(move || create_instance(handle));
+pub fn open_widget(handle: AppHandle, theme: Option<String>) {
+  thread::spawn(move || create_instance(handle, theme));
 }
 
 #[tauri::command]

@@ -1,0 +1,23 @@
+label.label {
+  cursor: pointer;
+  @apply block w-[35px] h-[18px] 
+  dark:bg-zinc-700 bg-zinc-300 rounded-full;
+}
+
+label.label::before {
+  position: absolute;
+  content: ' ';
+  display: block;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  left: 2px;
+  top: 2px;
+  transition: transform, background-color;
+  transition-duration: 300ms;
+  @apply dark:bg-zinc-900 bg-zinc-100 rounded-full;
+}
+
+input:checked + label.label::before {
+  transform: translateX(17px);
+} 
