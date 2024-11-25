@@ -1,58 +1,105 @@
+import { appWindow, LogicalSize } from "@tauri-apps/api/window"
+import { TabItem } from "./components/TabItem/TabItem"
+import "./Widget.scss";
+import { useState } from "react";
+import clsx from "clsx";
+import { Card } from "./components/Card/Card";
+import { invoke } from "@tauri-apps/api";
 
 export const Widget = () => {
+  const [focused, setFocused] = useState(false);
+
+  const growUp = async () => {
+    setFocused(true);
+    appWindow.setSize(new LogicalSize((await appWindow.innerSize()).width, 650));
+  }
+
+  const growDown = async () => {
+    setFocused(false);
+    appWindow.setSize(new LogicalSize((await appWindow.innerSize()).width, 285));
+  }
+
+  const close = async () => await invoke('close_widget');
+
   return (
-    <div data-tauri-drag-region className="main p-4 flex flex-col justify-between gap-4">
-      <div className="flex justify-between items-start">
-        <div className="title">
-          <h1 className="text-lg font-medium">
-            Project Name
-          </h1>
-          <h2 className="text-zinc-400 text-sm">Completion</h2>
+    <div data-tauri-drag-region className={clsx(
+      'main p-4 flex flex-col gap-3 overflow-scroll',
+      focused && 'focused',
+    )}>
+      <div className="header flex h-0 overflow-hidden opacity-0 flex-col gap-3 transition-all duration-300">
+        <div className="flex justify-between items-start">
+          <div className="flex flex-col gap-1">
+            <p className="font-bold text-xl">Project Name</p>
+            <p className="text-zinc-400">Wednesday, 11 May</p>
+          </div>
+          <button onClick={close}>
+            <i className="fa fa-xmark"></i>
+          </button>
         </div>
-
-        <button>
-          <i className="fa-solid fa-xmark"></i>
-        </button>
+        <div className="flex justify-between text-zinc-500">
+          <TabItem active size={2}>
+            Todo
+          </TabItem>
+          <TabItem size={100}>
+            Ready
+          </TabItem>
+          <TabItem size={100}>
+            Wip
+          </TabItem>
+          <TabItem size={100}>
+            Test
+          </TabItem>
+          <TabItem size={100}>
+            Done
+          </TabItem>
+        </div>
       </div>
-
-      <div className="flex flex-col gap-2">
-        <p className="text-sm font-bold">Total Progress</p>
-        <div className="w-full bg-zinc-300 dark:bg-zinc-200 h-[15px] rounded-full">
-
-        </div>
-      </div>
-
-      <div className="gap-5 flex">
-        <div className="w-1/3 h-24 bg-opacity-45 dark:bg-zinc-800 bg-zinc-200 rounded-lg flex flex-col justify-between items-center text-xs p-3">
-          <div className="w-[30px] h-[30px] bg-white rounded-full">
-
-          </div>
-          <p className="font-bold">Todo</p>
-          <p>
-            16/10
-          </p>
+      <div className={clsx(
+        'tickets flex flex-col gap-4 max-h-[500px]',
+        focused && 'overflow-auto',
+        !focused && 'overflow-hidden'
+      )}>
+        <div className="ticket active pb-2">
+          <Card open={!focused} active onClick={growUp} />
         </div>
 
-        <div className="w-1/3 h-24 bg-opacity-45 dark:bg-zinc-800 bg-zinc-200 rounded-lg flex flex-col justify-between items-center text-xs p-3">
-          <div className="w-[30px] h-[30px] bg-white rounded-full">
-
-          </div>
-          <p className="font-bold">In Progress</p>
-          <p>
-            16/10
-          </p>
+        <div className="ticket pb-2">
+          <Card open={!focused} onClick={growDown} />
         </div>
 
-        <div className="w-1/3 h-24 bg-opacity-45 dark:bg-zinc-800 bg-zinc-200 rounded-lg flex flex-col justify-between text-xs p-3">
-          <p className="font-bold">Task ratio</p>
-          <div className="flex justify-between items-center">
-            <p className="text-xl font-bold">
-              6.8
-            </p>
-
-            <button className="text-2xl">{'>>'}</button>
-          </div>
+        <div className="ticket pb-2">
+          <Card open={!focused} onClick={growDown} />
         </div>
+
+        <div className="ticket pb-2">
+          <Card open={!focused} onClick={growDown} />
+        </div>
+
+        <div className="ticket pb-2">
+          <Card open={!focused} onClick={growDown} />
+        </div>
+
+        <div className="ticket pb-2">
+          <Card open={!focused} onClick={growDown} />
+        </div>
+
+        <div className="ticket pb-2">
+          <Card open={!focused} onClick={growDown} />
+        </div>
+        <div className="ticket pb-2">
+          <Card open={!focused} onClick={growDown} />
+        </div>
+        <div className="ticket pb-2">
+          <Card open={!focused} onClick={growDown} />
+        </div>
+        <div className="ticket pb-2">
+          <Card open={!focused} onClick={growDown} />
+        </div>
+        <div className="ticket pb-2">
+          <Card open={!focused} onClick={growDown} />
+        </div>
+
+        
       </div>
     </div>
   )

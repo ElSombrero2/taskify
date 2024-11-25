@@ -1,0 +1,15 @@
+.search-button {
+  @apply h-[23px] rounded-md dark:bg-zinc-800 bg-zinc-200
+  flex justify-center items-center text-sm cursor-pointer
+  dark:hover:bg-zinc-700;
+}
+
+.item {
+  @apply dark:hover:bg-zinc-600 hover:bg-zinc-200 px-2 py-1
+  rounded-sm focus-within:outline-none
+  text-left focus:border-none w-full;
+}
+
+.auto-complete {
+  @apply max-h-[340px] overflow-y-auto;
+}

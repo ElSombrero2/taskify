@@ -17,7 +17,12 @@
         "open": true
       },
       "window": {
-        "startDragging": true
+        "startDragging": true,
+        "setSize": true,
+        "minimize": true,
+        "close": true,
+        "maximize": true,
+        "unmaximize": true
       }
     },
     "windows": [
@@ -26,9 +31,10 @@
         "fullscreen": false,
         "resizable": true,
         "title": "Taskify",
-        "width": 800,
-        "height": 600,
-        "transparent": true
+        "transparent": true,
+        "decorations": false,
+        "minHeight": 775,
+        "minWidth": 1080
       }
     ],
     "security": {
