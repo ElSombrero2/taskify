@@ -26,11 +26,11 @@ export const Widget = () => {
       'main p-4 flex flex-col gap-3 overflow-scroll',
       focused && 'focused',
     )}>
-      <div className="header flex h-0 overflow-hidden opacity-0 flex-col gap-3 transition-all duration-300">
-        <div className="flex justify-between items-start">
+      <div data-tauri-drag-region className="header flex h-0 overflow-hidden opacity-0 flex-col gap-3 transition-all duration-300">
+        <div data-tauri-drag-region className="flex justify-between items-start">
           <div className="flex flex-col gap-1">
             <p className="font-bold text-xl">Project Name</p>
-            <p className="text-zinc-400">Wednesday, 11 May</p>
+            <p className="text-zinc-600 dark:text-zinc-500">Wednesday, 11 May</p>
           </div>
           <button onClick={close}>
             <i className="fa fa-xmark"></i>
@@ -98,8 +98,6 @@ export const Widget = () => {
         <div className="ticket pb-2">
           <Card open={!focused} onClick={growDown} />
         </div>
-
-        
       </div>
     </div>
   )

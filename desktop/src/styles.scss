@@ -2,10 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .main-window {
   @apply w-screen h-screen text-zinc-800
   bg-zinc-100 dark:bg-zinc-900
-  dark:text-zinc-100 rounded-md;
+  dark:bg-opacity-70 bg-opacity-70
+  dark:text-zinc-100;
 }
 
 .main {

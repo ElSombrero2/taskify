@@ -2,10 +2,12 @@ use std::thread;
 
 use tauri::{AppHandle, Manager,WindowBuilder};
 
+use crate::vibrancy::apply_blur_to_window;
+
 fn create_instance(handle: AppHandle, theme: Option<String>) {
   let script = format!("window.widget=true;window.theme=\"{}\"", theme.unwrap_or("dark".to_string()));
   if handle.get_window("widget").is_none() {
-    WindowBuilder::new(
+    let window = WindowBuilder::new(
       &handle,
       "widget",
       tauri::WindowUrl::App("index.html".into()),
@@ -19,6 +21,8 @@ fn create_instance(handle: AppHandle, theme: Option<String>) {
     .inner_size(400.into(), 285.into())
     .initialization_script(&script)
     .build().unwrap();
+
+    apply_blur_to_window(window);
   }
 }
 

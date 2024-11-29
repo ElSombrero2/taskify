@@ -11,10 +11,10 @@ export const Card = (props: CardProps) => {
   return (
     <div onClick={props.onClick} className={
       clsx(
-        'flex flex-col justify-between w-full p-4 rounded-lg h-full transition-all duration-300',
-        !open && 'dark:bg-zinc-800 shadow-sm bg-white',
+        'flex flex-col justify-between w-full p-4 border border-zinc-300 rounded-lg h-full transition-all duration-300',
+        !open && 'bg-zinc-100 dark:bg-zinc-800 shadow-sm border-opacity-20',
         !open && !active && 'hover:bg-zinc-200 hover:dark:bg-zinc-700 cursor-pointer',
-        open && 'cursor-pointer'
+        open && 'cursor-pointer border-opacity-0'
       )
     }>
       <div className="flex justify-between items-center">
@@ -27,7 +27,7 @@ export const Card = (props: CardProps) => {
             Lorem ipsum dolor sit amet consectetur, adipisicing elit
           </p>
           <p className={clsx(
-            'description text-xs text-zinc-400',
+            'description text-xs text-zinc-600 dark:text-zinc-400',
             !open && 'line-clamp-2 max-w-[200px]',
             open && 'h-[100px] overflow-scroll'
           )}>
@@ -51,7 +51,7 @@ export const Card = (props: CardProps) => {
       <div>
         <div className="w-full bg-zinc-500 opacity-10 h-[1px] my-2"></div>
         <div className="flex text-sm justify-between">
-          <div className="opacity-50">
+          <div className="opacity-90">
             Wednesday 14 feb 2024
           </div>
           <div className="text-white text-xs w-[25px] h-[25px] bg-orange-500 font-bold rounded-full flex justify-center items-center">
