@@ -33,7 +33,7 @@ Usage: cli.exe <COMMAND>
 
 Commands:
   board   Show your board from your current directory
-  serve   Create a server that serve your board (Work in Progress)
+  serve   Create a server that serve your board
   remove  Remove a TODO comment inside your file
   move    Change the state of your task
   help    Print this message or the help of the given subcommand(s)
@@ -78,7 +78,8 @@ Here is a result example for this command
   "name": "taskify",
   "tasks": [
     {
-      "title": "My task",
+      "id": "",
+      "title": "TXkgdGFzaw==.KDMzLDM3KQ==",
       "description": "A long multi line\ndescription",
       "state": "TODO",
       "tags": [],
@@ -95,7 +96,7 @@ Here is a result example for this command
       "raw": "LyoNCiAgW1RPRE9dOiBNeSB0YXNrDQogIEEgbG9uZyBtdWx0aSBsaW5lDQogIGRlc2NyaXB0aW9uDQoqLw0K"
     },
     {
-      "title": "My task",
+      "title": "TXkgdGFzaw==.KDQ4LDUyKQ==",
       "description": "A task that contains\n#ui and #frontend tag",
       "state": "TODO",
       "tags": [
@@ -126,11 +127,11 @@ You can remove a comment by calling the **remove** command.
 | Argument    | Value                                             | Required    |
 | ----------- | ------------------------------------------------- | ----------- |
 | file        | your file path                                    | Yes         |
-| raw         | You can find the raw in your exported json file   | Yes         |
+| id          | Id is a short identifier of your comment          | Yes         |
 
 ```bash
 taskify remove --file docs\\basic\\syntax\\index.md \
---raw LyoNCiAgW1RPRE9dOiBNeSB0YXNrDQogIEEgbG9uZyBtdWx0aSBsaW5lDQogIGRlc2NyaXB0aW9uDQoqLw0K
+--id TXkgdGFzaw==.KDQ4LDUyKQ== \
 ```
 
 ## Change a task state
@@ -141,12 +142,12 @@ You can change a task state by calling the **move** command.
 | Argument    | Value                                                            | Required    |
 | ----------- | ---------------------------------------------------------------- | ----------- |
 | file        | your file path                                                   | Yes         |
-| raw         | You can find the raw in your exported json file                  | Yes         |
+| id          | Id is a short identifier of your comment                         | Yes         |
 | from        | your current state, possible value (TODO|WIP|READY|TESTING|DONE) | Yes         |
 | to          | your target state, possible value (TODO|WIP|READY|TESTING|DONE)  | Yes         |
 
 ```bash
 taskify move --file docs\\basic\\syntax\\index.md \
---raw LyoNCiAgW1RPRE9dOiBNeSB0YXNrDQogIEEgbG9uZyBtdWx0aSBsaW5lDQogIGRlc2NyaXB0aW9uDQoqLw0K \
+--id TXkgdGFzaw==.KDQ4LDUyKQ== \
 --from TODO --to READY
 ```
