@@ -41,7 +41,7 @@ export const SearchBar = ({words, className}: SearchBarProps) => {
       </button>
       <div className={clsx(
         'flex flex-col absolute w-[450px] translate-x-[-15px] translate-y-[-25px] p-2',
-        'input-wrapper rounded-md border border-zinc-300 dark:border-zinc-700 bg-zinc-300 dark:bg-zinc-800 shadow-lg gap-2 text-xs',
+        'input-wrapper rounded-md border border-gray-300 dark:border-gray-700 bg-gray-300 dark:bg-gray-800 shadow-lg gap-2 text-xs',
         !showed && 'hidden'
       )}>
         <input
@@ -49,7 +49,7 @@ export const SearchBar = ({words, className}: SearchBarProps) => {
           onChange={filter}
           placeholder="Search"
           type="text"
-          className="w-full rounded-sm dark:bg-zinc-700 bg-zinc-100 px-2 text-xs py-1 focus-within:outline-none"
+          className="w-full rounded-sm dark:bg-gray-700 bg-gray-100 px-2 text-xs py-1 focus-within:outline-none"
         />
         <div className={clsx('auto-complete', !filtered.length && 'hidden')}>
           {filtered.map((word, index) => 

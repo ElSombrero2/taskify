@@ -5,8 +5,8 @@ use crate::cli::controllers::common::{table::create_table, task::format_task};
 pub struct BoardController {}
 
 impl BoardController {
-  pub fn show() {
-    let board = Board::load(".".to_string());
+  pub fn show(dir: Option<String>) {
+    let board = Board::load(dir.unwrap_or(".".to_string()));
     if board.tasks.is_empty() {
       return println!("The board is empty, add TODOs comments to see them here.");
     }
@@ -39,8 +39,8 @@ impl BoardController {
     headers
   }
 
-  pub fn export (filename: String) {
-    let board = Board::load(".".to_string());
+  pub fn export (filename: String, path: Option<String>) {
+    let board = Board::load(path.unwrap_or(".".into()));
     if board.save(filename.clone()) {
       println!("Board successfully exported to: {}.", filename);
     } else {

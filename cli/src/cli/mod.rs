@@ -24,6 +24,8 @@ pub struct Cli {
 pub enum SubCommand {
   /// Show your board from your current directory.
   Board {
+    #[arg(long, short = 'p')]
+    path: Option<String>,
     #[arg(long, short = 'e')]
     export: Option<String>
   },

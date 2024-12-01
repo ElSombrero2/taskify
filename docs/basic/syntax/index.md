@@ -42,6 +42,29 @@ function mySecondFunction () {
 
 }
 ```
+
+## Inline TODOs
+
+Before using this tool, commonly, the developers declared their TODO like that:
+
+```javascript
+// TODO My todo
+function doStuff() {
+  // TODO create an implementation!
+}
+```
+
+So for that reason, the tool can also match these TODO as inline TODO 
+so you can directly see these TODOs directly inside your Board, but the tool
+can also accept inline TODOs like That
+
+```javascript
+// [TESTING]: Testing the inline TODO!
+function doStuff() {
+  // [TODO]: create another implementation!
+}
+```
+
 ## Tags
 
 Tags are the tags that can filter your Task, they can be declared by using #.  

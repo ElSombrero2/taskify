@@ -1,20 +1,23 @@
 pub mod board_controller {
-  use actix_web::{get, http::StatusCode, put, web::Json, Responder};
+  use actix_web::{get, http::StatusCode, put, web::{Json, Query}, Responder};
   use taskify::{board::Board, task::state::TaskState};
-  use crate::server::controller::types::{message::MessageDTO, task::{MoveTaskDTO, RemoveTaskDTO}};
+  use crate::server::controller::types::{message::MessageDTO, query::BoardQuery, task::{MoveTaskDTO, RemoveTaskDTO}};
 
   #[utoipa::path(
     get,
     tag = "Board",
     description = "Find all your TODO comment from your file directories",
     path = "/board",
+    params(
+      ("path" = Option<BoardQuery>, Query, description = "Path of the directory that you want to get your board")
+    ),
     responses(
      (status = 200, body = Board, description = "Success response") 
     ))
   ]
   #[get("/board")]
-  pub async fn find_board () -> impl Responder {
-    let board = Board::load(".".to_string());
+  pub async fn find_board (query: Query<BoardQuery>) -> impl Responder {
+    let board = Board::load(query.path.to_owned().unwrap_or(".".into()));
     (Json(board), StatusCode::OK)
   }
 

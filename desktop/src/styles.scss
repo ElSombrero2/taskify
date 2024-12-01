@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 .main-window {
-  @apply w-screen h-screen text-zinc-800
-  bg-zinc-100 dark:bg-zinc-900
-  dark:text-zinc-100 rounded-md;
+  @apply w-screen h-screen text-gray-800
+  bg-gray-100 dark:bg-gray-900
+  dark:bg-opacity-50 bg-opacity-70
+  dark:text-gray-100 border;
 }
 
 .main {
@@ -14,4 +15,8 @@
 
 *::-webkit-scrollbar {
   display: none;
+}
+
+*  {
+  @apply border-gray-400 dark:border-opacity-10 border-opacity-20;
 }

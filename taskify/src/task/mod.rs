@@ -58,10 +58,9 @@ impl Task {
   pub fn match_regex(filename: String, rewrite: bool, repository: &Result<Repository, Error>) -> Vec<Task> {
     let task = Task::default();
     if let Ok(regex) = Regex::new(
-      r"(?m)/\*[\s]*\[(TODO|READY|WIP|DONE|TESTING)\]\:[ ]*[[:ascii:]&&[^\*/]]*\*/[\s]*",
+      r"(?m)(/\*[\s]*\[(TODO|READY|WIP|DONE|TESTING)\]\:[ ]*[[:ascii:]&&[^\*/]]*\*/[\s]*)|(//[ ]((\[(TODO|READY|WIP|DONE|TESTING)\]\:)|(TODO|READY|WIP|DONE|TESTING)))[ ][[:ascii:]&&[^\n\r]]*",
     ) {
       if let Ok(file) = fs::read_to_string(&filename) {
-
         let (vec, str) = utils::regex::match_all::<Task>(regex, file, task, filename.clone(), repository);
         if rewrite && !vec.is_empty() {
           fs::write(filename, str).unwrap();
