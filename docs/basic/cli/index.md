@@ -64,7 +64,8 @@ Just give your export action and specify your file name to export your board
 
 | Argument    | Value               | Required    |
 | ----------- | ------------------- | ----------- |
-| export      | your json file name | Yes         |
+| export      | your json file name | No          |
+| path        | a file path to scan | No          |
 
 ```bash
 taskify board --export my-board.json
