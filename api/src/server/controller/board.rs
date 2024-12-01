@@ -1,6 +1,6 @@
 pub mod board_controller {
   use actix_web::{get, http::StatusCode, put, web::{Json, Query}, Responder};
-  use taskify::{board::Board, task::state::TaskState};
+  use taskify::{board::Board, syntax::c_based::CBased, task::state::{TaskState, STATES}};
   use crate::server::controller::types::{message::MessageDTO, query::BoardQuery, task::{MoveTaskDTO, RemoveTaskDTO}};
 
   #[utoipa::path(
@@ -17,7 +17,7 @@ pub mod board_controller {
   ]
   #[get("/board")]
   pub async fn find_board (query: Query<BoardQuery>) -> impl Responder {
-    let board = Board::load(query.path.to_owned().unwrap_or(".".into()));
+    let board = Board::load(query.path.to_owned().unwrap_or(".".into()), CBased::new(STATES.to_string()));
     (Json(board), StatusCode::OK)
   }
 

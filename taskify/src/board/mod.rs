@@ -1,4 +1,4 @@
-use crate::{task::{state::TaskState, Task}, utils::file::current_filename};
+use crate::{syntax::Syntax, task::{state::TaskState, Task}, utils::file::current_filename};
 use std::{collections::{BTreeMap, LinkedList}, fs::{self}, path::Path, vec};
 use base64::{prelude::BASE64_STANDARD, Engine};
 use serde::{Deserialize, Serialize};
@@ -11,10 +11,10 @@ pub struct Board {
 }
 
 impl Board {
-  pub fn load(directory: String) -> Board {
+  pub fn load(directory: String, syntax: impl Syntax<Task>) -> Board {
     Board { 
       name: current_filename(),
-      tasks: Task::scan(directory)
+      tasks: Task::scan(directory, syntax)
     }
   }
 
