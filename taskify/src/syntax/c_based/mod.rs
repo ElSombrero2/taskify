@@ -1,3 +1,5 @@
+use crate::task::state::STATES;
+
 mod regex;
 mod utils;
 
@@ -6,7 +8,13 @@ pub struct CBased {
 }
 
 impl CBased {
-  pub fn new (states: String) -> Self {
-    Self { states }
+  pub fn new () -> Self {
+    Self { states: STATES.into() }
+  }
+}
+
+impl Default for CBased {
+  fn default() -> Self {
+    Self::new()
   }
 }

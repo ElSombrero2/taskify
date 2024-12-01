@@ -17,7 +17,6 @@ pub fn on_file_change<F>(root_directory: String, syntax: impl Syntax<Task>, call
         for path in event.paths {
           let tasks = Task::match_regex(
             path.to_str().unwrap().to_string(),
-            false,
             &repos,
             &syntax
           );

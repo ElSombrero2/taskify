@@ -29,7 +29,7 @@ pub enum SubCommand {
     #[arg(long, short = 'e')]
     export: Option<String>
   },
-  /// Create a server that serve your board (Work in Progress).
+  /// Create a server that serve your board
   Serve {
     #[arg(long, short = 'p', default_value = "8000")]
     port: u16,
@@ -39,22 +39,22 @@ pub enum SubCommand {
     /// Your file name.
     #[arg(long, short = 'f')]
     file: String,
-    /// Raw is an unique base64 String that represent your comment.
-    #[arg(long, short = 'r')]
-    raw: String,
+    /// Raw is an unique base64 String that match your comment
+    #[arg(long)]
+    id: String,
   },
-  /// Change the state of your task. 
+  /// Change the state of your task
   Move {
     /// Your file name.
     #[arg(long, short = 'f')]
     file: String,
-    /// Raw is an unique base64 String that represent your comment.
-    #[arg(long, short = 'r')]
-    raw: String,
-    /// Your current task State, possible value (TODO, READY, WIP, DONE, TESTING).
+    /// Id is an unique base64 String that match your comment
+    #[arg(long)]
+    id: String,
+    /// Your current task State, possible value (TODO, READY, WIP, DONE, TESTING)
     #[arg(long, short = 's')]
     from: TaskState,
-    /// Your target task State, possible value (TODO, READY, WIP, DONE, TESTING).
+    /// Your target task State, possible value (TODO, READY, WIP, DONE, TESTING)
     #[arg(long, short = 't')]
     to: TaskState,
   }

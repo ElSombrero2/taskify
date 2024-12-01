@@ -4,7 +4,7 @@ use crate::{info::Info, syntax::Syntax, utils::{file::{get_line, sanitize_path},
 use super::Task;
 
 impl Task {
-  pub fn match_regex(filename: String, rewrite: bool, repository: &Result<Repository, Error>, syntax: &impl Syntax<Task>) -> Vec<Task> {
+  pub fn match_regex(filename: String, repository: &Result<Repository, Error>, syntax: &impl Syntax<Task>) -> Vec<Task> {
     let mut comments: Vec<Task> = vec![];
     if let Ok(raw_file) = fs::read_to_string(&filename) {
       let regex = syntax.regex();
@@ -20,9 +20,6 @@ impl Task {
         if let Some(task) = syntax.execute(String::from(exp.as_str()), info) {
           comments.push(task);
         }
-      }
-      if rewrite && !comments.is_empty() {
-        fs::write(filename, String::from(regex.replace_all(&raw_file, ""))).unwrap_or_default();
       }
     }
     comments

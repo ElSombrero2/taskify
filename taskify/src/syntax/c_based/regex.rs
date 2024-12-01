@@ -20,14 +20,14 @@ impl Syntax<Task> for CBased {
     let tags = get_tags(&raw);
     if let Some((state, title)) = get_state_and_title(&sanitized.remove(0), raw.starts_with("//")) {
       let description = sanitized.join("\n");
-      return Some(Task { 
+      return Some(Task::new( 
         title,
-        description: if !description.is_empty() { Some(description) } else { None },
-        state: TaskState::from(state.as_str()),
+        if !description.is_empty() { Some(description) } else { None },
+        TaskState::from(state.as_str()),
         tags,
         info,
-        raw: BASE64_STANDARD.encode(raw),
-      })
+        BASE64_STANDARD.encode(raw),
+      ))
     }
     Option::None
   }

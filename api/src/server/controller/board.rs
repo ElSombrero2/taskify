@@ -1,6 +1,6 @@
 pub mod board_controller {
   use actix_web::{get, http::StatusCode, put, web::{Json, Query}, Responder};
-  use taskify::{board::Board, syntax::c_based::CBased, task::state::{TaskState, STATES}};
+  use taskify::{board::Board, syntax::c_based::CBased, task::state::TaskState};
   use crate::server::controller::types::{message::MessageDTO, query::BoardQuery, task::{MoveTaskDTO, RemoveTaskDTO}};
 
   #[utoipa::path(
@@ -17,7 +17,7 @@ pub mod board_controller {
   ]
   #[get("/board")]
   pub async fn find_board (query: Query<BoardQuery>) -> impl Responder {
-    let board = Board::load(query.path.to_owned().unwrap_or(".".into()), CBased::new(STATES.to_string()));
+    let board = Board::load(query.path.to_owned().unwrap_or(".".into()), CBased::new());
     (Json(board), StatusCode::OK)
   }
 
@@ -33,7 +33,7 @@ pub mod board_controller {
   ]
   #[put("/task/remove")]
   pub async fn remove_task (body: Json<RemoveTaskDTO>) -> impl Responder {
-    if Board::remove_task(body.file.clone(), body.raw.clone()) {
+    if Board::remove_task(body.file.to_owned(), body.id.to_owned(), CBased::new()) {
       return (Json(MessageDTO {
         message: "Task removed".to_string(),
         status: 200
@@ -58,10 +58,11 @@ pub mod board_controller {
   #[put("/task/move")]
   pub async fn change_state (body: Json<MoveTaskDTO>) -> impl Responder {
     if Board::change_state(
-      body.file.clone(),
-      body.raw.clone(),
+      body.file.to_owned(),
+      body.id.to_owned(),
       TaskState::from(body.from.as_str()),
-      TaskState::from(body.to.as_str())
+      TaskState::from(body.to.as_str()),
+      CBased::new()
     ) {
       return (Json(MessageDTO {
         message: format!("Task state changed from {} to {}", &body.from, &body.to),

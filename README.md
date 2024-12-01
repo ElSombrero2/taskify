@@ -103,12 +103,14 @@ You can run **taskify --help** to see whats are all commands you can use
 Welcome to Taskify CLI.
 Visit https://github.com/ElSombrero2/taskify
 
-Usage: cli.exe <COMMAND>
+Usage: taskify.exe <COMMAND>
 
 Commands:
-  board  Show your board from your current directory
-  serve  Create a server that serve your board (Work in Progress)
-  help   Print this message or the help of the given subcommand(s)
+  board   Show your board from your current directory
+  serve   Create a server that serve your board
+  remove  Remove a TODO comment inside your file
+  move    Change the state of your task
+  help    Print this message or the help of the given subcommand(s)
 
 Options:
   -h, --help
