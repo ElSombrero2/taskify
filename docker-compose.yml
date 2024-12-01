@@ -18,9 +18,9 @@ services:
     build:
       dockerfile: '.build/os/linux/Dockerfile'
     volumes:
-      - ./.build/dist/linux:/opt/app/dist/linux
+      - ./dist/linux:/opt/app/dist/linux
   windows:
     build:
       dockerfile: '.build/os/windows/Dockerfile'
     volumes:
-      - ./.build/dist/windows:/opt/app/dist/windows
+      - ./dist/windows:/opt/app/dist/windows

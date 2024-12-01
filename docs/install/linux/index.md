@@ -9,7 +9,7 @@ next:
 
 You can download the Taskify release [here](https://github.com/ElSombrero2/taskify/releases/) or use this following command:
 ```bash
-sudo curl -L -o taskify.tar.gz https://github.com/ElSombrero2/taskify/releases/download/release-v0.1.1/taskify-linux.tar.gz
+sudo curl -L -o taskify.tar.gz https://github.com/ElSombrero2/taskify/releases/download/release-v0.1.3/taskify-linux.tar.gz
 ```
 
 Then extract your binary
@@ -21,7 +21,7 @@ sudo tar -xf taskify.tar.gz
 Move it into your root dir
 
 ```bash
-sudo mv .build/dist/linux/taskify /bin/taskify
+sudo mv dist/linux/taskify /bin/taskify
 ```
 
 Make the binary executable
