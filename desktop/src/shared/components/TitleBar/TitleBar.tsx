@@ -38,8 +38,8 @@ export const TitleBar = () => {
   return (
     <div data-tauri-drag-region className="flex justify-between items-center pl-2">
       <div className="flex items-center gap-4">
-        <p className="text">
-          <i className="fa-solid fa-binoculars"></i>
+        <p className="text font-bold">
+          Taskify<span className="text-rose-500">.io</span>
         </p>
         <div className="flex gap-2 items-center">
           <Toggler onChange={switchTheme} />
@@ -48,16 +48,16 @@ export const TitleBar = () => {
       <SearchBar className="relative left-8" words={['Taskify', 'New Project', 'Where are your', 'Help Me please']} />
       <div className="flex items-center gap-6">
         <div className="flex gap-2 relative left-[4px]">
-          <button onClick={minimize} className="title-bar-button hover:bg-zinc-200 dark:hover:bg-zinc-700">
+          <button onClick={minimize} className="title-bar-button hover:bg-gray-200 dark:hover:bg-gray-700">
             <i className="window-minimize text-xl"></i>
           </button>
-          <button onClick={maximize} className="title-bar-button hover:bg-zinc-200 dark:hover:bg-zinc-700">
+          <button onClick={maximize} className="title-bar-button hover:bg-gray-200 dark:hover:bg-gray-700">
             <i className={clsx(
               'text-xl',
               maximized ? 'window-restore' : 'window-maximize',
             )}></i>
           </button>
-          <button onClick={close} className="title-bar-button rounded-tr-md hover:bg-red-200 dark:hover:bg-red-700">
+          <button onClick={close} className="title-bar-button hover:bg-red-200 dark:hover:bg-red-700">
             <i className="window-xmark text-lg"></i>
           </button>
         </div>

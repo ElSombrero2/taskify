@@ -19,7 +19,7 @@ export const Toggler = ({onChange}: {onChange?: (checked: boolean) => void}) => 
         htmlFor="toggler"
         className="label"
       >
-        <div className="text-[10px] translate-y-[-10px] opacity-40 translate-x-[5px]">
+        <div className="text-[10px] translate-y-[-10px] opacity-80 translate-x-[5px]">
           {checked && <i className="fa fa-moon absolute"></i>}
           {!checked && <i className="fa fa-sun absolute translate-x-[16px]"></i>}
         </div>

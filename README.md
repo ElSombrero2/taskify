@@ -1,7 +1,8 @@
 # What is Taskify?
 
 Taskify is a TODO to KANBAN tool that allow you to create a KANBAN Board from your TODO comment by
-using a specific TODO syntax
+using a specific TODO syntax.
+Documentation [here](https://elsombrero2.github.io/taskify/)
 
 ## Language Support
 
@@ -24,7 +25,6 @@ You can directly create a multiline comment that follows this current syntax
 */
 function myFunction() {
   // ignored comment
-  // [TODO]: Ignored TODO
   /*
     [READY]: Not ignored TODO
     With description and #tags
@@ -49,6 +49,18 @@ fn add(a: u16, b: u16) -> u16 {
 */
 fn multiply(a: u16, b: u16) -> u16 {
   return 0;
+}
+```
+
+For keeping you olds TODOs valid, the tool can also match all your inline comment TODO like:
+
+```rust
+fn create_a_new_feature () -> bool {
+  return false; // TODO replace this line to true
+}
+
+fn another_function() -> u8 {
+  return 0; // [TODO]: But you can also declare it like that
 }
 ```
 

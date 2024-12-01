@@ -1,11 +1,11 @@
 .search-button {
-  @apply h-[23px] rounded-md dark:bg-zinc-800 border dark:border-zinc-600 dark:border-opacity-60 bg-zinc-200
+  @apply h-[23px] rounded-md dark:bg-gray-800 border dark:border-gray-600 dark:border-opacity-60 bg-gray-200
   flex justify-center items-center text-sm cursor-pointer
-  dark:hover:bg-zinc-700;
+  dark:hover:bg-gray-700;
 }
 
 .item {
-  @apply dark:hover:bg-zinc-600 hover:bg-zinc-200 dark:bg-opacity-0 px-2 py-1
+  @apply dark:hover:bg-gray-600 hover:bg-gray-200 dark:bg-opacity-0 px-2 py-1
   rounded-sm focus-within:outline-none
   text-left focus:border-none w-full;
 }

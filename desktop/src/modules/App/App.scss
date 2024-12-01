@@ -1,0 +1,5 @@
+.main-container {
+  @apply w-full h-full overflow-hidden flex rounded-md
+  border border-gray-300 
+  bg-gray-200 dark:bg-gray-900 dark:border-gray-700 dark:border-opacity-35;
+}

@@ -1,7 +1,7 @@
 label.label {
   cursor: pointer;
   @apply block w-[35px] h-[18px] 
-  dark:bg-zinc-700 bg-zinc-300 rounded-full;
+  dark:bg-gray-500 bg-gray-400 rounded-full;
 }
 
 label.label::before {
@@ -15,7 +15,7 @@ label.label::before {
   top: 2px;
   transition: transform, background-color;
   transition-duration: 300ms;
-  @apply dark:bg-zinc-900 bg-zinc-100 rounded-full;
+  @apply dark:bg-gray-900 bg-gray-100 rounded-full;
 }
 
 input:checked + label.label::before {

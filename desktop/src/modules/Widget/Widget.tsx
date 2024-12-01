@@ -1,10 +1,10 @@
 import { appWindow, LogicalSize } from "@tauri-apps/api/window"
-import { TabItem } from "./components/TabItem/TabItem"
 import "./Widget.scss";
 import { useState } from "react";
 import clsx from "clsx";
 import { Card } from "./components/Card/Card";
 import { invoke } from "@tauri-apps/api";
+import { Item } from "./components/Item/TabItem";
 
 export const Widget = () => {
   const [focused, setFocused] = useState(false);
@@ -30,28 +30,28 @@ export const Widget = () => {
         <div data-tauri-drag-region className="flex justify-between items-start">
           <div className="flex flex-col gap-1">
             <p className="font-bold text-xl">Project Name</p>
-            <p className="text-zinc-600 dark:text-zinc-500">Wednesday, 11 May</p>
+            <p className="text-gray-600 dark:text-gray-500">Wednesday, 11 May</p>
           </div>
           <button onClick={close}>
             <i className="fa fa-xmark"></i>
           </button>
         </div>
-        <div className="flex justify-between text-zinc-500">
-          <TabItem active size={2}>
+        <div className="flex justify-between text-gray-500">
+          <Item active count={100}>
             Todo
-          </TabItem>
-          <TabItem size={100}>
+          </Item>
+          <Item count={100}>
             Ready
-          </TabItem>
-          <TabItem size={100}>
+          </Item>
+          <Item count={100}>
             Wip
-          </TabItem>
-          <TabItem size={100}>
-            Test
-          </TabItem>
-          <TabItem size={100}>
+          </Item>
+          <Item count={100}>
+            Testing
+          </Item>
+          <Item count={100}>
             Done
-          </TabItem>
+          </Item>
         </div>
       </div>
       <div className={clsx(

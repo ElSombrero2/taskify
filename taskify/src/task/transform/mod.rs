@@ -7,7 +7,7 @@ impl Transform<Option<Task>> for Task {
   fn transform(&self, raw: String, info: Info) -> Option<Task> {
     let mut sanitized = Task::sanitize(&raw);
     let tags = Task::get_tags(&raw);
-    if let Some((state, title)) = Task::get_state_and_title(&sanitized.remove(0)) {
+    if let Some((state, title)) = Task::get_state_and_title(&sanitized.remove(0), raw.starts_with("//")) {
       let description = sanitized.join("\n");
       return Some(Task { 
         title,
