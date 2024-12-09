@@ -6,7 +6,7 @@ pub struct BoardController {}
 
 impl BoardController {
   pub fn show(dir: Option<String>, syntax: impl Syntax<Task>) {
-    let board = Board::load(dir.unwrap_or(".".to_string()), syntax);
+    let board = Board::load(dir.unwrap_or(".".to_string()), syntax, "extensions");
     if board.tasks.is_empty() {
       return println!("The board is empty, add TODOs comments to see them here.");
     }
@@ -39,7 +39,7 @@ impl BoardController {
   }
 
   pub fn export (filename: String, path: Option<String>, syntax: impl Syntax<Task>) {
-    let board = Board::load(path.unwrap_or(".".into()), syntax);
+    let board = Board::load(path.unwrap_or(".".into()), syntax, "extensions");
     if board.save(filename.clone()) {
       println!("Board successfully exported to: {}.", filename);
     } else {

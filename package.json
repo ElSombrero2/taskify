@@ -1,4 +1,5 @@
 {
+  "name": "taskify-desktop",
   "scripts": {
     "docs:install": "cd docs && npm install",
     "docs:build": "cd docs && npm run docs:build",

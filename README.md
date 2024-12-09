@@ -40,6 +40,7 @@ For now all the states authorized are: **TODO**, **READY**, **TESTING** and **DO
   with tags like #math and #calculus
 */
 fn add(a: u16, b: u16) -> u16 {
+  // [DONE]: Addition is done
   return a + b;
 }
 

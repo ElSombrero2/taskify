@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { Badge } from "../../../../ui/components/Badge/Badge"
+import { Pills } from "../../../../ui/components/Badges/Pills/Pills"
 
 type TabItemProps = {
   children: string,
@@ -13,9 +13,9 @@ export const Item = ({children, count, active}: TabItemProps) => {
       <p className={clsx([active && 'text-blue-500', 'text-sm'])}>
         {children}
       </p>
-      <Badge theme={active ? 'primary' : 'secondary'} size="xs">
+      <Pills theme={active ? 'primary' : 'secondary'} size="xs">
         {count > 99 ? '+99' : count}
-      </Badge>
+      </Pills>
     </div>
   )
 }

@@ -46,7 +46,7 @@ impl Task {
     let mut stack: LinkedList<String> = LinkedList::new();
 
     let names = Task::read_ignore_file(directory.clone());
-    let repos = Repository::open(".");
+    let repos = Repository::open(&directory);
     
     stack.push_back(directory.clone());
     

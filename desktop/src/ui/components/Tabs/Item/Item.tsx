@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import { Size } from "../../../types/size"
 import { Theme } from "../../../types/theme"
 import clsx from "clsx"
-import { variant } from "./Item.variant"
+import { variant } from "./Item.variants"
 
 type TabItemProps = {
   children: ReactNode,

@@ -1,32 +1,33 @@
-use crate::{syntax::Syntax, task::{state::TaskState, Task}, utils::file::current_filename};
-use std::{collections::{BTreeMap, LinkedList}, fs::{self}, path::Path, vec};
+use crate::{plugins::load_script, syntax::Syntax, task::{state::TaskState, Task}, utils::file::current_filename};
+use std::{collections::{BTreeMap, LinkedList}, fs::{self}, path::Path};
 use base64::{prelude::BASE64_STANDARD, Engine};
 use git2::Error;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use utoipa::ToSchema;
 
 #[derive(Debug, Serialize, Deserialize, Clone, ToSchema)]
 pub struct Board {
   pub name: String,
   pub tasks: Vec<Task>,
+  pub extra: Option<Value>,
 }
 
 impl Board {
-  pub fn load(directory: String, syntax: impl Syntax<Task>) -> Board {
-    Board { 
+  pub fn load(directory: String, syntax: impl Syntax<Task>, extension_dir: &str) -> Board {
+    let mut board = Board { 
       name: current_filename(),
-      tasks: Task::scan(directory, syntax)
-    }
-  }
+      tasks: Task::scan(directory, syntax),
+      extra: None,
+    };
 
-  pub fn load_from_file(directory: String) -> Board {
-    let path = directory.to_owned();
-    if let Ok(content) = fs::read_to_string(Path::new(&path)) {
-      if let Ok(board) = serde_json::from_str::<Board>(&content) {
-        return board;
-      }
+    let runtime = tokio::runtime::Runtime::new().unwrap();
+    for dir in fs::read_dir(extension_dir).unwrap().flatten() {
+      let filename = dir.file_name().into_string().unwrap();
+      board = runtime.block_on(load_script(&format!("{}/{}/index.js", extension_dir, filename), board.clone()));
     }
-    Board { name: directory, tasks: vec![] }
+
+    board
   }
 
   pub fn save(&self, filename: String) -> bool {

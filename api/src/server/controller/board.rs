@@ -17,7 +17,7 @@ pub mod board_controller {
   ]
   #[get("/board")]
   pub async fn find_board (query: Query<BoardQuery>) -> impl Responder {
-    let board = Board::load(query.path.to_owned().unwrap_or(".".into()), CBased::new());
+    let board = Board::load(query.path.to_owned().unwrap_or(".".into()), CBased::new(), "extensions");
     (Json(board), StatusCode::OK)
   }
 

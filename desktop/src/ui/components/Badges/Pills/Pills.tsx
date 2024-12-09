@@ -1,16 +1,16 @@
 import clsx from "clsx"
-import { Theme } from "../../types/theme"
-import { Size } from "../../types/size"
-import { variants } from "./Badge.variants"
+import { Theme } from "../../../types/theme"
+import { Size } from "../../../types/size"
+import { variants } from "./Pills.variants"
 
-type BadgeProps = {
+type PillsProps = {
   children: string | number,
-  theme?: Theme,
+  theme?: Theme | 'success' | 'danger' | 'warning',
   size?: Size,
   className?: string,
 }
 
-export const Badge = ({children, size, theme, className}: BadgeProps) => {
+export const Pills = ({children, size, theme, className}: PillsProps) => {
   return (
     <p className={clsx([
       'rounded-full text-center flex items-center py-[1px]',
