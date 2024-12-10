@@ -3,4 +3,4 @@
 .taskifyignore
 .taskify
 dist
-extensions
+.extensions

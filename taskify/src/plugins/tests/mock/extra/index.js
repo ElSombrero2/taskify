@@ -1,4 +1,3 @@
-
 export function apply (board) {
   return {
     ...board,
