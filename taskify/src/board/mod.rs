@@ -14,19 +14,30 @@ pub struct Board {
 }
 
 impl Board {
-  pub fn load(directory: String, syntax: impl Syntax<Task>, extension_dir: &str) -> Board {
-    let mut board = Board { 
+  pub fn load(directory: String, syntax: impl Syntax<Task>, ext_dir: &str) -> Board {
+    let board = Board { 
       name: current_filename(),
       tasks: Task::scan(directory, syntax),
       extra: None,
     };
+    let runtime = tokio::runtime::Builder::new_current_thread().enable_all().build().unwrap();
+    runtime.block_on(Self::load_plugins(board, ext_dir))
+  }
 
-    let runtime = tokio::runtime::Runtime::new().unwrap();
-    for dir in fs::read_dir(extension_dir).unwrap().flatten() {
+  pub async fn load_async (directory: String, syntax: impl Syntax<Task>, ext_dir: &str) -> Board {
+    let board = Board { 
+      name: current_filename(),
+      tasks: Task::scan(directory, syntax),
+      extra: None,
+    };
+    Self::load_plugins(board, ext_dir).await
+  }
+
+  async fn load_plugins (mut board: Board, ext_dir: &str) -> Board {
+    for dir in fs::read_dir(ext_dir).unwrap().flatten() {
       let filename = dir.file_name().into_string().unwrap();
-      board = runtime.block_on(load_script(&format!("{}/{}/index.js", extension_dir, filename), board.clone()));
+      board = load_script(&format!("{}/{}/index.js", ext_dir, filename), board.clone()).await;
     }
-
     board
   }
 
