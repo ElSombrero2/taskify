@@ -5,7 +5,8 @@ impl Task {
   pub fn read_ignore_file(directory: String) -> Vec<String> {
     if let Ok(ignored_files) = fs::read_to_string(directory + "/.taskifyignore") {
       let names = ignored_files
-        .split("\r\n")
+        .replace("\r", "")
+        .split("\n")
         .map(|s| s.to_string())
         .collect::<Vec<String>>();
       return names;
