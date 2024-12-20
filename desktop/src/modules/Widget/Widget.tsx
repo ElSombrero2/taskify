@@ -4,7 +4,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import { Card } from "./components/Card/Card";
 import { invoke } from "@tauri-apps/api";
-import { Item } from "./components/Item/TabItem";
+import { Item } from "./components/Item/Item";
 
 export const Widget = () => {
   const [focused, setFocused] = useState(false);

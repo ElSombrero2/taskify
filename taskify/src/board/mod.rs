@@ -1,31 +1,25 @@
-use crate::{task::{state::TaskState, Task}, utils::file::current_filename};
-use std::{collections::{BTreeMap, LinkedList}, fs::{self}, path::Path, vec};
+use crate::{syntax::Syntax, task::{state::TaskState, Task}, utils::file::current_filename};
+use std::{collections::{BTreeMap, LinkedList}, fs::{self}, path::Path};
 use base64::{prelude::BASE64_STANDARD, Engine};
+use git2::Error;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use utoipa::ToSchema;
 
 #[derive(Debug, Serialize, Deserialize, Clone, ToSchema)]
 pub struct Board {
   pub name: String,
   pub tasks: Vec<Task>,
+  pub extra: Option<Value>,
 }
 
 impl Board {
-  pub fn load(directory: String) -> Board {
+  pub fn load(directory: String, syntax: impl Syntax<Task>) -> Board {
     Board { 
       name: current_filename(),
-      tasks: Task::scan(directory)
+      tasks: Task::scan(directory, syntax),
+      extra: None,
     }
-  }
-
-  pub fn load_from_file(directory: String) -> Board {
-    let path = directory.to_owned();
-    if let Ok(content) = fs::read_to_string(Path::new(&path)) {
-      if let Ok(board) = serde_json::from_str::<Board>(&content) {
-        return board;
-      }
-    }
-    Board { name: directory, tasks: vec![] }
   }
 
   pub fn save(&self, filename: String) -> bool {
@@ -47,25 +41,34 @@ impl Board {
     map
   }
 
-  pub fn remove_task(filename: String, raw: String) -> bool {
-    if let Some(comment) = Self::decode_comment(raw) {
-      let path = "./".to_owned() + &filename;
-      if let Ok(file) = fs::read_to_string(&path) {
-
-        return fs::write(&path, file.replace(&comment, "")).is_ok();
+  pub fn remove_task(filename: String, id: String, syntax: impl Syntax<Task>) -> bool {
+    let path = "./".to_owned() + &filename;
+    if let Ok(raw_file) = fs::read_to_string(&path) {
+      for task in Task::match_regex(filename, &Err(Error::from_str("")), &syntax) {
+        if task.verify(&id) {
+          if let Some(comment) = Self::decode_comment(task.raw) {
+            return fs::write(&path, raw_file.replace(&comment, "")).is_ok();
+          }
+        }
       }
     }
     false
   }
 
-  pub fn change_state (filename: String, raw: String, current_state: TaskState, state: TaskState) -> bool {
-    if let Some(comment) = Self::decode_comment(raw) {
-      let new_comment = comment.replace(&format!("[{}]: ", current_state.id()), &format!("[{}]: ", state.id()));
-      let path = "./".to_owned() + &filename;
-      if let Ok(file) = fs::read_to_string(&path) {
-        return fs::write(&path, file.replace(&comment, &new_comment)).is_ok();
+  pub fn change_state (filename: String, id: String, current_state: TaskState, state: TaskState, syntax: impl Syntax<Task>) -> bool {
+    let path = "./".to_owned() + &filename;
+    if let Ok(raw_file) = fs::read_to_string(&path) {
+      for task in Task::match_regex(filename, &Err(Error::from_str("")), &syntax) {
+        if task.verify(&id) {
+          if let Some(comment) = Self::decode_comment(task.raw) {
+            let new_comment = comment.replace(&format!("[{}]: ", current_state.id()), &format!("[{}]: ", state.id()));
+            return fs::write(&path, raw_file.replace(&comment, &new_comment)).is_ok();
+          }
+        }
+
       }
     }
+
     false
   }
 

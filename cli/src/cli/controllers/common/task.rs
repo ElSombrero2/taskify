@@ -2,7 +2,8 @@ use taskify::task::Task;
 
 pub fn format_task (task: &Task) -> String {
   let mut str_builder = String::new();
-  str_builder.push_str(&task.title);
+  
+  str_builder.push_str(&format!("[id: {}]\n\n{}", &task.id, &task.title));
   
   if let Some(desc) = &task.description { str_builder.push_str(&format!("\n\n{}", desc)); }
   

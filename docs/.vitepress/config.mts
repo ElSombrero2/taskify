@@ -3,6 +3,12 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Taskify",
+  head: [
+    [
+      'link',
+      { rel: 'icon', href: '/taskify/favicon.ico' } 
+    ]
+  ],
   description: "Taskify documentation",
   base: '/taskify/',
   themeConfig: {

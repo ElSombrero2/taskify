@@ -1,0 +1,32 @@
+
+@keyframes loading-animation-dark {
+  0% {
+    @apply bg-gray-600;
+  }
+  50% {
+    @apply bg-gray-800;
+  }
+  100%  {
+    @apply bg-gray-600;
+  }
+}
+
+@keyframes loading-animation-light {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100%  {
+    opacity: 0.1;
+  }
+}
+
+.animated {
+  animation: loading-animation-light infinite 3000ms;
+}
+
+.dark .animated {
+  animation: loading-animation-dark infinite 3000ms;
+}

@@ -1,6 +1,6 @@
 
-import { Sidenav } from "../../shared/components/Sidenav/Sidenav";
-import { TitleBar } from "../../shared/components/TitleBar/TitleBar";
+import { Sidenav } from "@/shared/components/Sidenav/Sidenav";
+import { TitleBar } from "@/shared/components/TitleBar/TitleBar";
 import "./App.scss";
 import { Board } from "./Pages/Board/Board";
 

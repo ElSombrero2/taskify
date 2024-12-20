@@ -1,19 +1,18 @@
 use std::collections::{btree_map::Keys, LinkedList};
-use taskify::{board::Board, task::{state::TaskState, Task}};
+use taskify::{board::Board, syntax::{c_based::CBased, Syntax}, task::{state::TaskState, Task}};
 use crate::cli::controllers::common::{table::create_table, task::format_task};
 
 pub struct BoardController {}
 
 impl BoardController {
-  pub fn show(dir: Option<String>) {
-    let board = Board::load(dir.unwrap_or(".".to_string()));
+  pub fn show(dir: Option<String>, syntax: impl Syntax<Task>) {
+    let board = Board::load(dir.unwrap_or(".".to_string()), syntax);
     if board.tasks.is_empty() {
       return println!("The board is empty, add TODOs comments to see them here.");
     }
 
     let mut map = board.group_by_state();
     let mut table = create_table();
-
     table.set_header(Self::set_headers(map.keys()));
     while !map.is_empty() {
       let mut all_empty = true;
@@ -39,8 +38,8 @@ impl BoardController {
     headers
   }
 
-  pub fn export (filename: String, path: Option<String>) {
-    let board = Board::load(path.unwrap_or(".".into()));
+  pub fn export (filename: String, path: Option<String>, syntax: impl Syntax<Task>) {
+    let board = Board::load(path.unwrap_or(".".into()), syntax);
     if board.save(filename.clone()) {
       println!("Board successfully exported to: {}.", filename);
     } else {
@@ -49,7 +48,7 @@ impl BoardController {
   }
 
   pub fn remove(filename: String, raw: String) {
-    if Board::remove_task(filename, raw) {
+    if Board::remove_task(filename, raw, CBased::new()) {
       println!("Your task was removed!");
     } else {
       println!("Cannot remove the current task, please try again!");
@@ -57,7 +56,7 @@ impl BoardController {
   }
 
   pub fn move_task(filename: String, raw: String, from: TaskState, to: TaskState) {
-    if Board::change_state(filename, raw, from.clone(), to.clone())  {
+    if Board::change_state(filename, raw, from.clone(), to.clone(),CBased::new())  {
       println!("Your task was moved from {} to  {}!", from, to);
     } else {
       println!("Cannot move the current task, please try again!");

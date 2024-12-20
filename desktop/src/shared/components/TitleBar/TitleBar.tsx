@@ -1,12 +1,12 @@
 import { appWindow } from "@tauri-apps/api/window";
-import { useWindow } from "../../../hooks/window";
+import { useWindow } from "@/hooks/window";
 import { invoke } from "@tauri-apps/api";
 import { useContext, useEffect, useState } from "react";
 import './TitleBar.scss'
 import clsx from "clsx";
 import { SearchBar } from "./SearchBar/SearchBar";
-import { Theme } from "../../../Providers/Theme/Theme";
 import { Toggler } from "./Toggler/Toggler";
+import { Theme } from "../../../providers/Theme/Theme";
 
 export const TitleBar = () => {
   const { isWidget } = useWindow();
@@ -42,7 +42,7 @@ export const TitleBar = () => {
           Taskify<span className="text-rose-500">.io</span>
         </p>
         <div className="flex gap-2 items-center">
-          <Toggler onChange={switchTheme} />
+          <Toggler defaultValue={theme !== 'dark'} onChange={switchTheme} />
         </div>
       </div>
       <SearchBar className="relative left-8" words={['Taskify', 'New Project', 'Where are your', 'Help Me please']} />
