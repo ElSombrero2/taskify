@@ -8,12 +8,12 @@ import { Widget } from "./modules/Widget/Widget";
 import App from "./modules/App/App";
 
 const AppProvider = () => {
-  const { isWidget } = useWindow();
+  const { isWidget, os } = useWindow();
 
   return (
     <Theme.Consumer>
       {({theme}) => (
-        <div className={`main-window ${theme}`}>
+        <div className={`main-window ${theme} ${os}`}>
           {isWidget ? <Widget /> : <App />}
         </div>
       )}

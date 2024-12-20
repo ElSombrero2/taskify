@@ -23,6 +23,9 @@
         "close": true,
         "maximize": true,
         "unmaximize": true
+      },
+      "os": {
+        "all": true
       }
     },
     "windows": [

@@ -1,3 +1,4 @@
+#![allow(unused_variables, unused)]
 use tauri::Window;
 use window_vibrancy::apply_acrylic;
 

@@ -12,7 +12,7 @@ export const Board = () => {
   
   useEffect(() => {
     update({loading: true});
-    invoke<BoardTuple>('get_board', {path: 'C:\\Users\\niril\\OneDrive\\Bureau\\taskify'})
+    invoke<BoardTuple>('get_board', {path: '/home/elsombrero/Bureau/taskify'})
     .then(([grouped, board]) => {
       update({board, tasks: grouped, loading: false});
     })
