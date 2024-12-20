@@ -1,18 +1,14 @@
 import clsx from "clsx"
-import { ReactNode } from "react"
+import { HTMLAttributes } from "react"
 
 type CardProps = {
-  children: ReactNode,
-  className?: string,
-}
+} & HTMLAttributes<HTMLDivElement>;
 
-export const Card = ({className, children}: CardProps) => {
+export const Card = (props: CardProps) => {
   return (
-    <div className={clsx(
+    <div {...props} className={clsx(
       'p-3 shadow-lg border w-fit rounded-md',
-      className,
-    )}>
-      {children}
-    </div>
+      props.className,
+    )} />
   )
 }

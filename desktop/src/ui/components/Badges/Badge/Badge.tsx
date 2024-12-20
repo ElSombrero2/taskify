@@ -1,8 +1,8 @@
 import clsx from "clsx"
-import { Size } from "../../../types/size"
-import { Theme } from "../../../types/theme"
 import { variants } from "./Badge.variants"
 import { ReactNode } from "react"
+import { Size } from "../../../types/size"
+import { Theme } from "../../../types/theme"
 
 type BadgeProps = {
   children: ReactNode,

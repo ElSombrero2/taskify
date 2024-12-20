@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Toggler.scss';
 
-export const Toggler = ({onChange}: {onChange?: (checked: boolean) => void}) => {
+export const Toggler = ({onChange, defaultValue}: {onChange?: (checked: boolean) => void, defaultValue?: boolean}) => {
   const [checked, setChecked] = useState(false);
 
   return (
@@ -11,6 +11,7 @@ export const Toggler = ({onChange}: {onChange?: (checked: boolean) => void}) => 
           onChange && onChange(checked);
           setChecked(checked);
         }}
+        defaultChecked={defaultValue}
         type="checkbox"
         id="toggler"
         className="hidden"

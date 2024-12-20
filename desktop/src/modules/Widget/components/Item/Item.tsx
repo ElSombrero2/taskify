@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { Pills } from "../../../../ui/components/Badges/Pills/Pills"
+import { Pills } from "@/ui/components/Badges/Pills/Pills"
 
 type TabItemProps = {
   children: string,
