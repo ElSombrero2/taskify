@@ -11,7 +11,7 @@ export const Tasks = () => {
   const { tasks, loading } = useBoard()
 
   return (
-    <div className="flex p-4 flex-col gap-8 overflow-auto task-board" onDragOver={(e) => e.preventDefault()}>
+    <div className="flex p-4 flex-col gap-8 overflow-auto task-board" data-dnd onDragOver={(e) => e.preventDefault()}>
       <div className="flex w-full gap-10 h-[calc(100vh-266px)]">
         {States.map((state, index) => (
           <If condition={!loading} key={`${state}-${index}`} fallback={<Loader />} >

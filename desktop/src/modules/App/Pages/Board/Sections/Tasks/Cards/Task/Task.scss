@@ -7,10 +7,12 @@
     transition: height 200ms;
     opacity: 0;
     height: var(--droppable-height);
-    @apply bg-gray-700 overflow-hidden absolute border-dashed rounded-lg text-xl flex justify-center items-center;
+    @apply bg-gray-700 overflow-hidden absolute
+    border-dashed rounded-lg text-xl flex
+    justify-center items-center border;
   }
 
-  &.droppable-down::after {
+  &.droppable-bottom::after {
     opacity: 1;
     position: relative;
     height: 120px;
