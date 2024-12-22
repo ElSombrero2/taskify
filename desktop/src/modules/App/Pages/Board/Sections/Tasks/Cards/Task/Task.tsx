@@ -8,6 +8,7 @@ import { Info } from "./Info/Info";
 import { Text } from "./Text/Text";
 import './Task.scss';
 
+// TODO Find another way to manage these droppable
 const Droppable = ({dragged, top}: {dragged?: boolean, top?: boolean}) => {
   const [entered, setEntered] = useState(false);
   const [height, setHeight] = useState('5px');
@@ -42,6 +43,9 @@ const Droppable = ({dragged, top}: {dragged?: boolean, top?: boolean}) => {
   )
 }
 
+/*
+  [TODO]: Find the structure of the cards
+*/
 export const TaskCard = ({ task, top }: { task: Task, top?: boolean }) => {
   const [dragged, setDrag] = useState(false);
   

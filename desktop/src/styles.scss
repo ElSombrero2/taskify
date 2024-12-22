@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  [TODO]: Search the problem with the windo size
+  The window size is greater
+  than the main container and create
+  a #bug on display
+*/
 .main-window {
   @apply w-screen h-screen text-gray-800
   bg-gray-100 dark:bg-gray-800
