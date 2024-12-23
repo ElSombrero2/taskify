@@ -1,4 +1,4 @@
-import { Task } from "@/types/task";
+import { Task, TaskState } from "@/types/task";
 import { Card } from "@/ui/components/Cards/Card/Card";
 import { Divider } from "@/ui/components/Separators/Divider/Divider";
 import clsx from "clsx";
@@ -7,9 +7,11 @@ import { Tags } from "./Tags/Tags";
 import { Info } from "./Info/Info";
 import { Text } from "./Text/Text";
 import { Droppable } from "./Droppable/Droppable";
+import { useBoard } from "@/store/board/board";
 
 export const TaskCard = ({ task, top }: { task: Task, top?: boolean }) => {
   const [dragged, setDragged] = useState(false);
+  const { board, updateTask } = useBoard();
 
   const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     setDragged(true);
@@ -18,12 +20,18 @@ export const TaskCard = ({ task, top }: { task: Task, top?: boolean }) => {
     e.dataTransfer.setData('state', task.state);
   }
 
-  const onDrop = (id: string, target: string) => console.log(id, target);
+  const onDrop = (id: string, target: string) => {
+    const task = board?.tasks.find((t) => t.id === id);
+    if (task) {
+      updateTask(id, task?.info.filename, task?.state, target as TaskState);
+    }
+  };
 
   return (
     <div className="flex flex-col">
       {top && <Droppable
         onDrop={onDrop}
+        offsetSize="1.5rem"
         target={task.state}
         className="h-5 -mt-5"
         activatedClassName="pb-5"
@@ -48,11 +56,12 @@ export const TaskCard = ({ task, top }: { task: Task, top?: boolean }) => {
         <Info info={task.info} />
       </Card>
       {<Droppable
+        offsetSize="2rem"
         onDrop={onDrop}
         target={task.state}
         disabled={dragged}
         className="h-3"
-        activatedClassName="py-3"
+        activatedClassName="py-3 pt-5"
       />}
     </div>
   );

@@ -56,7 +56,7 @@ impl Board {
   }
 
   pub fn change_state (filename: String, id: String, current_state: TaskState, state: TaskState, syntax: impl Syntax<Task>) -> bool {
-    let path = "./".to_owned() + &filename;
+    let path = if Path::new(&filename).is_absolute() { filename.clone() } else { "./".to_owned() + &filename } ;
     if let Ok(raw_file) = fs::read_to_string(&path) {
       for task in Task::match_regex(filename, &Err(Error::from_str("")), &syntax) {
         if task.verify(&id) {
@@ -68,7 +68,6 @@ impl Board {
 
       }
     }
-
     false
   }
 

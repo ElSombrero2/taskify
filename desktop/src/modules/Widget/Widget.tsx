@@ -8,7 +8,7 @@ import { Item } from "./components/Item/Item";
 
 /*
 
-  [TODO]: The widget window auto close
+  [WIP]: The widget window auto close
   When you open the widget window in linux
   the window is immediatly closed  
 */

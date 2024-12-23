@@ -1,21 +1,15 @@
 import { useEffect } from "react"
 import { Header } from "./Sections/Header/Header"
 import { Options } from "./Sections/Options/Options"
-import { invoke } from "@tauri-apps/api"
-import { BoardTuple } from "@/types/board"
 import { useBoard } from "@/store/board/board"
 import { Tasks } from "./Sections/Tasks/Tasks"
 import { Navigation } from "./Sections/Navigation/Navigation"
 
 export const Board = () => {
-  const { update } = useBoard();
+  const { find } = useBoard();
   
   useEffect(() => {
-    update({loading: true});
-    invoke<BoardTuple>('get_board', {path: '/home/elsombrero/Bureau/taskify'})
-    .then(([grouped, board]) => {
-      update({board, tasks: grouped, loading: false});
-    })
+    find('/home/elsombrero/Bureau/taskify')
   }, []);
 
   return (

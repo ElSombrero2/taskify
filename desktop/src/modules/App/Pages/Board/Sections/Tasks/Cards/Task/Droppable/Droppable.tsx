@@ -6,17 +6,20 @@ type DropableProps = {
   activatedClassName?: string;
   disabled?: boolean;
   target?: string;
+  // according to https://tailwindcss.com/docs/customizing-spacing
+  // corresponding to the padding of the container because 
+  offsetSize?: string;
   onDrop?: (id: string, target: string) => void;
 }
 
-export const Droppable = ({ className, activatedClassName, disabled, onDrop, target}: DropableProps) => {
+export const Droppable = ({ className, activatedClassName, disabled, onDrop, target, offsetSize}: DropableProps) => {
   const [entered, setEntered] = useState(false);
   const [height, setHeight] = useState<string>();
 
   const onEnter = (e: DragEvent<HTMLDivElement>) => {
     !disabled && setEntered(true);
     const height = parseInt(e.dataTransfer.types[0].split(':')[1]);
-    setHeight(`calc(${height}px)`);
+    setHeight(`calc(${height}px + ${offsetSize || '0px'})`);
   }
 
   const drop = (e: DragEvent<HTMLDivElement>) => {
@@ -38,7 +41,8 @@ export const Droppable = ({ className, activatedClassName, disabled, onDrop, tar
       onDrop={drop}
     >
       <div className={clsx(
-        'border border-dashed border-white bg-gray-800',
+        'border border-dashed',
+        'border-gray-800 bg-gray-100 dark:border-white dark:bg-gray-800',
         'pointer-events-none flex justify-center items-center',
         'rounded-lg h-full',
       )}>
