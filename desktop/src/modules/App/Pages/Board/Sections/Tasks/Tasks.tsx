@@ -15,7 +15,7 @@ export const Tasks = () => {
       <div className="flex w-full gap-10 h-[calc(100vh-266px)]">
         {States.map((state, index) => (
           <If condition={!loading} key={`${state}-${index}`} fallback={<Loader />} >
-            <Column tasks={tasks?.[state.type]}>
+            <Column state={state.type} tasks={tasks?.[state.type]}>
               <Title className={state.className}>
                 <div className="flex items-center w-full justify-between">
                   {state.label}
