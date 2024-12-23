@@ -14,7 +14,7 @@ fn main() {
     tauri::Builder::default()
     .setup(|app|{
         let window = app.get_window("main").unwrap();
-        apply_blur_to_window(window);
+        apply_blur_to_window(&window);
         Ok(())
     })
     .invoke_handler(tauri::generate_handler![

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /*
-  [TODO]: Search the problem with the windo size
+  [DONE]: Search the problem with the window size
   The window size is greater
   than the main container and create
   a #bug on display
@@ -15,6 +15,10 @@
   &:not(.linux) {
     @apply dark:bg-opacity-50 bg-opacity-70 dark:bg-gray-900;
   }
+}
+
+body {
+  overflow: hidden;
 }
 
 .main {
