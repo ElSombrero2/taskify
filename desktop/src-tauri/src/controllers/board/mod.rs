@@ -1,5 +1,15 @@
-use std::collections::{BTreeMap, LinkedList};
-use taskify::{board::Board, syntax::c_based::CBased, task::{state::TaskState, Task}};
+use std::{collections::{BTreeMap, LinkedList}, sync::Mutex, thread};
+use serde::Serialize;
+use taskify::{board::Board, events, syntax::c_based::CBased, task::{state::TaskState, Task}};
+use tauri::{AppHandle, Manager, State};
+
+use crate::AppState;
+
+#[derive(Serialize, Clone)]
+struct Payload<'a> {
+  pub tasks: Vec<Task>,
+  pub files: &'a str
+}
 
 #[tauri::command]
 pub async fn get_board(path: String) -> (BTreeMap<TaskState, LinkedList<Task>>, Board) {
@@ -11,4 +21,20 @@ pub async fn get_board(path: String) -> (BTreeMap<TaskState, LinkedList<Task>>, 
 #[tauri::command]
 pub async fn move_task(id: String, filename: String, from: TaskState, to: TaskState) {
   Board::change_state(format!("/{filename}"), id, from, to, CBased::new());
+}
+
+#[tauri::command]
+pub fn start_listen(state: State<'_, Mutex<AppState>>, app: AppHandle, path: String) {
+  let mut app_state = state.lock().unwrap();
+  if !app_state.is_listening {
+    println!("ATo");
+    app_state.is_listening = true;
+    thread::spawn(|| {
+      events::on_file_change(path, CBased::new(), move |tasks, files| {
+        println!("File changed, tasks: {}", tasks.len());
+        app.emit_all("file-change", Payload { tasks, files}).unwrap();
+        return false;
+      });
+    });
+  }
 }

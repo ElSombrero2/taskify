@@ -5,6 +5,10 @@ import { useBoard } from "@/store/board/board"
 import { Tasks } from "./Sections/Tasks/Tasks"
 import { Navigation } from "./Sections/Navigation/Navigation"
 
+/*
+  [TODO]: Hello World
+  Holla cool
+*/
 export const Board = () => {
   const { find } = useBoard();
   

@@ -3,3 +3,4 @@ node_modules
 .vitepress
 README.md
 docs
+desktop
