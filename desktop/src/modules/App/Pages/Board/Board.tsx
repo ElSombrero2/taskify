@@ -4,6 +4,7 @@ import { Options } from "./Sections/Options/Options"
 import { useBoard } from "@/store/board/board"
 import { Tasks } from "./Sections/Tasks/Tasks"
 import { Navigation } from "./Sections/Navigation/Navigation"
+import { listen } from "@tauri-apps/api/event"
 
 /*
   [TODO]: Hello World
@@ -13,7 +14,11 @@ export const Board = () => {
   const { find } = useBoard();
   
   useEffect(() => {
-    find('/home/elsombrero/Bureau/taskify')
+    find('/home/elsombrero/Bureau/taskify');
+
+    listen('file-changed', () => {
+      find('/home/elsombrero/Bureau/taskify');
+    });
   }, []);
 
   return (

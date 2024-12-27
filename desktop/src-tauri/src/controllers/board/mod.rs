@@ -26,13 +26,13 @@ pub async fn move_task(id: String, filename: String, from: TaskState, to: TaskSt
 #[tauri::command]
 pub fn start_listen(state: State<'_, Mutex<AppState>>, app: AppHandle, path: String) {
   let mut app_state = state.lock().unwrap();
+  let app_mutex = Mutex::new(app);
   if !app_state.is_listening {
-    println!("ATo");
     app_state.is_listening = true;
-    thread::spawn(|| {
+    thread::spawn(move || {
+    let app = app_mutex.lock().unwrap();
       events::on_file_change(path, CBased::new(), move |tasks, files| {
-        println!("File changed, tasks: {}", tasks.len());
-        app.emit_all("file-change", Payload { tasks, files}).unwrap();
+        app.emit_all("file-changed", Payload { tasks, files}).unwrap();
         return false;
       });
     });
