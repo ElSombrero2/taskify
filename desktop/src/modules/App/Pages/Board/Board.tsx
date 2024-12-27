@@ -5,21 +5,21 @@ import { useBoard } from "@/store/board/board"
 import { Tasks } from "./Sections/Tasks/Tasks"
 import { Navigation } from "./Sections/Navigation/Navigation"
 import { listen } from "@tauri-apps/api/event"
+import { useSearchParams } from "react-router"
+import { invoke } from "@tauri-apps/api"
 
-/*
-  [TODO]: Hello World
-  Holla cool
-*/
 export const Board = () => {
-  const { find } = useBoard();
+  const { find, reload } = useBoard();
+  const [ params ] = useSearchParams();
   
   useEffect(() => {
-    find('/home/elsombrero/Bureau/taskify');
-
-    listen('file-changed', () => {
-      find('/home/elsombrero/Bureau/taskify');
-    });
-  }, []);
+    const path = params.get('path');
+    if (path) {
+      invoke('start_listen', {path});
+      find(path);
+      listen('file-changed', () => reload());
+    }
+  }, [params]);
 
   return (
     <div>
