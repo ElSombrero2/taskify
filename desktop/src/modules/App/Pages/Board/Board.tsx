@@ -2,10 +2,10 @@ import { useEffect } from "react"
 import { Header } from "./Sections/Header/Header"
 import { Options } from "./Sections/Options/Options"
 import { useBoard } from "@/store/board/board"
-import { Tasks } from "./Sections/Tasks/Tasks"
+import { Tasks } from "./Sections/Pages/Tasks/Tasks"
 import { Navigation } from "./Sections/Navigation/Navigation"
 import { listen } from "@tauri-apps/api/event"
-import { useSearchParams } from "react-router"
+import { Route, Routes, useSearchParams } from "react-router"
 import { invoke } from "@tauri-apps/api"
 
 export const Board = () => {
@@ -27,7 +27,9 @@ export const Board = () => {
       <Options />
       <Navigation />
       <div className="p-1">
-        <Tasks />
+        <Routes>
+          <Route path="/" element={<Tasks />} />
+        </Routes>
       </div>
     </div>
   )

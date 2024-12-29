@@ -2,7 +2,7 @@ import { Card } from "@/ui/components/Cards/Card/Card"
 import { Divider } from "@/ui/components/Separators/Divider/Divider"
 import { Skeleton } from "@/ui/components/Skeleton/Skeleton"
 import { Column } from "../Column/Column"
-import { Repeat } from "../../../../../../../shared/components/Operators/Repeat/Repeat"
+import { Repeat } from "../../../../../../../../shared/components/Operators/Repeat/Repeat"
 
 export const Loader = () => {
   return (

@@ -32,3 +32,24 @@ body {
 *  {
   @apply border-gray-400 dark:border-opacity-10 border-opacity-20;
 }
+
+.scrollable {
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+  
+  &::-webkit-scrollbar{
+    display: inherit;
+    background-color: transparent;
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply 
+    dark:bg-gray-700 
+    rounded-lg bg-gray-500;
+  }
+}

@@ -6,12 +6,13 @@ import './Tasks.scss'
 import { States } from "@/utils/states"
 import { If } from "@/shared/components/Operators/If/If"
 import { Loader } from "./Loader/Loader"
+import { Details } from "./Details/Details"
 
 export const Tasks = () => {
   const { tasks, loading } = useBoard()
 
   return (
-    <div className="flex p-4 flex-col gap-8 overflow-auto task-board" data-dnd onDragOver={(e) => e.preventDefault()}>
+    <div className="flex p-4 flex-col gap-8 overflow-auto scrollable" data-dnd onDragOver={(e) => e.preventDefault()}>
       <div className="flex w-full gap-10 h-[calc(100vh-266px)]">
         {States.map((state, index) => (
           <If condition={!loading} key={`${state}-${index}`} fallback={<Loader />} >
@@ -26,6 +27,7 @@ export const Tasks = () => {
           </If>
         ))}
       </div>
+      <Details />
     </div>
   )
 }
