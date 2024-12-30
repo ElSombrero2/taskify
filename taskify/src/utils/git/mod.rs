@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::{borrow::BorrowMut, path::Path};
 use git2::{Repository, Error};
 use crate::info::Info;
 
@@ -16,6 +16,7 @@ pub fn get_info_from_repository(info: &mut Info, repository: &Result<Repository,
 
     #[cfg(target_os = "linux")]
     {
+      let mut prefix = prefix;
       prefix.remove(0);
       if let Ok(new_path) = path.strip_prefix(prefix) {
         path = new_path;
