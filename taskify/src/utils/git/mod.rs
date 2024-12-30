@@ -5,7 +5,7 @@ use crate::info::Info;
 pub fn get_info_from_repository(info: &mut Info, repository: &Result<Repository, Error>) {
   if let Ok(repository) = repository {
     let mut path = Path::new(&info.filename);
-    let mut prefix = repository.path().to_str().unwrap_or("").replace(".git/", "");
+    let prefix = repository.path().to_str().unwrap_or("").replace(".git/", "");
     
     #[cfg(target_os = "windows")]
     if path.is_absolute() {
@@ -15,9 +15,11 @@ pub fn get_info_from_repository(info: &mut Info, repository: &Result<Repository,
     }
 
     #[cfg(target_os = "linux")]
-    prefix.remove(0);
-    if let Ok(new_path) = path.strip_prefix(prefix) {
-      path = new_path;
+    {
+      prefix.remove(0);
+      if let Ok(new_path) = path.strip_prefix(prefix) {
+        path = new_path;
+      }
     }
 
     if let Ok(blame) = repository.blame_file(path, None) {
