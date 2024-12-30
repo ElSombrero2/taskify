@@ -33,7 +33,7 @@ pub fn start_listen(state: State<'_, Mutex<AppState>>, app: AppHandle, path: Str
     let app = app_mutex.lock().unwrap();
       events::on_file_change(path, CBased::new(), move |tasks, files| {
         app.emit_all("file-changed", Payload { tasks, files}).unwrap();
-        return false;
+        false
       });
     });
   }

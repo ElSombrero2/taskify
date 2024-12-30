@@ -6,7 +6,7 @@ import { States } from "@/utils/states"
 export const Details = () => {
   const state = States[0];
   return (
-    <Modal open className="w-[565px] h-full float-right shadow-lg dark:bg-gray-900 bg-gray-200 rounded-l-lg">
+    <Modal className="w-[565px] h-full float-right shadow-lg dark:bg-gray-900 bg-gray-200 rounded-l-lg">
       <div className="w-full border-b flex items-center justify-between p-4 px-6">
         <div className="flex gap-2 items-center">
           <button className="text-lg">

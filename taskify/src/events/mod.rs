@@ -15,7 +15,7 @@ pub fn on_file_change<F>(root: String, syntax: impl Syntax<Task>, callback: F) w
     watcher.configure(config).unwrap();
     
     if watcher.watch(Path::new(&root), RecursiveMode::Recursive).is_ok() {
-      'mainloop: for event in rx.iter().flatten() {
+      'main: for event in rx.iter().flatten() {
         if !(event.kind.is_access() || event.kind.is_other()) {
           for path in event.paths {
             let tasks = Task::match_regex(
@@ -23,10 +23,8 @@ pub fn on_file_change<F>(root: String, syntax: impl Syntax<Task>, callback: F) w
               &repos,
               &syntax
             );
-            if !tasks.is_empty() {
-              if callback(tasks, &root) {
-                break 'mainloop;
-              }
+            if !tasks.is_empty() && callback(tasks, &root) {
+              break 'main;
             }
           }
         }

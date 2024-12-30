@@ -1,4 +1,4 @@
-use crate::{syntax::Syntax, task::{state::TaskState, Task}, utils::file::current_filename};
+use crate::{plugins::load_script, syntax::Syntax, task::{state::TaskState, Task}, utils::file::current_filename};
 use std::{collections::{BTreeMap, LinkedList}, fs::{self}, path::Path};
 use base64::{prelude::BASE64_STANDARD, Engine};
 use git2::Error;
@@ -20,6 +20,11 @@ impl Board {
       tasks: Task::scan(directory, syntax),
       extra: None,
     }
+  }
+
+  pub async fn load_with_plugin(directory: String, syntax: impl Syntax<Task>) {
+    let board = load_script("test.js", Self::load(directory, syntax));
+    tokio::join!(board);
   }
 
   pub fn save(&self, filename: String) -> bool {

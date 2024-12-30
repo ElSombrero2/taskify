@@ -1,4 +1,4 @@
-use std::{borrow::BorrowMut, path::Path};
+use std::path::Path;
 use git2::{Repository, Error};
 use crate::info::Info;
 
