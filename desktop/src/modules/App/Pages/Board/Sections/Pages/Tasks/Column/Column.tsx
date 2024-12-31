@@ -4,7 +4,14 @@ import { TaskCard } from "../Cards/Task/Task"
 import { Droppable } from "../Cards/Task/Droppable/Droppable"
 import { useBoard } from "@/store/board/board"
 
-export const Column = ({children, tasks, state}: {children: ReactNode, tasks?: Task[], state: TaskState}) => {
+type ColumnProps = {
+  children: ReactNode;
+  tasks?: Task[];
+  state: TaskState;
+  onCardClicked?: (task: Task) => void;
+}
+
+export const Column = ({children, tasks, state, onCardClicked}: ColumnProps) => {
   const { updateTask, board } = useBoard();
 
   const onDrop = (id: string, target: string) => {
@@ -27,7 +34,11 @@ export const Column = ({children, tasks, state}: {children: ReactNode, tasks?: T
         />}
         {tasks?.map((task, index) => (
           <div className="flex flex-col" key={`${task.id}-${index}`}>
-            <TaskCard top={index === 0} task={task} />
+            <TaskCard
+              onClick={onCardClicked}
+              top={index === 0}
+              task={task}
+            />
           </div>
         ))}
       </div>

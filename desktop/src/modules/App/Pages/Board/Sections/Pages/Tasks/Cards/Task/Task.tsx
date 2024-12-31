@@ -9,7 +9,7 @@ import { Text } from "./Text/Text";
 import { Droppable } from "./Droppable/Droppable";
 import { useBoard } from "@/store/board/board";
 
-export const TaskCard = ({ task, top }: { task: Task, top?: boolean }) => {
+export const TaskCard = ({ task, top, onClick }: { task: Task, top?: boolean, onClick?: (task: Task) => void }) => {
   const [dragged, setDragged] = useState(false);
   const { board, updateTask } = useBoard();
 
@@ -37,13 +37,16 @@ export const TaskCard = ({ task, top }: { task: Task, top?: boolean }) => {
         activatedClassName="pb-5"
       />}
       <Card
+        onClick={() => onClick && onClick(task)}
         draggable
         onDragStart={onDragStart}
         onDragEnd={() => setDragged(false)}
         className={clsx(
-          "card bg-gray-100 dark:bg-gray-800 dark:bg-opacity-60",
+          "card bg-gray-100 dark:bg-gray-800 dark:bg-opacity-60 cursor-pointer",
           "min-w-[320px] max-w-[320px] flex flex-col gap-3",
           "transition-all duration-100",
+          'hover:bg-gray-200 hover:dark:bg-gray-800 hover:dark:bg-opacity-100 ',
+          'active:bg-gray-300 active:dark:bg-gray-800 active:dark:bg-opacity-60',
           dragged && 'opacity-20',
         )}
       >

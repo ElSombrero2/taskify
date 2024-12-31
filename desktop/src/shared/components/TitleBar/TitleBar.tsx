@@ -1,37 +1,32 @@
 import { appWindow } from "@tauri-apps/api/window";
 import { useWindow } from "@/hooks/window";
 import { invoke } from "@tauri-apps/api";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import './TitleBar.scss'
 import clsx from "clsx";
 import { SearchBar } from "./SearchBar/SearchBar";
 import { Toggler } from "./Toggler/Toggler";
 import { Theme } from "../../../providers/Theme/Theme";
+import { useListener } from "@/hooks/listener";
 
 export const TitleBar = () => {
   const { isWidget } = useWindow();
   const [maximized, setMaximized] = useState(false);
   const { setTheme, theme } = useContext(Theme);
 
+  useListener('tauri://resize', async () => {
+    setMaximized(await appWindow.isMaximized());
+    if (!isWidget && !await appWindow.isMinimized()) {
+      await invoke('close_widget');
+    }
+  })
+
   const minimize = async () => {
-    await appWindow.minimize();
     await invoke('open_widget', { theme });
+    await appWindow.minimize();
   }
   const close = async () => await appWindow.close();
   const maximize = async () => await appWindow.toggleMaximize();
-
-  useEffect(() => {
-    const listener = appWindow.onResized(async () => {
-      setMaximized(await appWindow.isMaximized());
-      if (!isWidget && !await appWindow.isMinimized()) {
-        await invoke('close_widget');
-      }
-    })
-
-    return () => {
-      listener.then(free => free());
-    }
-  }, []);
 
   const switchTheme = (isLight: boolean) => setTheme(isLight ? 'light' : 'dark')
 
