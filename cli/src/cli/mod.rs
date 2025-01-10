@@ -2,6 +2,7 @@ use clap::{Parser, Subcommand};
 use taskify::task::state::TaskState;
 
 pub mod controllers;
+pub mod ui;
 
 ///{n}
 ///_____                 _      _    __               _
@@ -57,5 +58,7 @@ pub enum SubCommand {
     /// Your target task State, possible value (TODO, READY, WIP, DONE, TESTING)
     #[arg(long, short = 't')]
     to: TaskState,
-  }
+  },
+  /// CLI UI (Beta)
+  UI,
 }

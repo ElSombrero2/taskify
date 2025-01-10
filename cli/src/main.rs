@@ -1,5 +1,5 @@
 use clap::Parser;
-use cli::{controllers::board::BoardController, Cli};
+use cli::{controllers::board::BoardController, ui::run_app, Cli};
 use taskify::syntax::c_based::CBased;
 
 mod cli;
@@ -16,6 +16,7 @@ fn main() {
     cli::SubCommand::Move { file, id, from, to } => BoardController::move_task(file, id, from, to),
     cli::SubCommand::Serve { port } => {
       api::server::serve(port);
-    }
+    },
+    cli::SubCommand::UI => run_app(),
   }
 }

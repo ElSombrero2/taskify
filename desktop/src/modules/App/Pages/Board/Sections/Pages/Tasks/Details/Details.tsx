@@ -46,7 +46,6 @@ export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean,
         <div className="flex flex-col gap-4 p-4">
         </div>
       </div>
-      
     </Modal>
   )
 }
