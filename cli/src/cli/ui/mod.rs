@@ -1,22 +1,72 @@
-use crossterm::event::{self, Event};
-use ratatui::{DefaultTerminal, Frame};
+use clap::error::Result;
+use crossterm::event::{self, Event, KeyCode, KeyEventKind};
+use ratatui::{layout::{Alignment, Constraint, Direction, Layout}, symbols::border, text::Line, widgets::{block::Position, Block, Padding, Tabs}, DefaultTerminal, Frame};
+
+// This code is just a draft
 
 pub fn run_app () {
   let terminal = ratatui::init();
-  let result = run(terminal);
+  run(terminal).unwrap();
   ratatui::restore();
-  result
 }
 
-fn run(mut terminal: DefaultTerminal) {
+fn run(mut terminal: DefaultTerminal) -> Result<()> {
+  let mut tab: usize = 0;
   loop {
-      terminal.draw(render).unwrap();
-      if matches!(event::read().unwrap(), Event::Key(_)) {
-          break;
+    terminal.draw( |frame| render(frame, &tab))?;
+    if let Event::Key(key_event) = event::read()?  {
+      if key_event.kind == KeyEventKind::Press {
+        if key_event.code == KeyCode::Esc {
+          break Ok(());
+        }
+        else if key_event.code == KeyCode::Right {
+          if tab >= 1 {
+            tab = 0;
+          } else {
+            tab += 1;
+          }
+        }
+        else if key_event.code == KeyCode::Left {
+          if tab == 0 {
+            tab = 1;
+          } else {
+            tab -= 1;
+          }
+        }
       }
+    }
   }
 }
 
-fn render(frame: &mut Frame) {
-frame.render_widget("hello world", frame.area());
+fn render(frame: &mut Frame, selected_tab: &usize) {
+  let window = Block::bordered().title("Taskify")
+  .title_bottom("<Esc to quit>")
+  .title_alignment(Alignment::Center);
+
+  let title = Line::from("◄ ► to change tab")
+  .right_aligned();
+
+  let titles = vec!["Todo", "Ready"];
+
+  let tabs = Tabs::new(titles)
+  .select(*selected_tab)
+  .block(window);
+
+  let main = Block::bordered()
+  .border_set(border::PROPORTIONAL_TALL)
+  .title_alignment(Alignment::Right)
+  .title_position(Position::Top)
+  .padding(Padding::uniform(1));
+
+
+  let inner_main = main.inner(frame.area());
+
+  let layout = Layout::new(Direction::Vertical, vec![
+    Constraint::Percentage(98),
+    Constraint::Percentage(2),
+  ]).split(inner_main);
+
+  frame.render_widget(tabs, frame.area());
+  frame.render_widget(main, layout[0]);
+  frame.render_widget(title, layout[1]);
 }
