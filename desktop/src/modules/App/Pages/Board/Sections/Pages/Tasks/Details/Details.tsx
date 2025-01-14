@@ -29,21 +29,11 @@ export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean,
 
           <div className="flex flex-col gap-5">
             <TaskInfo task={task} />
-
-            <If condition={!!task?.description}>
-              <TaskDescription description={task?.description!} />
-            </If>
-
+              <If condition={!!task?.description}>
+                <TaskDescription description={task?.description!} />
+              </If>
             <Attachments />
           </div>
-        </div>
-
-        <div className="flex items-center p-4 px-6 border-b">
-          <p className="text-lg font-bold">
-            Subtasks
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 p-4">
         </div>
       </div>
     </Modal>
