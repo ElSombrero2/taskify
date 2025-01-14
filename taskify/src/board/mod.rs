@@ -1,4 +1,4 @@
-use crate::{syntax::Syntax, task::{state::TaskState, Task}, utils::file::current_filename};
+use crate::{plugins::load_script, syntax::Syntax, task::{state::TaskState, Task}, utils::file::current_filename};
 use std::{collections::{BTreeMap, LinkedList}, fs::{self}, path::Path};
 use base64::{prelude::BASE64_STANDARD, Engine};
 use git2::Error;
@@ -20,6 +20,11 @@ impl Board {
       tasks: Task::scan(directory, syntax),
       extra: None,
     }
+  }
+
+  pub async fn load_with_plugin(directory: String, syntax: impl Syntax<Task>) {
+    let board = load_script("test.js", Self::load(directory, syntax));
+    tokio::join!(board);
   }
 
   pub fn save(&self, filename: String) -> bool {
@@ -56,7 +61,7 @@ impl Board {
   }
 
   pub fn change_state (filename: String, id: String, current_state: TaskState, state: TaskState, syntax: impl Syntax<Task>) -> bool {
-    let path = "./".to_owned() + &filename;
+    let path = if Path::new(&filename).is_absolute() { filename.clone() } else { "./".to_owned() + &filename } ;
     if let Ok(raw_file) = fs::read_to_string(&path) {
       for task in Task::match_regex(filename, &Err(Error::from_str("")), &syntax) {
         if task.verify(&id) {
@@ -68,7 +73,6 @@ impl Board {
 
       }
     }
-
     false
   }
 

@@ -22,7 +22,7 @@ fn create_instance(handle: AppHandle, theme: Option<String>) {
     .initialization_script(&script)
     .build().unwrap();
 
-    apply_blur_to_window(window);
+    apply_blur_to_window(&window);
   }
 }
 

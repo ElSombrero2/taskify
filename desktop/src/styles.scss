@@ -2,11 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  [TESTING]: Search the problem with the window size
+  The window size is greater
+  than the main container and create
+  a #bug on display
+*/
 .main-window {
   @apply w-screen h-screen text-gray-800
-  bg-gray-100 dark:bg-gray-900
-  dark:bg-opacity-50 bg-opacity-70
+  bg-gray-100 dark:bg-gray-800
   dark:text-gray-100 border;
+  &:not(.linux) {
+    @apply dark:bg-opacity-50 bg-opacity-70 dark:bg-gray-900;
+  }
+}
+
+body {
+  overflow: hidden;
 }
 
 .main {
@@ -19,4 +31,25 @@
 
 *  {
   @apply border-gray-400 dark:border-opacity-10 border-opacity-20;
+}
+
+.scrollable {
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+  
+  &::-webkit-scrollbar{
+    display: inherit;
+    background-color: transparent;
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    @apply 
+    dark:bg-gray-700 
+    rounded-lg bg-gray-500;
+  }
 }

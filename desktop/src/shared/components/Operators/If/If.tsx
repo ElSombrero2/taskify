@@ -1,13 +1,5 @@
 import { ReactNode } from "react"
 
-export type IfProps = {
-  children: ReactNode, fallback: ReactNode, condition?: boolean
-};
-
-export const If = ({children, fallback, condition}: IfProps) => {
-  return (
-    <>
-      {condition ? children : fallback}
-    </>
-  );
+export const If = ({condition, children}: {condition?: boolean, children: ReactNode}) => {
+  if (condition) return children;
 }

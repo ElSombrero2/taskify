@@ -1,6 +1,4 @@
 /target
 .examples
-.taskifyignore
-.taskify
 dist
 .extensions

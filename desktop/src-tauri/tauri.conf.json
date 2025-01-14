@@ -23,6 +23,12 @@
         "close": true,
         "maximize": true,
         "unmaximize": true
+      },
+      "os": {
+        "all": true
+      },
+      "dialog": {
+        "all": true
       }
     },
     "windows": [

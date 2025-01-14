@@ -13,6 +13,7 @@ notify = { workspace = true, features = ["serde"] }
 clap = { version = "4.5.20", features = ["derive"] }
 colored = "2.1.0"
 comfy-table = "7.1.1"
+crossterm = "0.28.1"
 
 [[bin]]
 name = "taskify"
