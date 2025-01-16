@@ -10,12 +10,21 @@ pub struct Author {
 }
 
 #[derive(Serialize, Deserialize, Default, Debug, Clone, ToSchema)]
+pub struct AttachedFile {
+  pub name: String,
+  pub url: String,
+  pub size: u32,
+  pub mime_type: String,
+}
+
+#[derive(Serialize, Deserialize, Default, Debug, Clone, ToSchema)]
 pub struct Info {
   pub filename: String,
   pub start_line: usize,
   pub end_line: usize,
   pub date: Option<String>,
   pub author: Option<Author>,
+  pub attached_files: Option<Vec<AttachedFile>>,
 }
 
 impl Info {
@@ -27,7 +36,8 @@ impl Info {
       start_line: start,
       end_line: end,
       date: Option::default(),
-      author: Option::default()
+      author: Option::default(),
+      attached_files: Option::default(),
     }
   }
 

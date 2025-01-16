@@ -5,10 +5,11 @@ type ModalProps = {
   children?: ReactNode,
   className?: string,
   open?: boolean,
-  onBackDropClick?: () => void
+  onBackDropClick?: () => void,
+  backdropClassName?: string,
 }
 
-export const Modal = ({children, className, open, onBackDropClick}: ModalProps) => {
+export const Modal = ({children, className, open, onBackDropClick, backdropClassName}: ModalProps) => {
   const stopPropagation = (e: unknown) => (e as Event).stopPropagation(); 
 
   return (
@@ -21,6 +22,7 @@ export const Modal = ({children, className, open, onBackDropClick}: ModalProps) 
         className={clsx(
           'w-full h-full rounded-lg overflow-hidden bg-black bg-opacity-45',
           open && 'pointer-events-auto',
+          backdropClassName,
         )}>
         <div onClick={stopPropagation} className={className}>
           {children}

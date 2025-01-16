@@ -1,6 +1,7 @@
 import Markdown from "react-markdown"
 import { InfoText } from "../InfoText/InfoText"
 import remarkGfm from "remark-gfm"
+import { LinkPlugin } from "@/plugins/markdown/link/link"
 
 export const TaskDescription = ({description}: {description: string}) => {
   return (
@@ -8,6 +9,8 @@ export const TaskDescription = ({description}: {description: string}) => {
       <div className="p-3 border border-gray-500 border-opacity-20 rounded-lg">
         <Markdown
           remarkPlugins={[remarkGfm]}
+
+          rehypePlugins={[LinkPlugin]}
           className="prose dark:text-gray-100 dark:prose-invert text-sm"
         >
           {description}

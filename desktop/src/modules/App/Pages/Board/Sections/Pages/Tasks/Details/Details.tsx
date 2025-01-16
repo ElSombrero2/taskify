@@ -8,7 +8,6 @@ import { TaskDescription } from "./Description/Description";
 import { Attachments } from "./Attachments/Attachments";
 
 export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean, onClickExit?: () => void}) => {
-
   return (
     <Modal
       onBackDropClick={onClickExit}
@@ -19,6 +18,7 @@ export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean,
         'transition-transform duration-200',
         !open && 'translate-x-[565px]',
       )}
+      backdropClassName="backdrop-blur-md"
     >
       <Header path={task?.info?.filename || ''} onClickExit={onClickExit} />
       <div className="max-h-[90vh] overflow-y-scroll">
@@ -32,7 +32,7 @@ export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean,
               <If condition={!!task?.description}>
                 <TaskDescription description={task?.description!} />
               </If>
-            <Attachments />
+              {!!task && !!task?.info.attached_files.length && <Attachments files={task.info.attached_files} />}
           </div>
         </div>
       </div>

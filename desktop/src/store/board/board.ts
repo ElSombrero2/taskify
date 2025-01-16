@@ -20,6 +20,7 @@ export const useBoard = create<BoardState>((set, get) => ({
   find: async (path: string) => {
     get().load(true);
     const [tasks, board] = await invoke<BoardTuple>('get_board', {path})
+
     set(state => ({
       ...state,
       path,
