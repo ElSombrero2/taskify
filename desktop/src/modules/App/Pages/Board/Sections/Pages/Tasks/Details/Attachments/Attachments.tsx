@@ -1,13 +1,9 @@
 import { Button } from "@/ui/components/Buttons/Button/Button"
 import { InfoText } from "../InfoText/InfoText"
 import { AttachedFile } from "@/types/task"
-import { useEffect } from "react"
 import { FileCard } from "./FileCard/FileCard"
 
 export const Attachments = ({ files }: {files: AttachedFile[]}) => {
-  useEffect(() => {
-    console.log(files);
-  }, [files])
   return (
     <InfoText
       icon="fa-regular fa-file-lines"

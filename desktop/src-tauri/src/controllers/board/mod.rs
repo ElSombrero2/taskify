@@ -20,7 +20,10 @@ pub async fn get_board(path: String) -> (BTreeMap<TaskState, LinkedList<Task>>, 
 
 #[tauri::command]
 pub async fn move_task(id: String, filename: String, from: TaskState, to: TaskState) {
+  #[cfg(target_os = "linux")]
   Board::change_state(format!("/{filename}"), id, from, to, CBased::new());
+  #[cfg(target_os = "windows")]
+  Board::change_state(filename, id, from, to, CBased::new());
 }
 
 #[tauri::command]

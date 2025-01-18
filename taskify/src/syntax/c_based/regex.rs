@@ -4,13 +4,13 @@ use crate::{info::Info, syntax::Syntax, task::{state::TaskState, Task}, utils::m
 use super::{utils::{get_state_and_title, get_tags, sanitize}, CBased};
 
 impl  CBased {
-  pub fn inline_regex(&self) -> String {
-    format!(r"(/\*[\s]*\[({})\]\:[ ]*[[:ascii:]&&[^/]]*\*/[\s]*)", self.states)
+  pub fn multiline_regex(&self) -> String {
+    format!(r"(/\*[\s]*\[({})\]\:[ ]*[^/]*\*/[\s]*)", self.states)
   }
 
-  pub fn multiline_regex(&self) -> String {
+  pub fn inline_regex(&self) -> String {
     let states = &self.states;
-    format!(r"(//[ ]((\[({states})\]\:)|({states})))[ ][[:ascii:]&&[^\n\r]]*")
+    format!(r"(//[ ]((\[({states})\])|({states}))(\:)?)[ ][^\n\r]*")
   }
 }
 
@@ -35,7 +35,7 @@ impl Syntax<Task> for CBased {
   
   fn regex(&self) -> regex::Regex {
     Regex::new(
-      &format!(r"(?m){}|{}", self.multiline_regex(), self.inline_regex()),
+      &format!(r"(?m){}|{}", self.inline_regex(),  self.multiline_regex()),
     ).expect("An error occurred with the current regex")
   }
 }

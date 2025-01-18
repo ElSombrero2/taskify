@@ -7,7 +7,7 @@ import { States } from "@/utils/states"
 import { Switch } from "@/shared/components/Operators/Switch/Switch"
 import { Loader } from "./Loader/Loader"
 import { Details } from "./Details/Details"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Task } from "@/types/task"
 
 export const Tasks = () => {
@@ -24,14 +24,10 @@ export const Tasks = () => {
     // same file is deprecated
     setId(task?.id?.split('.')?.[0]);
   }
-
+  
   // Allow to get realtime update because the board is refreshed
   // when file are changing
   const task = () => board?.tasks.find((t) => t.id.startsWith(id || ' '));
-
-  useEffect(() => {
-    console.log(task());
-  }, [board]);
 
   return (
     <div className="flex p-4 flex-col gap-8 overflow-auto scrollable" data-dnd onDragOver={(e) => e.preventDefault()}>

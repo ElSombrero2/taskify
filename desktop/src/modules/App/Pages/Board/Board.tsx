@@ -12,7 +12,7 @@ export const Board = () => {
   const { find, reload } = useBoard();
   const [ params ] = useSearchParams();
 
-  useListener('file-changed', () => reload());
+  useListener('file-changed', () => reload(false));
   
   useEffect(() => {
     const path = params.get('path');

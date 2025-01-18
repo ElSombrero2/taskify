@@ -7,7 +7,7 @@ import { useBoard } from "@/store/board/board"
 type ColumnProps = {
   children: ReactNode;
   tasks?: Task[];
-  state: TaskState;
+  state?: TaskState;
   onCardClicked?: (task: Task) => void;
 }
 

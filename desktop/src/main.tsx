@@ -6,9 +6,11 @@ import { Theme, ThemeProvider } from "./providers/Theme/Theme";
 import { useWindow } from "./hooks/window";
 import { Widget } from "./modules/Widget/Widget";
 import App from "./modules/App/App";
+import { invoke } from "@tauri-apps/api";
 
 const AppProvider = () => {
   const { isWidget, os } = useWindow();
+  invoke("zoom_window", {scaleFactor: 0.8});
 
   return (
     <Theme.Consumer>

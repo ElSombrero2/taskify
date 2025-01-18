@@ -15,5 +15,5 @@ pub fn get_files(str: &str) -> Vec<AttachedFile> {
       files.push(AttachedFile { name, url, size, mime_type });
     }
   }
-  return files;
+  files
 }
