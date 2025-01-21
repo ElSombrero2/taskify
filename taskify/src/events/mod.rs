@@ -18,7 +18,7 @@ pub fn on_file_change<F>(root: String, syntax: impl Syntax<Task>, callback: F) w
       'main: for event in rx.iter().flatten() {
         if !(event.kind.is_access() || event.kind.is_other()) {
           for path in event.paths {
-            let tasks = Task::match_regex(
+            let tasks = Task::from_path(
               path.to_str().unwrap().to_string(),
               &repos,
               &syntax

@@ -17,12 +17,7 @@ export const Tasks = () => {
 
   const onCardClicked = (task: Task) => {
     setShowDetail(true);
-    // id is splited with "." because the id is constructed by using
-    // {title}.{start_line:endline} to match the task in remove or
-    // update if there is many tasks with similar title
-    // NB: edge case because a task with the same title in the
-    // same file is deprecated
-    setId(task?.id?.split('.')?.[0]);
+    setId(task?.id);
   }
   
   // Allow to get realtime update because the board is refreshed

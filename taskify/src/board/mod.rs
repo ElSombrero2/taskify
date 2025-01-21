@@ -49,7 +49,7 @@ impl Board {
   pub fn remove_task(filename: String, id: String, syntax: impl Syntax<Task>) -> bool {
     let path = "./".to_owned() + &filename;
     if let Ok(raw_file) = fs::read_to_string(&path) {
-      for task in Task::match_regex(filename, &Err(Error::from_str("")), &syntax) {
+      for task in Task::from_path(filename, &Err(Error::from_str("")), &syntax) {
         if task.verify(&id) {
           if let Some(comment) = Self::decode_comment(task.raw) {
             return fs::write(&path, raw_file.replace(&comment, "")).is_ok();
@@ -63,7 +63,7 @@ impl Board {
   pub fn change_state (filename: String, id: String, current_state: TaskState, state: TaskState, syntax: impl Syntax<Task>) -> bool {
     let path = if Path::new(&filename).is_absolute() { filename.clone() } else { "./".to_owned() + &filename };
     if let Ok(raw_file) = fs::read_to_string(&path) {
-      for task in Task::match_regex(filename, &Err(Error::from_str("")), &syntax) {
+      for task in Task::from_path(filename, &Err(Error::from_str("")), &syntax) {
         if task.verify(&id) {
           if let Some(comment) = Self::decode_comment(task.raw) {
             let new_comment = comment.replace(&format!("[{}]: ", current_state.id()), &format!("[{}]: ", state.id()));

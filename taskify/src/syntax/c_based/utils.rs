@@ -2,7 +2,7 @@ use regex::Regex;
 
 pub fn sanitize(str: &str) -> Vec<String> {
   let sanitizer_regex = Regex::new(r"(/\*)|(\*/)|\r|(//)")
-  .unwrap().replace_all(str, "").to_string().replace("\\", "/");
+  .unwrap().replace_all(str, "").to_string();
   
   sanitizer_regex.split('\n').filter_map(|s| {
     let str = s.trim();

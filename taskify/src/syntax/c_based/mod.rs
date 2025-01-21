@@ -1,6 +1,6 @@
 use crate::task::state::STATES;
 
-mod regex;
+mod matcher;
 mod utils;
 
 pub struct CBased {
@@ -18,3 +18,4 @@ impl Default for CBased {
     Self::new()
   }
 }
+

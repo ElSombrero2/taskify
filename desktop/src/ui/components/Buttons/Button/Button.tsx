@@ -7,7 +7,7 @@ import { variants } from "./Button.variants"
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   size?: Size,
   theme?: Theme,
-  type?: 'default' | 'link' | 'outline'
+  type?: 'default' | 'link' | 'outline',
 }
 
 export const Button = ({type, children, size, theme, ...props}: ButtonProps) => {

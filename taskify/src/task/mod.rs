@@ -8,7 +8,7 @@ use std::{collections::LinkedList, fs::{self, DirEntry}, vec};
 
 pub mod state;
 pub mod ignore;
-pub mod regex;
+pub mod path;
 
 #[derive(Debug, Default, Serialize, Deserialize, Clone, ToSchema)]
 pub struct Task {
@@ -23,22 +23,18 @@ pub struct Task {
 
 impl Task {
   pub fn new (title: String, description: Option<String>, state: TaskState, tags: Vec<String>, info: Info, raw: String) -> Self {
-    let start_line = info.start_line;
-    let end_line = info.end_line;
     Self { 
       title: title.clone(), description, state, tags, info, raw,
-      id: Self::create_id(&title, start_line, end_line),
+      id: Self::create_id(&title),
     }
   }
 
   pub fn verify (&self, token: &str) -> bool {
-    Self::create_id(&self.title, self.info.start_line, self.info.end_line).eq(token)
+    Self::create_id(&self.title).eq(token)
   }
 
-  fn create_id (title: &str, start_line: usize, end_line: usize) -> String {
-    let encoded_title = BASE64_STANDARD.encode(title);
-    let encoded_line = BASE64_STANDARD.encode(format!("({},{})", start_line, end_line));
-    format!("{}.{}", encoded_title, encoded_line)
+  fn create_id (title: &str) -> String {
+    BASE64_STANDARD.encode(title)
   }
 
   pub fn scan(directory: String, syntax: impl Syntax<Task>) -> Vec<Task> {
@@ -70,7 +66,7 @@ impl Task {
         if file_type.is_dir() {
           stack.push_back(path.to_string());
         } else {
-          return Task::match_regex(path.to_string(), repository, syntax);
+          return Task::from_path(path.to_string(), repository, syntax);
         }
       }
     }
