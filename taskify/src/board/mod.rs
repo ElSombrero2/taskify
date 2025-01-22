@@ -66,7 +66,7 @@ impl Board {
       for task in Task::from_path(filename, &Err(Error::from_str("")), &syntax) {
         if task.verify(&id) {
           if let Some(comment) = Self::decode_comment(task.raw) {
-            let new_comment = comment.replace(&format!("[{}]: ", current_state.id()), &format!("[{}]: ", state.id()));
+            let new_comment = comment.replacen(&format!("{}", current_state.id()), &format!("{}", state.id()), 1);
             return fs::write(&path, raw_file.replace(&comment, &new_comment)).is_ok();
           }
         }

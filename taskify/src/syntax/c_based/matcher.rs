@@ -4,12 +4,20 @@ use crate::{comment::Comment, info::Info, syntax::Syntax, task::{state::TaskStat
 use super::{utils::{get_state_and_title, get_tags, sanitize}, CBased};
 
 impl CBased {
-  fn get_inline_tasks (raw_file: &str) -> Vec<Comment> {
-    let comments: Vec<Comment> = vec![];
-    let regex = Regex::new(r"(//[ ]((\[({states})\]\:)|({states})))[ ][[:ascii:]&&[^\n\r]]*").unwrap();
+  fn get_inline_comments (&self, raw_file: &str) -> Vec<Comment> {
+    let mut comments: Vec<Comment> = vec![];
+
+    let states = &self.states;
+    
+    let regex = Regex::new(&format!(r"(//[ ]((\[({states})\])|({states}))\:?)[ ][[:ascii:]&&[^\n\r]]*")).unwrap();
 
     for expr in regex.find_iter(raw_file) {
-      
+      let line = get_line(raw_file, expr.start());
+      comments.push(Comment { 
+        raw: expr.as_str().to_string(),
+        start_line: line,
+        end_line: line
+      });
     }
 
     return comments;
@@ -41,6 +49,8 @@ impl Syntax<Task> for CBased {
   fn comments(&self, raw_file: String) -> Vec<Comment> {
     let files = raw_file.split("/*");
     let mut comments: Vec<Comment> = vec![];
+    let mut inline_comments = self.get_inline_comments(&raw_file);
+    comments.append(&mut inline_comments);
 
     for file in files {
       if let Some(end) = file.find("*/") {
