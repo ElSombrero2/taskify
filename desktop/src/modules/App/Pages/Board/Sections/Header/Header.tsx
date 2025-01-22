@@ -3,17 +3,26 @@ import { Button } from "@/ui/components/Buttons/Button/Button"
 import { Input } from "@/ui/components/Form/Input/Input"
 import { Skeleton } from "@/ui/components/Skeleton/Skeleton"
 import { Switch } from "@/shared/components/Operators/Switch/Switch"
+import { useSearchParams } from "react-router"
 
 export const Header = () => {
   const { loading, board } = useBoard();
+  const [ query ] = useSearchParams();
+
+  const path = () => {
+    let path = query.get('path')?.split('/') || [];
+    path?.pop();
+    return path;
+  }
 
   return (
     <div className="flex justify-between border-b p-4 px-6">
       <Switch fallback={<Skeleton className="w-[460px]" />} condition={!loading}>
         <div className="text-md flex gap-3 items-center">
           <i className="fa fa-folder"></i>
-          <span className="font-thin opacity-70">Folder /</span>
-          <span className="font-thin opacity-70">Project /</span>
+          {path().map((path) => (
+            <span className="font-thin opacity-70">{path} /</span>
+          ))}
           <span className="font-semibold">{board?.name}</span>
         </div>
       </Switch>

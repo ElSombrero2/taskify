@@ -13,7 +13,9 @@ struct Payload<'a> {
 
 #[tauri::command]
 pub async fn get_board(path: String) -> (BTreeMap<TaskState, LinkedList<Task>>, Board) {
-  let board = Board::load(path, CBased::new());
+  let p = path.clone();
+  let project_name = p.split("/").collect::<Vec<&str>>().pop();
+  let board = Board::load(path, CBased::new(), project_name);
   let grouped_task = board.group_by_state();
   (grouped_task, board)
 }

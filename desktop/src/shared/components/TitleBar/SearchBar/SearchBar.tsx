@@ -15,7 +15,7 @@ export const SearchBar = ({words, className}: SearchBarProps) => {
 
   const filter = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    if (value?.length) setFiltered(words.filter((w) => w.includes(value)));
+    if (value?.length) setFiltered(words.filter((w) => w.includes(value.toLowerCase())));
     else setFiltered([]);
   }
 

@@ -16,7 +16,7 @@ export const Attachments = ({ files }: {files: AttachedFile[]}) => {
         </Button>
       )}
     >
-      <div className="flex overflow-auto gap-5 scrollable pb-2">
+      <div className="flex overflow-auto gap-5 scrollable pb-4">
         {files.map((file, index) => (
           <FileCard
             key={`${file.name}-${index}`}

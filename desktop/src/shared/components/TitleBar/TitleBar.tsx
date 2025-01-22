@@ -1,7 +1,7 @@
 import { appWindow } from "@tauri-apps/api/window";
 import { useWindow } from "@/hooks/window";
 import { invoke } from "@tauri-apps/api";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import './TitleBar.scss'
 import clsx from "clsx";
 import { SearchBar } from "./SearchBar/SearchBar";
@@ -13,6 +13,7 @@ export const TitleBar = () => {
   const { isWidget } = useWindow();
   const [maximized, setMaximized] = useState(false);
   const { setTheme, theme } = useContext(Theme);
+  const [items, setItems] = useState<string[]>([]);
 
   useListener('tauri://resize', async () => {
     setMaximized(await appWindow.isMaximized());
@@ -20,6 +21,11 @@ export const TitleBar = () => {
       await invoke('close_widget');
     }
   })
+
+  useEffect(() => {
+    setItems((JSON.parse(localStorage.getItem('TASKIFY_RECENT_PROJECT') || '[]') as string[])
+    .map((path) => path.split('/').pop() as string));
+  }, []);
 
   const minimize = async () => {
     await invoke('open_widget', { theme });
@@ -40,7 +46,7 @@ export const TitleBar = () => {
           <Toggler defaultValue={theme !== 'dark'} onChange={switchTheme} />
         </div>
       </div>
-      <SearchBar className="relative left-8" words={['Taskify', 'New Project', 'Where are your', 'Help Me please']} />
+      <SearchBar className="relative left-8" words={items} />
       <div className="flex items-center gap-6">
         <div className="flex gap-2 relative left-[4px]">
           <button onClick={minimize} className="title-bar-button hover:bg-gray-200 dark:hover:bg-gray-700">

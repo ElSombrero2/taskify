@@ -14,16 +14,16 @@ pub struct Board {
 }
 
 impl Board {
-  pub fn load(directory: String, syntax: impl Syntax<Task>) -> Board {
+  pub fn load(directory: String, syntax: impl Syntax<Task>, project_name: Option<&str>) -> Board {
     Board { 
-      name: current_filename(),
+      name: if project_name.is_some() { project_name.unwrap().to_string() } else { current_filename() },
       tasks: Task::scan(directory, syntax),
       extra: None,
     }
   }
 
   pub async fn load_with_plugin(directory: String, syntax: impl Syntax<Task>) {
-    let board = load_script("test.js", Self::load(directory, syntax));
+    let board = load_script("test.js", Self::load(directory, syntax, None));
     tokio::join!(board);
   }
 

@@ -28,13 +28,15 @@ export const Home = () => {
             directory: true,
             multiple: false,
         }) as string;
-        updateRecentProjects(folder);
-        redirect(folder);
+        if (folder) {
+            updateRecentProjects(folder);
+            redirect(folder);
+        }
     }
 
     return (
         <div className="p-4 h-[60vh] flex justify-center">
-            <div className="flex h-full justify-center flex-col gap-10 w-[400px]">
+            <div className="flex h-full pt-11 justify-center flex-col gap-20 w-[400px]">
                 <div className="text-center flex flex-col gap-3">
                     <p className="text-4xl font-bold">
                         Welcome to taskify<span className="text-rose-500">.io</span>
@@ -54,9 +56,9 @@ export const Home = () => {
                         <span>Clone</span>
                     </Button>
                 </div>
-                {!!recents.length && <div className="flex flex-col gap-4">
-                    <p className="text-lg">Recents projects</p>
-                    <div className="flex flex-col">
+                {!!recents.length && <div className="flex flex-col gap-3">
+                    <p>Recents projects</p>
+                    <div>
                         {recents.slice(0, 5).map((project) => (
                             <Button type="link" onClick={() => redirect(project)}>
                                 {project}
