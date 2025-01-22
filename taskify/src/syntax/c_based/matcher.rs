@@ -1,9 +1,19 @@
 use base64::{prelude::BASE64_STANDARD, Engine};
+use regex::Regex;
 use crate::{comment::Comment, info::Info, syntax::Syntax, task::{state::TaskState, Task}, utils::{file::get_line, markdown}};
 use super::{utils::{get_state_and_title, get_tags, sanitize}, CBased};
 
 impl CBased {
-  
+  fn get_inline_tasks (raw_file: &str) -> Vec<Comment> {
+    let comments: Vec<Comment> = vec![];
+    let regex = Regex::new(r"(//[ ]((\[({states})\]\:)|({states})))[ ][[:ascii:]&&[^\n\r]]*").unwrap();
+
+    for expr in regex.find_iter(raw_file) {
+      
+    }
+
+    return comments;
+  }
 }
 
 impl Syntax<Task> for CBased {
