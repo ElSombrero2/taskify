@@ -13,7 +13,8 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
 export const Button = ({type, children, size, theme, ...props}: ButtonProps) => {
   return (
     <button {...props} className={clsx(
-      'border flex items-center gap-2 rounded-md py-1 px-4 transition-all duration-100',
+      'border flex items-center gap-2 rounded-md transition-all duration-100',
+      type !== 'link' && 'py-1 px-4',
       variants.type[type || 'default'][theme || 'primary'],
       variants.size[size || 'md'],
       props.className,

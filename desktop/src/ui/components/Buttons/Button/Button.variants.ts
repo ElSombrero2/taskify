@@ -12,8 +12,8 @@ export const variants = {
       secondary: 'bg-opacity-60 dark:bg-gray-800 disabled:opacity-50 bg-gray-300 hover:bg-gray-400 not:disabled:hover:bg-opacity-40 active:bg-opacity-60 dark:hover:bg-opacity-20 dark:active:bg-opacity-10',
     },
     link: {
-      primary: 'text-blue-600 hover:underline border-none',
-      secondary: 'border-none hover:underline',
+      primary: 'text-blue-600 hover:underline border-none p-0',
+      secondary: 'border-none hover:underline p-0',
     },
     outline: {
       primary: 'text-blue-600 border-blue-600 border-opacity-60 hover:bg-blue-600 hover:text-white active:bg-blue-700',

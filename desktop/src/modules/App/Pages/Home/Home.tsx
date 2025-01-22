@@ -1,21 +1,40 @@
 import { Button } from "@/ui/components/Buttons/Button/Button";
 import { open } from "@tauri-apps/api/dialog"
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+
+const RECENT_PROJECT = 'TASKIFY_RECENT_PROJECT';
 
 export const Home = () => {
     const navigate = useNavigate();
+    const [recents, setRecent] = useState<string[]>([]);
+
+    useEffect(() => {
+        const projects = JSON.parse(localStorage.getItem(RECENT_PROJECT) || '[]');
+        setRecent(projects);
+    }, []);
+
+    const redirect = (folder: string) =>  navigate(`/board?path=${folder}`);
+
+    const updateRecentProjects = (folder: string) => {
+        const index = recents.findIndex((p) => p === folder);
+        if (index >= 0) recents.splice(index, 1);
+        recents.unshift(folder);
+        localStorage.setItem(RECENT_PROJECT, JSON.stringify(recents));
+    }
 
     const openFolder = async () => {
         const folder = await open({
             directory: true,
             multiple: false,
-        });
-        navigate(`/board?path=${folder}`);
+        }) as string;
+        updateRecentProjects(folder);
+        redirect(folder);
     }
 
     return (
-        <div className="p-4 h-[60vh]">
-            <div className="flex justify-center items-center h-full flex-col gap-6">
+        <div className="p-4 h-[60vh] flex justify-center">
+            <div className="flex h-full justify-center flex-col gap-10 w-[400px]">
                 <div className="text-center flex flex-col gap-3">
                     <p className="text-4xl font-bold">
                         Welcome to taskify<span className="text-rose-500">.io</span>
@@ -25,7 +44,7 @@ export const Home = () => {
                         KANBAN Board
                     </p>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-3 justify-center">
                     <Button onClick={openFolder} theme="secondary">
                         <i className="fa-solid fa-folder"></i>
                         <span>Open folder</span>
@@ -35,6 +54,16 @@ export const Home = () => {
                         <span>Clone</span>
                     </Button>
                 </div>
+                {!!recents.length && <div className="flex flex-col gap-4">
+                    <p className="text-lg">Recents projects</p>
+                    <div className="flex flex-col">
+                        {recents.slice(0, 5).map((project) => (
+                            <Button type="link" onClick={() => redirect(project)}>
+                                {project}
+                            </Button>
+                        ))}
+                    </div>
+                </div>}
             </div>
         </div>
     )

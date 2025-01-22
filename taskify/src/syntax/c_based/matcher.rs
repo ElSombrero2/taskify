@@ -2,6 +2,10 @@ use base64::{prelude::BASE64_STANDARD, Engine};
 use crate::{comment::Comment, info::Info, syntax::Syntax, task::{state::TaskState, Task}, utils::{file::get_line, markdown}};
 use super::{utils::{get_state_and_title, get_tags, sanitize}, CBased};
 
+impl CBased {
+  
+}
+
 impl Syntax<Task> for CBased {
   fn execute(&self, raw: String, mut info: Info) -> Option<Task> {
     let mut sanitized = sanitize(&raw);
