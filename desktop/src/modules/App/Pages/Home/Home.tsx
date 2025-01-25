@@ -1,27 +1,18 @@
+import { useProject } from "@/store/projects/projects";
 import { Button } from "@/ui/components/Buttons/Button/Button";
 import { open } from "@tauri-apps/api/dialog"
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useNavigate } from "react-router";
-
-const RECENT_PROJECT = 'TASKIFY_RECENT_PROJECT';
 
 export const Home = () => {
     const navigate = useNavigate();
-    const [recents, setRecent] = useState<string[]>([]);
+    const { projects, load, save } = useProject();
 
     useEffect(() => {
-        const projects = JSON.parse(localStorage.getItem(RECENT_PROJECT) || '[]');
-        setRecent(projects);
+        load();
     }, []);
 
     const redirect = (folder: string) =>  navigate(`/board?path=${folder}`);
-
-    const updateRecentProjects = (folder: string) => {
-        const index = recents.findIndex((p) => p === folder);
-        if (index >= 0) recents.splice(index, 1);
-        recents.unshift(folder);
-        localStorage.setItem(RECENT_PROJECT, JSON.stringify(recents));
-    }
 
     const openFolder = async () => {
         const folder = await open({
@@ -29,7 +20,7 @@ export const Home = () => {
             multiple: false,
         }) as string;
         if (folder) {
-            updateRecentProjects(folder);
+            save(folder);
             redirect(folder);
         }
     }
@@ -56,12 +47,12 @@ export const Home = () => {
                         <span>Clone</span>
                     </Button>
                 </div>
-                {!!recents.length && <div className="flex flex-col gap-3">
+                {!!projects.length && <div className="flex flex-col gap-3">
                     <p>Recents projects</p>
                     <div>
-                        {recents.slice(0, 5).map((project) => (
-                            <Button type="link" onClick={() => redirect(project)}>
-                                {project}
+                        {projects.slice(0, 5).map((project, index) => (
+                            <Button type="link" key={`home-${project.path}-${index}`} onClick={() => redirect(project.path)}>
+                                {project.path}
                             </Button>
                         ))}
                     </div>

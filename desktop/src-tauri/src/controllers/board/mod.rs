@@ -1,9 +1,9 @@
-use std::{collections::{BTreeMap, LinkedList}, sync::Mutex, thread};
+use std::{collections::{BTreeMap, LinkedList}, sync::{mpsc::channel, Mutex}, thread, time::Duration};
+use notify::{Event, EventKind};
 use serde::Serialize;
 use taskify::{board::Board, events, syntax::c_based::CBased, task::{state::TaskState, Task}};
-use tauri::{AppHandle, Manager, State};
-
-use crate::AppState;
+use tauri::{AppHandle, Manager};
+use tokio::sync::mpsc::unbounded_channel;
 
 #[derive(Serialize, Clone)]
 struct Payload<'a> {
@@ -29,17 +29,21 @@ pub async fn move_task(id: String, filename: String, from: TaskState, to: TaskSt
 }
 
 #[tauri::command]
-pub fn start_listen(state: State<'_, Mutex<AppState>>, app: AppHandle, path: String) {
-  let mut app_state = state.lock().unwrap();
-  let app_mutex = Mutex::new(app);
-  if !app_state.is_listening {
-    app_state.is_listening = true;
-    thread::spawn(move || {
-    let app = app_mutex.lock().unwrap();
-      events::on_file_change(path, CBased::new(), move |tasks, files| {
-        app.emit_all("file-changed", Payload { tasks, files}).unwrap();
-        false
-      });
-    });
-  }
+pub fn start_listen(global_app: AppHandle, path: String) {
+  let app_mutex = Mutex::new(global_app);
+  thread::spawn(move || {
+    let app = &app_mutex.lock().unwrap();
+
+    events::on_file_change(
+      path, CBased::new(), 
+      move |tx| {
+        app.listen_global("file-stop-waching", move |_| {
+          let event = Event::new(EventKind::Any).set_info("END");
+          tx.send(Ok(event)).unwrap()
+        })
+      },
+      move |tasks, files| app.emit_all("file-changed", Payload { tasks, files}).unwrap(),
+      |id| app.unlisten(id),
+    );
+  });
 }

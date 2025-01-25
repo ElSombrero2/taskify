@@ -5,9 +5,10 @@ import { ChangeEvent, useRef, useState } from 'react';
 type SearchBarProps = {
   words: string[],
   className?: string,
+  onSubmit?: (path: string) => void,
 }
 
-export const SearchBar = ({words, className}: SearchBarProps) => {
+export const SearchBar = ({words, className, onSubmit}: SearchBarProps) => {
   const [showed, setShowed] = useState(false);
   const [filtered, setFiltered] = useState<string[]>([]);
   const toggle = () => setShowed(!showed);
@@ -22,6 +23,16 @@ export const SearchBar = ({words, className}: SearchBarProps) => {
   const select = (word: string) => {
     if (input.current) input.current.value = word;
     setFiltered([]);
+  }
+
+  const submit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(e.key);
+    if (e.key === 'Enter') {
+      const input = e.target as HTMLInputElement;
+      const value = input.value;
+      input.value = '';
+      onSubmit && onSubmit(value);
+    }
   }
 
   return (
@@ -45,6 +56,7 @@ export const SearchBar = ({words, className}: SearchBarProps) => {
         !showed && 'hidden'
       )}>
         <input
+          onKeyDown={submit}
           ref={input}
           onChange={filter}
           placeholder="Search"

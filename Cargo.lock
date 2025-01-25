@@ -1196,6 +1196,7 @@ dependencies = [
 name = "desktop"
 version = "0.0.0"
 dependencies = [
+ "notify",
  "serde",
  "serde_json",
  "taskify",

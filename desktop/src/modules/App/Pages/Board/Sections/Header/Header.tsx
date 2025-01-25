@@ -20,8 +20,8 @@ export const Header = () => {
       <Switch fallback={<Skeleton className="w-[460px]" />} condition={!loading}>
         <div className="text-md flex gap-3 items-center">
           <i className="fa fa-folder"></i>
-          {path().map((path) => (
-            <span className="font-thin opacity-70">{path} /</span>
+          {path().map((path, index) => (
+            <span key={`${path}-${index}`} className="font-thin opacity-70">{path} /</span>
           ))}
           <span className="font-semibold">{board?.name}</span>
         </div>

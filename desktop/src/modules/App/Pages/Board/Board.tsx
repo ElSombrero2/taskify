@@ -7,6 +7,7 @@ import { Navigation } from "./Sections/Navigation/Navigation"
 import { useSearchParams } from "react-router"
 import { invoke } from "@tauri-apps/api"
 import { useListener } from "@/hooks/listener"
+import { appWindow } from "@tauri-apps/api/window"
 
 export const Board = () => {
   const { find, reload } = useBoard();
@@ -17,10 +18,15 @@ export const Board = () => {
   useEffect(() => {
     const path = params.get('path');
     if (path) {
-      invoke('start_listen', {path});
+      invoke('start_listen', {path, dispose: false});
       find(path);
     }
   }, [params]);
+
+  useEffect(() => () => {
+    console.log('Unmount')
+    appWindow.emit('file-stop-waching', {});
+  }, []);
 
   return (
     <div>
