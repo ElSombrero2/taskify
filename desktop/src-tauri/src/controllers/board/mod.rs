@@ -1,9 +1,8 @@
-use std::{collections::{BTreeMap, LinkedList}, sync::{mpsc::channel, Mutex}, thread, time::Duration};
+use std::{collections::{BTreeMap, LinkedList}, sync::Mutex, thread};
 use notify::{Event, EventKind};
 use serde::Serialize;
 use taskify::{board::Board, events, syntax::c_based::CBased, task::{state::TaskState, Task}};
 use tauri::{AppHandle, Manager};
-use tokio::sync::mpsc::unbounded_channel;
 
 #[derive(Serialize, Clone)]
 struct Payload<'a> {

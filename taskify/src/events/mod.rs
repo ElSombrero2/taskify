@@ -1,4 +1,4 @@
-use std::{path::Path, sync::{mpsc::{self, Sender}, Arc}, thread, time::Duration};
+use std::{path::Path, sync::mpsc::{self, Sender}, time::Duration};
 use git2::Repository;
 use notify::{Config, Error, Event, RecursiveMode, Watcher};
 use crate::{syntax::Syntax, task::Task};
