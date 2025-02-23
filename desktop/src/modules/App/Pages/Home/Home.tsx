@@ -26,7 +26,7 @@ export const Home = () => {
     }
 
     return (
-        <div className="p-4 h-[60vh] flex justify-center">
+        <div className="p-4 h-[80vh] flex justify-center items-center">
             <div className="flex h-full pt-11 justify-center flex-col gap-20 w-[400px]">
                 <div className="text-center flex flex-col gap-3">
                     <p className="text-4xl font-bold">
