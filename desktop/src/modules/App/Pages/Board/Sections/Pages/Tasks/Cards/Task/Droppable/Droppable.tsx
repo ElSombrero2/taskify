@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { DragEvent, useState } from "react";
 
-type DropableProps = {
+type DroppableProps = {
   className?: string;
   activatedClassName?: string;
   disabled?: boolean;
@@ -12,13 +12,13 @@ type DropableProps = {
   onDrop?: (id: string, target: string) => void;
 }
 
-export const Droppable = ({ className, activatedClassName, disabled, onDrop, target, offsetSize}: DropableProps) => {
+export const Droppable = ({ className, activatedClassName, disabled, onDrop, target, offsetSize}: DroppableProps) => {
   const [entered, setEntered] = useState(false);
   const [height, setHeight] = useState<string>();
 
   const onEnter = (e: DragEvent<HTMLDivElement>) => {
     !disabled && setEntered(true);
-    const height = parseInt(e.dataTransfer.types[0].split(':')[1]);
+    const height = parseInt(e?.dataTransfer?.types?.find((e) => e.includes('height'))?.split(':')?.[1] || '0');
     setHeight(`calc(${height}px + ${offsetSize || '0px'})`);
   }
 

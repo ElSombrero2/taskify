@@ -8,11 +8,15 @@ import { SearchBar } from "./SearchBar/SearchBar";
 import { Toggler } from "./Toggler/Toggler";
 import { Theme } from "../../../providers/Theme/Theme";
 import { useListener } from "@/hooks/listener";
+import { useProject } from "@/store/projects/projects";
+import { useNavigate } from "react-router";
 
 export const TitleBar = () => {
   const { isWidget } = useWindow();
   const [maximized, setMaximized] = useState(false);
   const { setTheme, theme } = useContext(Theme);
+  const { projects } = useProject();
+  const navigate = useNavigate();
 
   useListener('tauri://resize', async () => {
     setMaximized(await appWindow.isMaximized());
@@ -40,7 +44,11 @@ export const TitleBar = () => {
           <Toggler defaultValue={theme !== 'dark'} onChange={switchTheme} />
         </div>
       </div>
-      <SearchBar className="relative left-8" words={['Taskify', 'New Project', 'Where are your', 'Help Me please']} />
+      <SearchBar
+        onSubmit={(folder) => navigate(`/board/main?path=${folder}`)}
+        className="relative left-8"
+        words={projects.map((p) => p.path)}
+      />
       <div className="flex items-center gap-6">
         <div className="flex gap-2 relative left-[4px]">
           <button onClick={minimize} className="title-bar-button hover:bg-gray-200 dark:hover:bg-gray-700">

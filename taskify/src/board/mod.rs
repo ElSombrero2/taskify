@@ -14,16 +14,16 @@ pub struct Board {
 }
 
 impl Board {
-  pub fn load(directory: String, syntax: impl Syntax<Task>) -> Board {
+  pub fn load(directory: String, syntax: impl Syntax<Task>, project_name: Option<&str>) -> Board {
     Board { 
-      name: current_filename(),
+      name: if project_name.is_some() { project_name.unwrap().to_string() } else { current_filename() },
       tasks: Task::scan(directory, syntax),
       extra: None,
     }
   }
 
   pub async fn load_with_plugin(directory: String, syntax: impl Syntax<Task>) {
-    let board = load_script("test.js", Self::load(directory, syntax));
+    let board = load_script("test.js", Self::load(directory, syntax, None));
     tokio::join!(board);
   }
 
@@ -49,7 +49,7 @@ impl Board {
   pub fn remove_task(filename: String, id: String, syntax: impl Syntax<Task>) -> bool {
     let path = "./".to_owned() + &filename;
     if let Ok(raw_file) = fs::read_to_string(&path) {
-      for task in Task::match_regex(filename, &Err(Error::from_str("")), &syntax) {
+      for task in Task::from_path(filename, &Err(Error::from_str("")), &syntax) {
         if task.verify(&id) {
           if let Some(comment) = Self::decode_comment(task.raw) {
             return fs::write(&path, raw_file.replace(&comment, "")).is_ok();
@@ -61,12 +61,12 @@ impl Board {
   }
 
   pub fn change_state (filename: String, id: String, current_state: TaskState, state: TaskState, syntax: impl Syntax<Task>) -> bool {
-    let path = if Path::new(&filename).is_absolute() { filename.clone() } else { "./".to_owned() + &filename } ;
+    let path = if Path::new(&filename).is_absolute() { filename.clone() } else { "./".to_owned() + &filename };
     if let Ok(raw_file) = fs::read_to_string(&path) {
-      for task in Task::match_regex(filename, &Err(Error::from_str("")), &syntax) {
+      for task in Task::from_path(filename, &Err(Error::from_str("")), &syntax) {
         if task.verify(&id) {
           if let Some(comment) = Self::decode_comment(task.raw) {
-            let new_comment = comment.replace(&format!("[{}]: ", current_state.id()), &format!("[{}]: ", state.id()));
+            let new_comment = comment.replacen(&format!("{}", current_state.id()), &format!("{}", state.id()), 1);
             return fs::write(&path, raw_file.replace(&comment, &new_comment)).is_ok();
           }
         }

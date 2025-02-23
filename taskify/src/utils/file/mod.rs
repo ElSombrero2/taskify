@@ -11,7 +11,7 @@ pub fn current_filename() -> String {
   String::from("Unknown")
 }
 
-pub fn get_line(str: &str, pointer: usize) -> usize{
+pub fn get_line(str: &str, pointer: usize) -> usize {
   let substr = &str[..pointer];
   return substr.lines().count();
 }
