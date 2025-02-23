@@ -1,10 +1,10 @@
 import ReactDOM from "react-dom/client";
-import "@fortawesome/fontawesome-free/css/all.min.css"
-import "./styles.scss";
 import { Theme, ThemeProvider } from "./providers/Theme/Theme";
 import { useWindow } from "./hooks/window";
 import { Widget } from "./modules/Widget/Widget";
 import App from "./modules/App/App";
+import "@fortawesome/fontawesome-free/css/all.min.css"
+import "./styles.scss";
 
 const AppProvider = () => {
   const { isWidget, os } = useWindow();

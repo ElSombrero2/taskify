@@ -12,7 +12,7 @@ export const Home = () => {
         load();
     }, []);
 
-    const redirect = (folder: string) =>  navigate(`/board?path=${folder}`);
+    const redirect = (folder: string) =>  navigate(`/board/main?path=${folder}`);
 
     const openFolder = async () => {
         const folder = await open({

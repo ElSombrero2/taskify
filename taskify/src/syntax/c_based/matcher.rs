@@ -28,6 +28,7 @@ impl Syntax<Task> for CBased {
   fn execute(&self, raw: String, mut info: Info) -> Option<Task> {
     let mut sanitized = sanitize(&raw);
     let tags = get_tags(&raw);
+    dbg!(&sanitized);
     if let Some((state, title)) = get_state_and_title(&sanitized.remove(0), raw.starts_with("//")) {
       let description = sanitized.join("\n");
       info.attached_files = Some(markdown::get_files(&description));

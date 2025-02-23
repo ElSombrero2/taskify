@@ -1,7 +1,7 @@
 import { appWindow } from "@tauri-apps/api/window";
 import { useWindow } from "@/hooks/window";
 import { invoke } from "@tauri-apps/api";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import './TitleBar.scss'
 import clsx from "clsx";
 import { SearchBar } from "./SearchBar/SearchBar";
@@ -45,7 +45,7 @@ export const TitleBar = () => {
         </div>
       </div>
       <SearchBar
-        onSubmit={(folder) => navigate(`/board?path=${folder}`)}
+        onSubmit={(folder) => navigate(`/board/main?path=${folder}`)}
         className="relative left-8"
         words={projects.map((p) => p.path)}
       />
