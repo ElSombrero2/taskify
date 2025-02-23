@@ -8,6 +8,7 @@ pub fn sanitize(str: &str) -> Vec<String> {
     let str = s.trim();
     Some(String::from(str))
   }).collect::<Vec<String>>();
+  
   while res[0].eq("") {
      res.remove(0);
   }
