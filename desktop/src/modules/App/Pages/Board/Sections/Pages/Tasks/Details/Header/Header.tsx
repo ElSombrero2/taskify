@@ -1,7 +1,13 @@
-import { useBoard } from "@/store/board/board";
+import { Info } from "@/types/task"
 
-export const Header = ({onClickExit, path}: {onClickExit?: () => void, path: string}) => {
-    const { path: root } = useBoard();
+export const Header = ({onClickExit, info}: {onClickExit?: () => void, info?: Info}) => {
+    const getFilename = (filename?: string) => {
+        if (filename) {
+            const splited = filename.split('/');
+            return splited[splited.length - 1];
+        }
+        return '';
+    }
     
     return (
         <div className="w-full border-b flex items-center justify-between p-4 px-6">
@@ -11,7 +17,11 @@ export const Header = ({onClickExit, path}: {onClickExit?: () => void, path: str
             </button>
             <span className="opacity-40">|</span>
             <div className="flex items-center gap-2">
-                <strong>{path.replace(root?.substring(1) || '', '').substring(1)}</strong>
+                <strong>{getFilename(info?.filename)}</strong>
+                {' '}
+                <span className="text-sm opacity-40">
+                    ({`lines: ${info?.start_line || 0}:${info?.end_line || 0}`})
+                </span>
             </div>
             </div>
 

@@ -9,7 +9,7 @@ import { toISO } from "@/utils/to-iso";
 
 export const TaskInfo = ({ task }: { task?: Task }) => {
     const state = useTaskState(task?.state);
-    const {color, initial} = useAvatar(task?.info?.author?.name);
+    const {color, initials } = useAvatar(task?.info?.author?.name);
 
     return (
         <>
@@ -29,7 +29,7 @@ export const TaskInfo = ({ task }: { task?: Task }) => {
                 <InfoText icon="fa-regular fa-user" title="Author">
                     <div className="flex items-center">
                         <div style={{background: color}} className="w-[30px] z-10 h-[30px] text-white text-xs rounded-full flex justify-center items-center font-extrabold">
-                            {initial}
+                            {initials}
                         </div>
                         <div className="-translate-x-5 p-1 pr-2 pl-7 text-xs dark:bg-gray-700 bg-gray-300 rounded-full">
                             {task?.info.author?.name}

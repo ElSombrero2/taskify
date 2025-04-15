@@ -1,0 +1,26 @@
+
+table {
+    @apply shadow-md;
+}
+
+th,td {
+    @apply px-4 py-2;
+}
+
+table td {
+    border-collapse: collapse;
+    @apply bg-white dark:bg-gray-800;
+}
+
+thead tr {
+    th { @apply bg-zinc-100 dark:bg-gray-700; }
+    th:first-child { @apply rounded-tl-md; }
+    th:last-child { @apply rounded-tr-md; }
+}
+
+tbody {
+    tr:last-child {
+        td:first-child { @apply rounded-bl-md; }
+        td:last-child { @apply rounded-br-md; }
+    }
+}

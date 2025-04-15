@@ -8,6 +8,7 @@ import { TaskDescription } from "./Description/Description";
 import { Attachments } from "./Attachments/Attachments";
 
 export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean, onClickExit?: () => void}) => {
+  task?.info
   return (
     <Modal
       onBackDropClick={onClickExit}
@@ -20,7 +21,7 @@ export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean,
       )}
       backdropClassName="backdrop-blur-md"
     >
-      <Header path={task?.info?.filename || ''} onClickExit={onClickExit} />
+      <Header info={task?.info} onClickExit={onClickExit} />
       <div className="max-h-[90vh] overflow-y-scroll">
         <div className="p-6 flex flex-col gap-8">
           <p className="text-3xl font-bold">
