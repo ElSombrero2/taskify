@@ -3,13 +3,18 @@ import { InfoText } from "../InfoText/InfoText"
 import remarkGfm from "remark-gfm"
 import { LinkPlugin } from "@/plugins/markdown/link/link"
 
+/*
+  [TODO]: Make tags bold
+  Remove the "#" chracacter and make the
+  text bold
+  #improvment #trivial
+*/
 export const TaskDescription = ({description}: {description: string}) => {
   return (
     <InfoText icon="fa-regular fa-file-lines" vertical title="Description">
       <div className="p-3 border border-gray-500 border-opacity-20 rounded-lg">
         <Markdown
           remarkPlugins={[remarkGfm]}
-
           rehypePlugins={[LinkPlugin]}
           className="prose dark:text-gray-100 dark:prose-invert text-sm"
         >

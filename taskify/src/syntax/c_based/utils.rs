@@ -3,9 +3,17 @@ use regex::Regex;
 pub fn sanitize(str: &str) -> Vec<String> {
   let sanitizer_regex = Regex::new(r"(/\*)|(\*/)|\r|(//)")
   .unwrap().replace_all(str.trim(), "").to_string();
+
+  let mut str_arr = sanitizer_regex.split('\n').collect::<Vec<&str>>();
+  while str_arr[0].trim().is_empty() {
+    str_arr.remove(0);
+  }
   
-  let mut res = sanitizer_regex.split('\n').filter_map(|s| {
+  let mut res = str_arr.into_iter().filter_map(|s| {
     let str = s.trim();
+    if str.is_empty() {
+      return Some(String::from(" "));
+    }
     Some(String::from(str))
   }).collect::<Vec<String>>();
   

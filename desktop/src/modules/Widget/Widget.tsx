@@ -10,7 +10,8 @@ import { Item } from "./components/Item/Item";
 
   [DONE]: The widget window auto close
   When you open the widget window in linux
-  the window is immediatly closed  
+  the window is immediatly closed
+  #bug #blocker
 */
 export const Widget = () => {
   const [focused, setFocused] = useState(false);

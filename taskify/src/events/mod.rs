@@ -11,7 +11,7 @@ where I: Fn(Sender<Result<Event, Error>>) -> T,
 C: Fn(Vec<Task>, &str),
 D: Fn(T),
 {
-  // TODO Remove all the println after debugging
+  // TODO Remove all the println after debugging #task #low
   let config = Config::default().with_compare_contents(true);
   let repos = Repository::open(&root);
   let (tx, rx) = mpsc::channel::<Result<Event, Error>>();

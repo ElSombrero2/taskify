@@ -6,10 +6,13 @@ import { If } from "@/shared/components/Operators/If/If";
 import { useTaskState } from "@/hooks/task-state";
 import { DateTime } from 'luxon'
 import { toISO } from "@/utils/to-iso";
+import { useTags } from "@/hooks/tag";
+import clsx from "clsx";
 
 export const TaskInfo = ({ task }: { task?: Task }) => {
     const state = useTaskState(task?.state);
     const {color, initials } = useAvatar(task?.info?.author?.name);
+    const { priority, type } = useTags(task?.tags);
 
     return (
         <>
@@ -19,6 +22,22 @@ export const TaskInfo = ({ task }: { task?: Task }) => {
                     <p>{state.label}</p>
                 </div>
             </InfoText>
+
+            <If condition={!!type}>
+                <InfoText icon="fa-solid fa-bookmark" title="Type">
+                    <div className="flex items-center gap-2">
+                        <span className={clsx(
+                            type?.background,
+                            'block text-white text-xs w-[20px] h-[20px] rounded-sm',
+                            'flex items-center justify-center'
+                        )}>
+                            <i className={type?.icon}></i>
+                        </span>
+                        <span className={clsx('opacity-50')}>{type?.label}</span>
+                    </div>
+                </InfoText>
+            </If>
+
             <If condition={!!task?.info?.date}>
                 <InfoText icon="fa-solid fa-calendar" title="Date">
                     <p className="text-sm">{DateTime.fromISO(toISO(task?.info.date)).toFormat('dd LLLL yyyy - HH:mm')}</p>
@@ -49,6 +68,22 @@ export const TaskInfo = ({ task }: { task?: Task }) => {
                                 </div>
                             </Badge>
                         ))}
+                    </div>
+                </InfoText>
+            </If>
+
+            <If condition={!!priority}>
+                <InfoText icon="fa-solid fa-triangle-exclamation" title="Priority">
+                    <div className="flex items-center gap-2">
+                        <span className={clsx(
+                            priority?.color,
+                            'block rounded-sm',
+                        )}>
+                            <i className={priority?.icon}></i>
+                        </span>
+                        <span className={clsx('opacity-50')}>
+                            {priority?.label}
+                        </span>
                     </div>
                 </InfoText>
             </If>
