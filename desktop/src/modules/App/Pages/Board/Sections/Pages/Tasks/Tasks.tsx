@@ -6,7 +6,7 @@ import './Tasks.scss'
 import { States } from "@/utils/states"
 import { Switch } from "@/shared/components/Operators/Switch/Switch"
 import { Loader } from "./Loader/Loader"
-import { Details } from "./Details/Details"
+import { Details } from "../../Details/Details"
 import { useState } from "react"
 import { Task } from "@/types/task"
 

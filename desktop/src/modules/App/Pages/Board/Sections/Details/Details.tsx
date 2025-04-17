@@ -6,6 +6,9 @@ import { TaskInfo } from "./TaskInfo/TaskInfo";
 import { If } from "@/shared/components/Operators/If/If";
 import { TaskDescription } from "./Description/Description";
 import { Attachments } from "./Attachments/Attachments";
+import { LinkPlugin } from "@/plugins/markdown/link/link"
+import { TagPlugin } from "@/plugins/markdown/tags/tags"
+import Markdown from "react-markdown"
 
 /*
   [READY]: Share details section to list and board
@@ -30,10 +33,13 @@ export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean,
     >
       <Header info={task?.info} onClickExit={onClickExit} />
       <div className="max-h-[90vh] overflow-y-scroll">
-        <div className="p-6 flex flex-col gap-8">
-          <p className="text-3xl font-bold">
-            {task?.title}
-          </p>
+        <div className="p-4 flex flex-col gap-8">
+          <Markdown
+            rehypePlugins={[LinkPlugin, TagPlugin]}
+            className="text-3xl font-bold"
+          >
+            {task?.title || ''}
+          </Markdown>
 
           <div className="flex flex-col gap-5">
             <TaskInfo task={task} />
