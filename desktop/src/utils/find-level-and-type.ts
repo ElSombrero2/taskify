@@ -3,6 +3,7 @@ export type SpecificTag = {
     background: string;
     color: string;
     label: string;
+    border?: string;
 }
 
 export type SpecificTagMap = {
@@ -47,24 +48,28 @@ const TicketType: SpecificTagMap = {
         icon: 'fa-solid fa-check',
         background: 'bg-blue-500',
         color: 'text-blue-500',
+        border: 'border-blue-500 dark:border-sky-600',
         label: 'Task',
     },
     bug: {
         icon: 'fa-solid fa-circle',
         background: 'bg-red-500',
         color: 'text-red-500',
+        border: 'border-red-500 dark:border-rose-800',
         label: 'Bug',
     },
     feature: {
         icon: 'fa-solid fa-bookmark',
         background: 'bg-red-500',
         color: 'text-green-500',
+        border: 'border-green-500 dark:border-emerald-600',
         label: 'Feature',
     },
     improvment: {
         icon: 'fa-solid fa-arrow-up',
         background: 'bg-green-500',
         color: 'text-green-500',
+        border: 'border-green-500 dark:border-emerald-600',
         label: 'Improvment',
     },
 }

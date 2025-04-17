@@ -2,9 +2,8 @@ import "./Lists.scss";
 import { useBoard } from "@/store/board/board"
 import { Summary } from "./Summary/Summary";
 import { Extra } from "./Extra/Extra";
-import { Task } from "@/types/task";
-import { useState } from "react";
 import { Details } from "../../Details/Details";
+import { useDetails } from "../../Details/hooks/details";
 
 /*
   [DONE]: Change the design of the list
@@ -13,21 +12,10 @@ import { Details } from "../../Details/Details";
   ![image](https://cdn.dribbble.com/userupload/21952779/file/original-8a57756da186e0a0fbebc5e625e241dd.jpg?resize=752x564&vertical=center)
 */
 export const Lists = () => {
-  const { board, tasks, loading  } = useBoard();
-  const [showDetail, setShowDetail] = useState(false);
-  const [id, setId] = useState<string | undefined>();
-
-  const onCardClicked = (task: Task) => {
-    setShowDetail(true);
-    setId(task?.id);
-  }
-  
-  // Allow to get realtime update because the board is refreshed
-  // when file are changing
-  const task = () => board?.tasks.find((t) => t.id.startsWith(id || ' '));
-
+  const { board } = useBoard();
+  const { onCardClicked, task, showDetail, setShowDetail } = useDetails(board);
    /*
-    [READY]: Refactoring on the list page
+    [DONE]: Refactoring on the list page
     Make a refactoring on the list and create components for
     all list item to make changes easier
     #improvment #low
@@ -43,13 +31,13 @@ export const Lists = () => {
         </thead>
         <tbody>
           {
-            /*
-              [READY]: Make the list items clickable
-              The list item must be clickable
-              When the user click on the list item
-              Then the details section will appear
-              #high #improvment
-            */
+          /*
+            [WIP]: Make the list items clickable
+            The list item must be clickable
+            When the user click on the list item
+            Then the details section will appear
+            #high #improvment
+          */
           board?.tasks.map((task) => (
             <tr key={task.id} className="item" onClick={() => onCardClicked(task)}>
               <td>

@@ -3,15 +3,16 @@ import { Card } from "@/ui/components/Cards/Card/Card";
 import { Divider } from "@/ui/components/Separators/Divider/Divider";
 import clsx from "clsx";
 import React, { useState } from "react";
-import { Tags } from "./Tags/Tags";
 import { Info } from "./Info/Info";
 import { Text } from "./Text/Text";
 import { Droppable } from "./Droppable/Droppable";
 import { useBoard } from "@/store/board/board";
+import { useTags } from "@/hooks/tag";
 
 export const TaskCard = ({ task, top, onClick }: { task: Task, top?: boolean, onClick?: (task: Task) => void }) => {
   const [dragged, setDragged] = useState(false);
   const { board, updateTask } = useBoard();
+  const { type } = useTags(task?.tags);
 
   const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     setDragged(true);
@@ -42,6 +43,8 @@ export const TaskCard = ({ task, top, onClick }: { task: Task, top?: boolean, on
         onDragStart={onDragStart}
         onDragEnd={() => setDragged(false)}
         className={clsx(
+          "border-0 border-l-4",
+          type?.border,
           "card bg-gray-100 dark:bg-gray-800 dark:bg-opacity-60 cursor-pointer",
           "min-w-[320px] max-w-[320px] flex flex-col gap-3",
           "transition-all duration-100",
@@ -50,10 +53,10 @@ export const TaskCard = ({ task, top, onClick }: { task: Task, top?: boolean, on
           dragged && 'opacity-20',
         )}
       >
-        <Tags tags={task.tags} />
         <Text
           title={task.title}
           description={task.description}
+          tags={task.tags}
         />
         <Divider />
         <Info info={task.info} />

@@ -11,7 +11,7 @@ table tr.item {
     @apply border-b cursor-pointer;
     &:hover {
         td {
-            @apply bg-gray-100 dark:bg-gray-800;
+            @apply bg-gray-100 dark:bg-gray-600;
         }
     }
     &:active {

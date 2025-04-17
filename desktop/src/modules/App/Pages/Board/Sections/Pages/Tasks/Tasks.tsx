@@ -2,27 +2,16 @@ import { useBoard } from "@/store/board/board"
 import { Pills } from "@/ui/components/Badges/Pills/Pills"
 import { Title } from "./Cards/Title/Title"
 import { Column } from "./Column/Column"
-import './Tasks.scss'
 import { States } from "@/utils/states"
 import { Switch } from "@/shared/components/Operators/Switch/Switch"
 import { Loader } from "./Loader/Loader"
 import { Details } from "../../Details/Details"
-import { useState } from "react"
-import { Task } from "@/types/task"
+import { useDetails } from "../../Details/hooks/details"
+import './Tasks.scss'
 
 export const Tasks = () => {
   const { tasks, board, loading } = useBoard()
-  const [showDetail, setShowDetail] = useState(false);
-  const [id, setId] = useState<string | undefined>();
-
-  const onCardClicked = (task: Task) => {
-    setShowDetail(true);
-    setId(task?.id);
-  }
-  
-  // Allow to get realtime update because the board is refreshed
-  // when file are changing
-  const task = () => board?.tasks.find((t) => t.id.startsWith(id || ' '));
+  const { onCardClicked, task, showDetail, setShowDetail } = useDetails(board);
 
   return (
     <div className="flex p-4 flex-col gap-8 overflow-auto scrollable" data-dnd onDragOver={(e) => e.preventDefault()}>
@@ -33,7 +22,12 @@ export const Tasks = () => {
               <Title className={state.className}>
                 <div className="flex items-center w-full justify-between">
                   {state.label}
-                  <Pills size="xs" theme={state.theme}>3</Pills>
+                  <Pills
+                    size="xs"
+                    theme={state.theme}
+                  >
+                    {tasks?.[state.type]?.length || 0}
+                  </Pills>
                 </div>
               </Title>
             </Column>
