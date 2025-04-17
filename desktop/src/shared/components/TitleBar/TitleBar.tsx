@@ -60,7 +60,7 @@ export const TitleBar = () => {
               maximized ? 'window-restore' : 'window-maximize',
             )}></i>
           </button>
-          <button onClick={close} className="title-bar-button hover:bg-red-200 dark:hover:bg-red-700">
+          <button onClick={close} className="title-bar-button hover:bg-red-300 dark:hover:bg-red-700">
             <i className="window-xmark text-lg"></i>
           </button>
         </div>

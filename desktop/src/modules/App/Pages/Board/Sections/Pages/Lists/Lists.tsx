@@ -8,6 +8,9 @@ import { createAvatar } from "@/utils/avatar";
 import { findLevelAndType } from "@/utils/find-level-and-type";
 import { StatesMap } from "@/utils/states";
 import clsx from "clsx";
+import { LinkPlugin } from "@/plugins/markdown/link/link";
+import { TagPlugin } from "@/plugins/markdown/tags/tags";
+import Markdown from "react-markdown"
 
 /*
   [DONE]: Change the design of the list
@@ -36,7 +39,7 @@ export const Lists = () => {
         <tbody>
           {
             /*
-              [TODO]: Make the list items clickable
+              [READY]: Make the list items clickable
               The list item must be clickable
               When the user click on the list item
               Then the details section will appear
@@ -70,7 +73,12 @@ export const Lists = () => {
                       </div>
                     )
                   })()}
-                  <span>{task.title}</span>
+                 <Markdown
+                    rehypePlugins={[LinkPlugin, TagPlugin]}
+                    className="prose dark:text-gray-100 dark:prose-invert"
+                  >
+                    {task.title}
+                  </Markdown>
                 </div>
               </td>
               <td className="flex flex-row-reverse gap-2">

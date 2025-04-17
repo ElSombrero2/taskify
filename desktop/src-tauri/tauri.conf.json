@@ -6,8 +6,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "desktop",
-    "version": "0.0.0"
+    "productName": "Taskify",
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {

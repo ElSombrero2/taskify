@@ -22,6 +22,13 @@ impl CBased {
 
     return comments;
   }
+
+  fn boldify_tag (&self, tags: &Vec<String>, mut text: String) -> String {
+    for tag in tags {
+      text = text.replace(&format!("#{}", tag), &format!("**#{}**", tag))
+    }
+    text
+  }
 }
 
 impl Syntax<Task> for CBased {
@@ -32,9 +39,10 @@ impl Syntax<Task> for CBased {
     if let Some((state, title)) = get_state_and_title(&sanitized.remove(0), raw.starts_with("//")) {
       let description = sanitized.join("\n");
       info.attached_files = Some(markdown::get_files(&description));
+
       return Some(Task::new( 
-        title,
-        if !description.is_empty() { Some(description) } else { None },
+        self.boldify_tag(&tags, title),
+        if !description.is_empty() { Some(self.boldify_tag(&tags, description)) } else { None },
         TaskState::from(state.as_str()),
         tags,
         info,

@@ -15,9 +15,8 @@ type BadgeProps = {
   [DONE]: Add variant for badge
   Create Badge variant Light like on this following
   picture but with the same radius as now and name that
-  variant ghost
+  variant ghost #ui #improvment #low
   ![badge](https://dds.dell.com/site/production/be/d2/Badge_Color_Emphasis_3281022bee.png)
-  #ui #improvment #low
 */
 
 export const Badge = ({children, theme, size, variant}: BadgeProps) => {
