@@ -23,7 +23,6 @@ export const Board = () => {
   }, [params]);
 
   useEffect(() => () => {
-    console.log('Unmount')
     appWindow.emit('file-stop-waching', {});
   }, []);
 

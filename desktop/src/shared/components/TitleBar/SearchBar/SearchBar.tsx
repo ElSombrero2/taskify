@@ -26,7 +26,6 @@ export const SearchBar = ({words, className, onSubmit}: SearchBarProps) => {
   }
 
   const submit = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log(e.key);
     if (e.key === 'Enter') {
       const input = e.target as HTMLInputElement;
       const value = input.value;

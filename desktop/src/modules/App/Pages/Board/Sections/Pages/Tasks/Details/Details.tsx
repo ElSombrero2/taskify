@@ -7,6 +7,13 @@ import { If } from "@/shared/components/Operators/If/If";
 import { TaskDescription } from "./Description/Description";
 import { Attachments } from "./Attachments/Attachments";
 
+/*
+  [TODO]: Share details section to list and board
+  The details section must be shared by the list and the board section
+  and all the lists items must be clickable and must trigger the details
+  side panel section
+  #front #task #high
+*/
 export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean, onClickExit?: () => void}) => {
   task?.info
   return (

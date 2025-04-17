@@ -5,7 +5,7 @@ import { variants } from "./Pills.variants"
 
 type PillsProps = {
   children: string | number,
-  theme?: Theme | 'success' | 'danger' | 'warning',
+  theme?: Theme | 'success' | 'danger' | 'warning' | 'disabled',
   size?: Size,
   className?: string,
 }

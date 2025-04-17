@@ -4,7 +4,7 @@ import remarkGfm from "remark-gfm"
 import { LinkPlugin } from "@/plugins/markdown/link/link"
 
 /*
-  [TODO]: Make tags bold
+  [WIP]: Make tags bold
   Remove the "#" chracacter and make the
   text bold
   #improvment #trivial

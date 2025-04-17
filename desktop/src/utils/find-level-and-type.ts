@@ -13,12 +13,12 @@ const PriorityLevel: SpecificTagMap = {
     blocker: {
         icon: 'fa-solid fa-circle-exclamation',
         background: 'bg-red-500',
-        color: 'text-red-500',
+        color: 'text-red-500 dark:text-rose-400',
         label: 'Blocker',
     },
     high: {
         icon: 'fa-solid fa-arrow-up',
-        background: 'bg-red-500',
+        background: 'text-red-500 dark:text-rose-400',
         color: 'text-red-500',
         label: 'High',
     },
@@ -71,7 +71,6 @@ const TicketType: SpecificTagMap = {
 
 const findFromTag = (tags: string[], obj: SpecificTagMap) => {
     const keys = Object.keys(obj);
-    console.log(keys);
     for (const key of keys) {
         if (tags.includes(key)) {
             return obj[key];
@@ -81,7 +80,6 @@ const findFromTag = (tags: string[], obj: SpecificTagMap) => {
 
 export const findLevelAndType = (tags: string[]) => {  
     const priority = findFromTag(tags, PriorityLevel);
-    console.log(priority, tags);
     const type = findFromTag(tags, TicketType);
     return { priority, type }
 }

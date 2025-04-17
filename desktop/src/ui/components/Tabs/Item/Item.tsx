@@ -15,7 +15,6 @@ type TabItemProps = {
 }
 
 export const TabItem = ({children, size, theme, className, to}: TabItemProps) => {
-  console.log(to);
   return (
     <Link to={to || ''} className={clsx(
       variant.size[size || 'md'],
