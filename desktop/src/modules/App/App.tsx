@@ -14,7 +14,7 @@ function App() {
         <TitleBar />
         <div className="main-container">
           <Sidenav />
-          <div className="overflow-y-auto max-h-full w-full">
+          <div className="overflow-hidden max-h-full w-full">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/board" element={<Board />}>
