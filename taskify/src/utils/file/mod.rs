@@ -13,7 +13,7 @@ pub fn current_filename() -> String {
 
 pub fn get_line(str: &str, pointer: usize) -> usize {
   let substr = &str[..pointer];
-  return substr.lines().count();
+  substr.lines().count()
 }
 
 pub fn sanitize_path (mut file_path: String) -> String {

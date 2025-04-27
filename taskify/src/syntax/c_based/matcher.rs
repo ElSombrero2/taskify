@@ -20,7 +20,7 @@ impl CBased {
       });
     }
 
-    return comments;
+    comments
   }
 
   fn boldify_tag (&self, tags: &Vec<String>, mut text: String) -> String {
@@ -63,7 +63,7 @@ impl Syntax<Task> for CBased {
 
     for file in files {
       if let Some(end) = file.find("*/") {
-        let comment = format!("/*{}", file[..end + 2].to_string());
+        let comment = format!("/*{}", &file[..end + 2]);
         if let Some(start) = raw_file.find(&comment) {
           comments.push(Comment {
             start_line: get_line(&raw_file, start),
@@ -74,6 +74,6 @@ impl Syntax<Task> for CBased {
       }
     }
 
-    return comments;   
+    comments   
   }
 }

@@ -9,15 +9,15 @@ pub fn sanitize(str: &str) -> Vec<String> {
     str_arr.remove(0);
   }
   
-  let mut res = str_arr.into_iter().filter_map(|s| {
+  let mut res = str_arr.into_iter().map(|s| {
     let str = s.trim();
     if str.is_empty() {
-      return Some(String::from(" "));
+      return String::from(" ");
     }
-    Some(String::from(str))
+    String::from(str)
   }).collect::<Vec<String>>();
   
-  while res[0].eq("") {
+  while res[0].is_empty() {
      res.remove(0);
   }
 

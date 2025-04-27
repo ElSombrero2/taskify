@@ -16,7 +16,7 @@ pub struct Board {
 impl Board {
   pub fn load(directory: String, syntax: impl Syntax<Task>, project_name: Option<&str>) -> Board {
     Board { 
-      name: if project_name.is_some() { project_name.unwrap().to_string() } else { current_filename() },
+      name: if let Some(name) = project_name { name.to_string() } else { current_filename() },
       tasks: Task::scan(directory, syntax),
       extra: None,
     }
@@ -66,7 +66,7 @@ impl Board {
       for task in Task::from_path(filename, &Err(Error::from_str("")), &syntax) {
         if task.verify(&id) {
           if let Some(comment) = Self::decode_comment(task.raw) {
-            let new_comment = comment.replacen(&format!("{}", current_state.id()), &format!("{}", state.id()), 1);
+            let new_comment = comment.replacen(&current_state.id().to_string(), &state.id().to_string(), 1);
             return fs::write(&path, raw_file.replace(&comment, &new_comment)).is_ok();
           }
         }

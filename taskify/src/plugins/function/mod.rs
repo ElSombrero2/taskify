@@ -24,7 +24,7 @@ async fn init_and_get_namespace (file: &str, runtime: &mut JsRuntime) -> Global<
   runtime.get_module_namespace(id).unwrap()
 }
 
-async fn get_function_from_module<'a> (module_ns: Global<v8::Object>, runtime: &mut JsRuntime) -> Global<Function> {
+async fn get_function_from_module (module_ns: Global<v8::Object>, runtime: &mut JsRuntime) -> Global<Function> {
   let scope = &mut runtime.handle_scope();
 
   let function_key = v8::String::new(scope, "apply");
