@@ -11,5 +11,6 @@ export const useWindow = () => {
   return {
     os, 
     isWidget: !!(window as any).widget, theme: (window as any).theme || 'dark',
+    path: (window as any)?.path,
   };
 }

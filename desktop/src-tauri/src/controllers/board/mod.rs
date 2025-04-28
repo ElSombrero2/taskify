@@ -18,11 +18,18 @@ fn get_readme (path: &str) -> Option<String> {
   None
 }
 
+fn get_project_name (path: &str) -> Option<&str> {
+  #[cfg(target_os = "linux")]
+  return path.split("/").collect::<Vec<&str>>().pop();
+  #[cfg(target_os = "windows")]
+  return path.split("\\").collect::<Vec<&str>>().pop();
+}
+
 #[tauri::command]
 pub async fn get_board(path: String) -> (BTreeMap<TaskState, LinkedList<Task>>, Board, Option<String>) {
   let p = path.clone();
   let readme = get_readme(&path);
-  let project_name = p.split("/").collect::<Vec<&str>>().pop();
+  let project_name = get_project_name(&p);
   let board = Board::load(path, CBased::new(), project_name);
   let grouped_task = board.group_by_state();
   (grouped_task, board, readme)

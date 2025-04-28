@@ -1,13 +1,18 @@
 import clsx from "clsx"
+import { Task } from "@/types/task";
+import Markdown from "react-markdown";
+import { LinkPlugin } from "../../../../plugins/markdown/link/link";
+import { TagPlugin } from "../../../../plugins/markdown/tags/tags";
 
 type CardProps = {
   onClick: () => void,
   open?: boolean,
   active?: boolean,
+  task: Task
 }
 
 export const Card = (props: CardProps) => {
-  const { open, active } = props;
+  const { open, active, task } = props;
   return (
     <div onClick={props.onClick} className={
       clsx(
@@ -24,15 +29,18 @@ export const Card = (props: CardProps) => {
             !open && 'line-clamp-1 max-w-[250px]',
             open && 'mb-2'
           )}>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit
+            <Markdown rehypePlugins={[LinkPlugin, TagPlugin]}>
+              {task.title}
+            </Markdown>
           </p>
           <p className={clsx(
             'description text-xs text-gray-600 dark:text-gray-400',
             !open && 'line-clamp-2 max-w-[200px]',
-            open && 'h-[100px] overflow-scroll'
+            open && 'max-h-[100px] overflow-scroll'
           )}>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel harum in fuga quos reiciendis laudantium? Suscipit qui modi rem sit in reiciendis beatae a, sequi eveniet, laboriosam facilis, dolores praesentium?
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel harum in fuga quos reiciendis laudantium? Suscipit qui modi rem sit in reiciendis beatae a, sequi eveniet, laboriosam facilis, dolores praesentium?
+            <Markdown rehypePlugins={[LinkPlugin, TagPlugin]}>
+              {task.description ||''}
+            </Markdown>
           </p>
         </div>
         <div className={clsx(

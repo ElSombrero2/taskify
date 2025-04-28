@@ -4,9 +4,10 @@ use tauri::{AppHandle, Manager,WindowBuilder};
 
 use crate::vibrancy::apply_blur_to_window;
 
-fn create_instance(handle: AppHandle, theme: Option<String>) {
-  let script = format!("window.widget=true;window.theme=\"{}\"", theme.unwrap_or("dark".to_string()));
-  if handle.get_window("widget").is_none() {
+fn create_instance(handle: AppHandle, theme: Option<String>, path: Option<String>) {
+  if handle.get_window("widget").is_none() && path.is_some() {
+    let script = format!("window.path=String.raw`{}`;window.widget=true;window.theme=`{}`", path.unwrap(), theme.unwrap_or("dark".to_string()));
+    println!("{script}");
     let window = WindowBuilder::new(
       &handle,
       "widget",
@@ -27,8 +28,8 @@ fn create_instance(handle: AppHandle, theme: Option<String>) {
 }
 
 #[tauri::command]
-pub fn open_widget(handle: AppHandle, theme: Option<String>) {
-  thread::spawn(move || create_instance(handle, theme));
+pub fn open_widget(handle: AppHandle, theme: Option<String>, path: Option<String>) {
+  thread::spawn(move || create_instance(handle, theme, path));
 }
 
 #[tauri::command]

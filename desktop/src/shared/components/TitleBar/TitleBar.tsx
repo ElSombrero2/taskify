@@ -9,7 +9,7 @@ import { Toggler } from "./Toggler/Toggler";
 import { Theme } from "../../../providers/Theme/Theme";
 import { useListener } from "@/hooks/listener";
 import { useProject } from "@/store/projects/projects";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 export const TitleBar = () => {
   const { isWidget } = useWindow();
@@ -17,6 +17,7 @@ export const TitleBar = () => {
   const { setTheme, theme } = useContext(Theme);
   const { projects } = useProject();
   const navigate = useNavigate();
+  const [ params ] = useSearchParams();
 
   useListener('tauri://resize', async () => {
     setMaximized(await appWindow.isMaximized());
@@ -26,7 +27,10 @@ export const TitleBar = () => {
   })
 
   const minimize = async () => {
-    await invoke('open_widget', { theme });
+    const path = params.get('path');
+    if (path) {
+      await invoke('open_widget', { theme, path });
+    }
     await appWindow.minimize();
   }
   const close = async () => await appWindow.close();

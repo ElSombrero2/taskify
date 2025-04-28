@@ -17,6 +17,7 @@ export const Board = () => {
   useEffect(() => {
     const path = params.get('path');
     if (path) {
+      console.log(path)
       invoke('start_listen', {path, dispose: false});
       find(path);
     }
