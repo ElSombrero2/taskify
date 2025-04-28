@@ -14,7 +14,7 @@ export const Tasks = () => {
   const { onCardClicked, task, showDetail, setShowDetail } = useDetails(board);
 
   return (
-    <div className="flex p-4 flex-col gap-8 overflow-auto scrollable" data-dnd onDragOver={(e) => e.preventDefault()}>
+    <div className="flex flex-col gap-8 overflow-auto scrollable" data-dnd onDragOver={(e) => e.preventDefault()}>
       <div className="flex w-full gap-10 h-[calc(100vh-266px)]">
         {States.map((state, index) => (
           <Switch condition={!loading} key={`${state}-${index}`} fallback={<Loader />} >

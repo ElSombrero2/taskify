@@ -8,6 +8,7 @@ type BoardState = {
   board?: Board,
   tasks?: GroupedTasks,
   path?: string,
+  readme?: string,
   find: (path: string, loading?: boolean) => Promise<void>;
   load: (loading: boolean) => void;
   updateTask: (id: string, file: string, from: TaskState, to: TaskState) => Promise<void>;
@@ -19,13 +20,14 @@ export const useBoard = create<BoardState>((set, get) => ({
   load: (loading: boolean) => set(state => ({...state, loading})),
   find: async (path: string, loading: boolean = true) => {
     get().load(loading);
-    const [tasks, board] = await invoke<BoardTuple>('get_board', {path})
+    const [tasks, board, readme] = await invoke<BoardTuple>('get_board', {path})
 
     set(state => ({
       ...state,
       path,
       tasks,
       board,
+      readme,
       loading: false,
     }));
   },

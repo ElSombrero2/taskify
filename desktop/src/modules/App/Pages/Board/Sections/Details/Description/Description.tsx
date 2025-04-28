@@ -5,7 +5,7 @@ import { LinkPlugin } from "@/plugins/markdown/link/link"
 import { TagPlugin } from "@/plugins/markdown/tags/tags"
 
 /*
-  [TESTING]: Make tags bold
+  [DONE]: Make tags bold
   Remove the "#" chracacter and make the
   text bold
   #improvment #trivial

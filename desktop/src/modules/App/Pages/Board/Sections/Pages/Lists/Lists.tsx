@@ -21,7 +21,7 @@ export const Lists = () => {
     #improvment #low
   */
   return (
-    <div className="p-4 overflow-y-auto h-[calc(100vh-266px)] scrollable">
+    <div className="overflow-y-auto h-[calc(100vh-266px)] scrollable">
       <table className="w-full">
         <thead className="border-b-2 text-left">
           <tr>
@@ -32,7 +32,7 @@ export const Lists = () => {
         <tbody>
           {
           /*
-            [WIP]: Make the list items clickable
+            [DONE]: Make the list items clickable
             The list item must be clickable
             When the user click on the list item
             Then the details section will appear

@@ -12,7 +12,7 @@ type BadgeProps = {
 }
 
 /*
-  [READY]: Add variant for badge
+  [DONE]: Add variant for badge
   Create Badge variant Light like on this following
   picture but with the same radius as now and name that
   variant ghost #ui #improvment #low

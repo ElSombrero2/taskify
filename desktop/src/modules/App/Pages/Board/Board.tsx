@@ -31,7 +31,7 @@ export const Board = () => {
       <Header />
       <Options />
       <Navigation />
-      <div className="p-1">
+      <div className="p-4">
         <Outlet />
       </div>
     </div>

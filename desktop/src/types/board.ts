@@ -6,4 +6,4 @@ export type Board = {
   extra: unknown,
 }
 
-export type BoardTuple = [GroupedTasks, Board]
+export type BoardTuple = [GroupedTasks, Board, string]

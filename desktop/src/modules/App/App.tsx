@@ -6,6 +6,7 @@ import { Home } from "./Pages/Home/Home";
 import { Tasks } from "./Pages/Board/Sections/Pages/Tasks/Tasks";
 import { Lists } from "./Pages/Board/Sections/Pages/Lists/Lists";
 import "./App.scss";
+import { Docs } from "./Pages/Board/Sections/Pages/Docs/Docs";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
               <Route path="/board" element={<Board />}>
                 <Route element={<Tasks />} path="main" />
                 <Route element={<Lists />} path="list" />
-                <Route element={<Lists />} path="docs" />
+                <Route element={<Docs />} path="docs" />
               </Route>
             </Routes>
           </div>

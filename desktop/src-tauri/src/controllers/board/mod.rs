@@ -1,4 +1,4 @@
-use std::{collections::{BTreeMap, LinkedList}, sync::Mutex, thread};
+use std::{collections::{BTreeMap, LinkedList}, fs, path::Path, sync::Mutex, thread};
 use notify::{Event, EventKind};
 use serde::Serialize;
 use taskify::{board::Board, events, syntax::c_based::CBased, task::{state::TaskState, Task}};
@@ -10,13 +10,22 @@ struct Payload<'a> {
   pub files: &'a str
 }
 
+fn get_readme (path: &str) -> Option<String> {
+  let path_buff = Path::new(path).join("README.md");
+  if let Ok(content) = fs::read_to_string(path_buff) {
+    return Some(content);
+  }
+  None
+}
+
 #[tauri::command]
-pub async fn get_board(path: String) -> (BTreeMap<TaskState, LinkedList<Task>>, Board) {
+pub async fn get_board(path: String) -> (BTreeMap<TaskState, LinkedList<Task>>, Board, Option<String>) {
   let p = path.clone();
+  let readme = get_readme(&path);
   let project_name = p.split("/").collect::<Vec<&str>>().pop();
   let board = Board::load(path, CBased::new(), project_name);
   let grouped_task = board.group_by_state();
-  (grouped_task, board)
+  (grouped_task, board, readme)
 }
 
 #[tauri::command]
