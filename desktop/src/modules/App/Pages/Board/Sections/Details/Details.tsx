@@ -11,7 +11,7 @@ import { TagPlugin } from "@/plugins/markdown/tags/tags"
 import Markdown from "react-markdown"
 
 /*
-  [WIP]: Share details section to list and board
+  [TESTING]: Share details section to list and board
   The details section must be shared by the list and the board section
   and all the lists items must be clickable and must trigger the details
   side panel section
