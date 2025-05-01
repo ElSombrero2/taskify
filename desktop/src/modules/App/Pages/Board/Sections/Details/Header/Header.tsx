@@ -2,7 +2,6 @@ import { Info } from "@/types/task"
 
 export const Header = ({onClickExit, info}: {onClickExit?: () => void, info?: Info}) => {
     const getFilename = (filename?: string) => {
-        console.log()
         if (filename) {
             const splited = filename.split(
                 navigator.userAgent.toLowerCase().includes('windows') ? '\\' : '/'

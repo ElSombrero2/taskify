@@ -62,3 +62,8 @@ pub fn start_listen(global_app: AppHandle, path: String) {
     );
   });
 }
+
+#[tauri::command]
+pub fn save (path: String, board: Board) {
+  board.save(path);
+}

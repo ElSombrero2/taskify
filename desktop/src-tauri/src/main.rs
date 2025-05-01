@@ -1,5 +1,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use controllers::board::{get_board, move_task, start_listen};
+use controllers::board::{get_board, move_task, start_listen, save};
 use tauri::Manager;
 use vibrancy::apply_blur_to_window;
 use widget::{close_widget, open_widget};
@@ -21,6 +21,7 @@ fn main() {
         get_board,
         move_task,
         start_listen,
+        save,
     ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
