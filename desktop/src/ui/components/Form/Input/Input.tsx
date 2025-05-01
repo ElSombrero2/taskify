@@ -13,7 +13,7 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>
 export const Input = ({icon, size, containerClass, iconPosition, ...props}: InputProps) => {
   return (
     <div className={clsx(
-      'p-1 px-4 border flex items-center gap-3 rounded-md',
+      'p-1 px-4 border flex items-center gap-3 rounded-md dark:bg-slate-300 dark:bg-opacity-10 bg-white bg-opacity-20',
       containerClass,
       variants.size[size || 'md'],
       iconPosition === 'right' ? 'flex-row-reverse' : 'flex-row'
