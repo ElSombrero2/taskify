@@ -65,12 +65,12 @@ const TicketType: SpecificTagMap = {
         border: 'border-green-500 dark:border-emerald-600',
         label: 'Feature',
     },
-    improvment: {
+    improvement: {
         icon: 'fa-solid fa-arrow-up',
         background: 'bg-green-500',
         color: 'text-green-500',
         border: 'border-green-500 dark:border-emerald-600',
-        label: 'Improvment',
+        label: 'Improvement',
     },
 }
 

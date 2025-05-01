@@ -20,7 +20,7 @@ export const Board = () => {
       invoke('start_listen', {path, dispose: false});
       find(path);
     }
-  }, [params]);
+  }, []);
 
   useEffect(() => () => {
     appWindow.emit('file-stop-waching', {});

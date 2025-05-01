@@ -8,7 +8,7 @@ import { TagPlugin } from "@/plugins/markdown/tags/tags"
   [DONE]: Make tags bold
   Remove the "#" chracacter and make the
   text bold
-  #improvment #trivial
+  #improvement #trivial
 */
 export const TaskDescription = ({description}: {description: string}) => {
   return (

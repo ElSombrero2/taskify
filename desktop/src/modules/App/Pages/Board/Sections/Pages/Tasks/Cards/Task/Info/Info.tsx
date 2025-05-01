@@ -7,6 +7,12 @@ import { DateTime } from "luxon";
 export const Info = ({ info }: {info: TInfo}) => {
   const avatar = useAvatar(info.author?.name);
 
+  const getDate = (date: DateTime) => {
+    if (date.isValid) {
+      return date.toFormat('dd LLL yyyy - HH:mm')
+    }
+  }
+
   return (
     <div className="flex items-center justify-between">
     <div className="text-[10px]">
@@ -16,7 +22,7 @@ export const Info = ({ info }: {info: TInfo}) => {
           {info.author?.name || "Unknown"}
         </span>
       </p>
-      <span className="opacity-50">{DateTime.fromISO(toISO(info.date)).toFormat('dd LLL yyyy - HH:mm')}</span>
+      <span className="opacity-50">{getDate(DateTime.fromISO(toISO(info.date)))}</span>
     </div>
     <Avatar avatar={avatar} />
   </div>

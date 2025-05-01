@@ -3,16 +3,33 @@ import { Button } from "@/ui/components/Buttons/Button/Button"
 import { Input } from "@/ui/components/Form/Input/Input"
 import { Skeleton } from "@/ui/components/Skeleton/Skeleton"
 import { Switch } from "@/shared/components/Operators/Switch/Switch"
-import { useSearchParams } from "react-router"
+import { useNavigate, useSearchParams } from "react-router"
+import { useFilter } from "../../../../../../store/filters/filters"
 
+/*
+  [WIP]: Add sort
+  The user can choose in what fields he want to sort all the items
+  and can sort in ASC or DESC
+  #high #improvement
+*/
 export const Header = () => {
   const { loading, board } = useBoard();
   const [ query ] = useSearchParams();
+  const { setFilter } = useFilter();
+  const navigate = useNavigate();
 
   const path = () => {
     let path = query.get('path')?.split('/') || [];
     path?.pop();
     return path;
+  }
+
+  const search = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value?.trim();
+    if (query?.length) {
+      setFilter({ query, sort: null });
+      navigate('list');
+    } else { setFilter({ query: null, sort: null })}
   }
 
   return (
@@ -28,9 +45,21 @@ export const Header = () => {
       </Switch>
       
       <div className="flex items-center gap-2">
+        {
+          /*
+            [TESTING]: Add search functionality
+            An user can search some word inside the titles
+            and description
+            When the user tip in the search input, he will be redirected
+            to list page and the list will be filtered by the value inside
+            the input string
+            #high #improvement
+          */
+        }
         <Input
           size="sm"
           placeholder="Search"
+          onChange={search}
           icon={<i className="text-sm fa fa-search"></i>}
         />
         <Button size="sm" type="outline" theme="secondary">
