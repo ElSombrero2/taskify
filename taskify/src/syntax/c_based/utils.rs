@@ -1,7 +1,7 @@
 use regex::Regex;
 
 pub fn sanitize(str: &str) -> Vec<String> {
-  let sanitizer_regex = Regex::new(r"(/\*)|(\*/)|\r|(//)")
+  let sanitizer_regex = Regex::new(r"(/\*)|(\*/)|\r|(// )")
   .unwrap().replace_all(str.trim(), "").to_string();
 
   let mut str_arr = sanitizer_regex.split('\n').collect::<Vec<&str>>();
