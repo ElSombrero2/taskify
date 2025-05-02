@@ -13,7 +13,7 @@ export const Extra = ({ task }: {task: Task}) => {
         <div className="flex flex-row-reverse gap-2">
             <If condition={!!task.info.author}>
                 <div className="flex items-center gap-3">
-                    <Avatar avatar={createAvatar(task?.info?.author?.name)} />
+                    <Avatar avatar={createAvatar(task?.info?.author?.name || 'Unknown User')} />
                 </div>
             </If>
             <If condition={!!state}>

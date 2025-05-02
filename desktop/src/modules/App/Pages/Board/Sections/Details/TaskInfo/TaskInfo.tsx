@@ -11,7 +11,7 @@ import clsx from "clsx";
 
 export const TaskInfo = ({ task }: { task?: Task }) => {
     const state = useTaskState(task?.state);
-    const {color, initials } = useAvatar(task?.info?.author?.name);
+    const {color, initials } = useAvatar(task?.info?.author?.name || 'Unknown User');
     const { priority, type } = useTags(task?.tags);
 
     return (

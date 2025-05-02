@@ -5,7 +5,7 @@ import { toISO } from "@/utils/to-iso";
 import { DateTime } from "luxon";
 
 export const Info = ({ info }: {info: TInfo}) => {
-  const avatar = useAvatar(info.author?.name);
+  const avatar = useAvatar(info.author?.name || 'Unknown User');
 
   const getDate = (date: DateTime) => {
     if (date.isValid) {
