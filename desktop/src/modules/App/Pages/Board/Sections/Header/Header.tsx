@@ -20,7 +20,11 @@ export const Header = () => {
 
   const path = () => {
     let path = query.get('path')?.split('/') || [];
-    path?.pop();
+    if (navigator.userAgent.toLowerCase().includes('windows')) {
+      path = query.get('path')?.split('\\') ||[];
+    }
+    path.pop();
+    console.log(path);
     return path;
   }
 
@@ -42,7 +46,7 @@ export const Header = () => {
           ))}
           <span className="font-semibold">{board?.name}</span>
         </div>
-      </Switch>
+      </Switch> 
       
       <div className="flex items-center gap-2">
         {
