@@ -1,5 +1,6 @@
 import { useTags } from "@/hooks/tag";
 import { LinkPlugin } from "@/plugins/markdown/link/link";
+import { Load } from "@/plugins/markdown/loader/loader";
 import { TagPlugin } from "@/plugins/markdown/tags/tags";
 import { If } from "@/shared/components/Operators/If/If";
 import clsx from "clsx";
@@ -32,7 +33,7 @@ export const Text = ({title, description, tags}: {title: string; description?: s
           </If>
         </div>
         <Markdown
-            rehypePlugins={[LinkPlugin, TagPlugin]}
+            rehypePlugins={[Load([LinkPlugin, TagPlugin])]}
             className="prose dark:text-gray-100 dark:prose-invert"
           >
         {title}

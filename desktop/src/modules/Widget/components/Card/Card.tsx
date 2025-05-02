@@ -3,6 +3,7 @@ import { Task } from "@/types/task";
 import Markdown from "react-markdown";
 import { LinkPlugin } from "../../../../plugins/markdown/link/link";
 import { TagPlugin } from "../../../../plugins/markdown/tags/tags";
+import { Load } from "@/plugins/markdown/loader/loader";
 
 type CardProps = {
   onClick: () => void,
@@ -29,7 +30,7 @@ export const Card = (props: CardProps) => {
             !open && 'line-clamp-1 max-w-[250px]',
             open && 'mb-2'
           )}>
-            <Markdown rehypePlugins={[LinkPlugin, TagPlugin]}>
+            <Markdown rehypePlugins={[Load([LinkPlugin, TagPlugin])]}>
               {task.title}
             </Markdown>
           </p>
@@ -38,7 +39,7 @@ export const Card = (props: CardProps) => {
             !open && 'line-clamp-2 max-w-[200px]',
             open && 'max-h-[100px] overflow-scroll'
           )}>
-            <Markdown rehypePlugins={[LinkPlugin, TagPlugin]}>
+            <Markdown rehypePlugins={[Load([LinkPlugin, TagPlugin])]}>
               {task.description ||''}
             </Markdown>
           </p>

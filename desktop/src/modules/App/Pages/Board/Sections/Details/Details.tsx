@@ -9,6 +9,7 @@ import { Attachments } from "./Attachments/Attachments";
 import { LinkPlugin } from "@/plugins/markdown/link/link"
 import { TagPlugin } from "@/plugins/markdown/tags/tags"
 import Markdown from "react-markdown"
+import { Load } from "@/plugins/markdown/loader/loader";
 
 /*
   [TESTING]: Share details section to list and board
@@ -35,7 +36,7 @@ export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean,
       <div className="max-h-[90vh] overflow-y-scroll">
         <div className="p-4 flex flex-col gap-8">
           <Markdown
-            rehypePlugins={[LinkPlugin, TagPlugin]}
+            rehypePlugins={[Load([LinkPlugin, TagPlugin])]}
             className="text-3xl font-bold"
           >
             {task?.title || ''}

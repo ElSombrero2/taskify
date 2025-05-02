@@ -5,6 +5,7 @@ import { LinkPlugin } from "@/plugins/markdown/link/link";
 import { TagPlugin } from "@/plugins/markdown/tags/tags";
 import Markdown from "react-markdown"
 import { useTags } from "@/hooks/tag";
+import { Load } from "@/plugins/markdown/loader/loader";
 
 export const Summary = ({ task }: {task: Task}) => {
     const { type, priority } = useTags(task.tags);
@@ -32,7 +33,7 @@ export const Summary = ({ task }: {task: Task}) => {
                 </If>
             </div>
             <Markdown
-            rehypePlugins={[LinkPlugin, TagPlugin]}
+            rehypePlugins={[Load([LinkPlugin, TagPlugin])]}
             className="prose dark:text-gray-100 dark:prose-invert"
             >
                 {task.title}

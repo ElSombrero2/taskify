@@ -3,6 +3,7 @@ import { InfoText } from "../InfoText/InfoText"
 import remarkGfm from "remark-gfm"
 import { LinkPlugin } from "@/plugins/markdown/link/link"
 import { TagPlugin } from "@/plugins/markdown/tags/tags"
+import { Load } from "@/plugins/markdown/loader/loader"
 
 /*
   [DONE]: Make tags bold
@@ -16,7 +17,7 @@ export const TaskDescription = ({description}: {description: string}) => {
       <div className="p-3 border border-gray-500 border-opacity-20 rounded-lg">
         <Markdown
           remarkPlugins={[remarkGfm]}
-          rehypePlugins={[LinkPlugin, TagPlugin]}
+          rehypePlugins={[Load([LinkPlugin, TagPlugin])]}
           className="prose dark:text-gray-100 dark:prose-invert text-sm"
         >
           {description}
