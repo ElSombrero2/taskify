@@ -6,8 +6,7 @@ export const Types = ({ tags }: {tags: SpecificTag[]}) => {
   return (
     <>
       {tags.map((type) => (
-        <Item
-          type='checkbox'
+        <Item type='checkbox'
           name="tags"
         >
           <small className="flex gap-2">
@@ -17,7 +16,7 @@ export const Types = ({ tags }: {tags: SpecificTag[]}) => {
               'flex items-center justify-center'
               )}
             >
-                <i className={type?.icon}></i>
+              <i className={type?.icon}></i>
             </span>
             <span>{type.label}</span>
           </small>

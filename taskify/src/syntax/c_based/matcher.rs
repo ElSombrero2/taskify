@@ -52,9 +52,13 @@ impl Syntax<Task> for CBased {
     Option::None
   }
 
-  // Improve the performance of this code
-  // for finding the start and end line of the comment
-  // inside the code
+  /*
+    [DONE]: Collect all comments
+    Improve the performance of this code
+    for finding the start and end line of the comment
+    inside the code
+    #task #low
+  */
   fn comments(&self, raw_file: String) -> Vec<Comment> {
     let files = raw_file.split("/*");
     let mut comments: Vec<Comment> = vec![];

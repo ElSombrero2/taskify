@@ -6,8 +6,7 @@ export const Priorities = ({ tags }: {tags: SpecificTag[]}) => {
   return (
     <>
       {tags.map((priority) => (
-        <Item
-          type='checkbox'
+        <Item type='checkbox'
           name="tags"
         >
           <small className="flex gap-2">
