@@ -4,6 +4,7 @@ export type SpecificTag = {
     color: string;
     label: string;
     border?: string;
+    key?: string;
 }
 
 export type SpecificTagMap = {
@@ -87,4 +88,12 @@ export const findLevelAndType = (tags: string[]) => {
     const priority = findFromTag(tags, PriorityLevel);
     const type = findFromTag(tags, TicketType);
     return { priority, type }
+}
+
+export const PriorityLevels = () => {
+    return Object.keys(PriorityLevel).map((key) => ({ ...PriorityLevel[key], key }));
+}
+
+export const TicketTypes = () => {
+    return Object.keys(TicketType).map((key) => ({ ...TicketType[key], key }));
 }

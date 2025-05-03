@@ -1,12 +1,13 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Button } from '../../../../../../../ui/components/Buttons/Button/Button'
 import { Dropdown } from '../../../../../../../ui/components/Dropdown/Dropdown'
 import { Divider } from '../../../../../../../ui/components/Separators/Divider/Divider';
 import { Item } from '../Item/Item';
 import { useField } from './hooks/field';
 import { useSort } from './hooks/sort';
-import './Sort.scss'
 import { useFilter } from '../../../../../../../store/filters/filters';
+import { useToggler } from '../../../../../../../hooks/toggler';
+import './Sort.scss'
 
 /*
   [TODO]: Analyze and refactoring
@@ -14,12 +15,11 @@ import { useFilter } from '../../../../../../../store/filters/filters';
   #task #low
 */
 export const Sort = () => {
-  const [open, setOpen] = useState(false);
+  const { toggle, hide, open } = useToggler(false);
   const { fields } = useField();
   const { sort: sortList } = useSort();
   const { field, sort, setSort } = useFilter();
-  const form = useRef<HTMLFormElement>(null)
-  const toggle = () => setOpen(!open);
+  const form = useRef<HTMLFormElement>(null);
 
   const onSort = () => {
     if (form) {
@@ -27,13 +27,13 @@ export const Sort = () => {
       const field = (currentForm?.elements.namedItem('field') as RadioNodeList).value;
       const sort = (currentForm?.elements.namedItem('sort') as RadioNodeList).value as 'DESC' | 'ASC';
 
-      setSort(fields.find(f => f.value === field)!, sort);
+      setSort(field, sort);
     }
   }
 
   return (
     <Dropdown open={open}
-      onClickOutside={() => setOpen(false)}
+      onClickOutside={hide}
       size="sm"
       position="left"
       button={<Button
@@ -44,7 +44,7 @@ export const Sort = () => {
         {sort === 'ASC' ? <i className="fa-solid fa-arrow-down-short-wide"></i> : <i className="fa-solid fa-arrow-up-short-wide"></i>}
         <p className="truncate w-full h-[18px] text-left">
           {'Sort by : '}
-          <strong>{field.label}</strong>
+          <strong>{field}</strong>
         </p>
       </Button>}
     >
@@ -53,7 +53,7 @@ export const Sort = () => {
             <Item onChange={onSort}
               key={`checkbox-${f.value}`}
               type='radio'
-              checked={f.value === field.value}
+              checked={f.value === field}
               name="field"
               value={f.value}
             >
