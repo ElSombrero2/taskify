@@ -1,17 +1,31 @@
 import { create } from "zustand";
 
+type LabelValue = {
+  label: string,
+  value: string,
+}
+
 type FiltersState = {
   query: string | null,
   tags: string[],
-  sort: 'ASC' | 'DESC' | null,
-  setFilter: (filter: {query: string | null, sort: 'ASC' | 'DESC' | null, tags?: string[]}) => void,
+  sort: 'ASC' | 'DESC',
+  field: LabelValue,
+  setFilter: (query: string | null) => void,
+  setSort: (field: LabelValue, sort: 'ASC' | 'DESC') => void,
 }
 
 export const useFilter = create<FiltersState>((set) => ({
   query: null,
-  sort: null,
+  sort: 'ASC',
+  field: {
+    value: 'date',
+    label: 'Date',
+  },
   tags: [],
-  setFilter: ({query, sort, tags}) => {
-    set(state => ({...state, query, sort, tags, }))
-  }
+  setFilter: (query) => {
+    set(state => ({...state, query, }))
+  },
+  setSort: (field: LabelValue, sort: 'ASC' | 'DESC') => {
+    set(state => ({ ...state, field, sort }))
+  },
 }));

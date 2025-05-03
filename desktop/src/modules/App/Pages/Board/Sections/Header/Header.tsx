@@ -24,16 +24,15 @@ export const Header = () => {
       path = query.get('path')?.split('\\') ||[];
     }
     path.pop();
-    console.log(path);
     return path;
   }
 
   const search = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value?.trim();
     if (query?.length) {
-      setFilter({ query, sort: null });
+      setFilter(query);
       navigate('list');
-    } else { setFilter({ query: null, sort: null })}
+    } else { setFilter(null)}
   }
 
   return (

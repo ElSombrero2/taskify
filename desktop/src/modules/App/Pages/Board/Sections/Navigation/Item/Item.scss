@@ -1,0 +1,11 @@
+
+.radio {
+  @apply flex justify-between items-center w-[220px] px-2 py-1 cursor-pointer dark:hover:bg-gray-600 hover:bg-gray-200 rounded-sm;
+  input {
+    display: none;
+  }
+  &:has(input:checked)::after {
+    font: var(--fa-font-solid);
+    content: '\f00c';
+  }
+}

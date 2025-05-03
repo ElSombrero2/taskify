@@ -22,7 +22,7 @@ export const Info = ({ info }: {info: TInfo}) => {
           {info.author?.name || "Unknown"}
         </span>
       </p>
-      <span className="opacity-50">{getDate(DateTime.fromISO(toISO(info.date)))}</span>
+      <span className="dark:text-gray-400 text-gray-500">{getDate(DateTime.fromISO(toISO(info.date)))}</span>
     </div>
     <Avatar avatar={avatar} />
   </div>

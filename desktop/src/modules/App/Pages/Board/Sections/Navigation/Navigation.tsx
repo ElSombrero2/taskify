@@ -1,7 +1,8 @@
 import { TabItem } from "@/ui/components/Tabs/Item/Item"
-import { Button } from "@/ui/components/Buttons/Button/Button"
 import { useBoard } from "@/store/board/board";
 import { useLocation } from "react-router";
+import { Sort } from "./Sort/Sort";
+import { Filter } from "./Filter/Filter";
 
 export const Navigation = () => {
   const { path } = useBoard();
@@ -25,16 +26,9 @@ export const Navigation = () => {
           Docs
         </TabItem>
       </div>
-
       <div className="flex items-center gap-2">
-        <Button size="sm" theme="secondary">
-          <i className="fa-solid fa-arrow-down-short-wide"></i>
-          Sort
-        </Button>
-        <Button size="sm" theme="secondary">
-          <i className="fa-solid fa-filter"></i>
-          More filters
-        </Button>
+        <Sort />
+        <Filter />
       </div>
     </div>
   )

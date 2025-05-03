@@ -40,7 +40,7 @@ export const Text = ({title, description, tags}: {title: string; description?: s
         </Markdown>
       </div>
       {!!description && (
-        <p className="text-xs line-clamp-1 opacity-60">
+        <p className="text-xs line-clamp-1 dark:text-gray-400 text-gray-500">
           {description}
         </p>
       )}
