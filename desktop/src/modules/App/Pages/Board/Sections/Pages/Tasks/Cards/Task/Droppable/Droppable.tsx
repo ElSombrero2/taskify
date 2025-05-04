@@ -1,6 +1,14 @@
 import clsx from "clsx";
 import { DragEvent, useState } from "react";
 
+/*
+  [READY]: Change the drag and drop design
+  Dropping element does not correspond to the
+  the current user experience so change it to looks like
+  ![jira](https://marketplace.atlassian.com/product-listing/files/50cc141f-c447-4291-b5b5-1b58b2108021?fileType=image&mode=full-fit)
+  #medium #improvement
+*/
+
 type DroppableProps = {
   className?: string;
   activatedClassName?: string;

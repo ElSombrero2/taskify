@@ -29,7 +29,7 @@ export const Column = ({children, tasks, state, onCardClicked}: ColumnProps) => 
           offsetSize="1.25rem"
           onDrop={onDrop}
           target={state}
-          className="h-20"
+          className="h-20 min-h-[65vh]bg-red-200"
           activatedClassName="pb-5"
         />}
         {tasks?.map((task, index) => (

@@ -9,7 +9,7 @@ import { useListener } from "@/hooks/listener"
 import { appWindow } from "@tauri-apps/api/window"
 
 /*
-  [TODO]: Add a board and list sorting strategy
+  [READY]: Add a board and list sorting strategy
   Create a board filtering and sorting strategy
   for showing all the board elements directly from the store
   #task #medium

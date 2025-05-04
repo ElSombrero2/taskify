@@ -50,7 +50,7 @@ export const Header = () => {
       <div className="flex items-center gap-2">
         {
           /*
-            [TESTING]: Add search functionality
+            [DONE]: Add search functionality
             An user can search some word inside the titles
             and description
             When the user tip in the search input, he will be redirected
