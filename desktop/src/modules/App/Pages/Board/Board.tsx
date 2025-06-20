@@ -32,6 +32,16 @@ export const Board = () => {
     appWindow.emit('file-stop-waching', {});
   }, []);
 
+  /*
+    [TODO]: Create alert for all the additionnal messages
+    Create an alert component that can be wrapped globaly and
+    called anywhere inside the application
+    based on this model
+    #medium #improvement
+    ![alert](https://cdn.dribbble.com/userupload/29008886/file/original-6bb07fc79059a953303ac78dcbd88915.png?resize=1024x768&vertical=center)
+
+  */
+
   return (
     <div>
       <Header />
