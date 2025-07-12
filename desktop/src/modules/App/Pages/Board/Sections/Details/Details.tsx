@@ -31,6 +31,7 @@ export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean,
         !open && 'translate-x-[565px]',
       )}
       backdropClassName="backdrop-blur-md"
+      backdropStyle={{WebkitBackdropFilter: 'blur(12px)'}}
     >
       <Header info={task?.info} onClickExit={onClickExit} />
       <div className="max-h-[90vh] overflow-y-scroll">

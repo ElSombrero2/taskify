@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ReactNode } from "react"
+import { CSSProperties, ReactNode } from "react"
 
 type ModalProps = {
   children?: ReactNode,
@@ -7,9 +7,10 @@ type ModalProps = {
   open?: boolean,
   onBackDropClick?: () => void,
   backdropClassName?: string,
+  backdropStyle?: CSSProperties,
 }
 
-export const Modal = ({children, className, open, onBackDropClick, backdropClassName}: ModalProps) => {
+export const Modal = ({children, className, open, onBackDropClick, backdropClassName, backdropStyle}: ModalProps) => {
   const stopPropagation = (e: unknown) => (e as Event).stopPropagation(); 
 
   return (
@@ -19,6 +20,7 @@ export const Modal = ({children, className, open, onBackDropClick, backdropClass
     )}>
       <div
         onClick={() => onBackDropClick && onBackDropClick()}
+        style={backdropStyle}
         className={clsx(
           'w-full h-full rounded-lg overflow-hidden bg-black bg-opacity-45',
           open && 'pointer-events-auto',
