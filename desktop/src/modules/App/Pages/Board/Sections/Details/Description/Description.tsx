@@ -11,7 +11,7 @@ import { Load } from "@/plugins/markdown/loader/loader"
   text bold
   #improvement #trivial
 */
-export const TaskDescription = ({description}: {description: string}) => {
+export const TaskDescription = ({ description }: { description?: string }) => {
   return (
     <InfoText icon="fa-regular fa-file-lines" vertical title="Description">
       <div className="p-3 border border-gray-500 border-opacity-20 rounded-lg">
@@ -20,7 +20,7 @@ export const TaskDescription = ({description}: {description: string}) => {
           rehypePlugins={[Load([LinkPlugin, TagPlugin])]}
           className="prose dark:text-gray-100 dark:prose-invert text-sm"
         >
-          {description}
+          {description ?? ''}
         </Markdown>
       </div>
     </InfoText>

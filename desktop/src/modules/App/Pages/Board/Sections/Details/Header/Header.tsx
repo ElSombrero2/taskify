@@ -23,8 +23,8 @@ export const Header = ({onClickExit, info}: {onClickExit?: () => void, info?: In
     return (
         <div className="w-full border-b flex items-center justify-between p-4 px-6">
             <div className="flex gap-4 items-center">
-                <button className="text-lg" onClick={onClickExit}>
-                    <i className="fa fa-xmark"></i>
+                <button type="button" className="text-lg" onClick={onClickExit}>
+                    <i className="fa fa-xmark" />
                 </button>
                 <div>
                     <div title={info?.filename} className="flex items-center gap-2">
@@ -38,8 +38,8 @@ export const Header = ({onClickExit, info}: {onClickExit?: () => void, info?: In
             </div>
 
             <div className="flex gap-8 items-center">
-                <button>
-                    <i className="fa-solid fa-ellipsis-vertical"></i>
+                <button type="button">
+                    <i className="fa-solid fa-ellipsis-vertical" />
                 </button>
             </div>
         </div>

@@ -19,13 +19,19 @@ import { Load } from "@/plugins/markdown/loader/loader";
   #front #task #high
 */
 export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean, onClickExit?: () => void}) => {
-  task?.info
+	
+	/*
+		[TODO]: Look at image and video in a modal
+		When a user click on an image, a video or a figma link,
+		a modal appears and focus at the selected media.
+		#ui #low #improvement
+	*/
   return (
     <Modal
       onBackDropClick={onClickExit}
       open={open}
       className={clsx(
-        'w-[565px] h-full float-right shadow-lg',
+        'w-[564px] h-full float-right shadow-lg',
         'dark:bg-gray-900 bg-gray-200 rounded-l-lg',
         'transition-transform duration-200',
         !open && 'translate-x-[565px]',
@@ -46,9 +52,11 @@ export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean,
           <div className="flex flex-col gap-5">
             <TaskInfo task={task} />
               <If condition={!!task?.description}>
-                <TaskDescription description={task?.description!} />
+                <TaskDescription description={task?.description} />
               </If>
-              {!!task && !!task?.info.attached_files.length && <Attachments files={task.info.attached_files} />}
+							<If condition={!!task && !!task?.info.attached_files.length}>
+								<Attachments files={task?.info?.attached_files || []} />
+							</If>
           </div>
         </div>
       </div>
