@@ -59,7 +59,7 @@ export const TaskCard = ({ task, top, onClick }: { task: Task, top?: boolean, on
           tags={task.tags}
         />
         <Divider />
-        <Info info={task.info} />
+				<Info info={task.info} />
       </Card>
       {<Droppable
         offsetSize="2rem"

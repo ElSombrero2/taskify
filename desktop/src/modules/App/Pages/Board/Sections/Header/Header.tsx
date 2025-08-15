@@ -41,7 +41,7 @@ export const Header = () => {
         <div className="text-md flex gap-3 items-center">
           <i className="fa fa-folder"></i>
           {path().map((path, index) => (
-            <span key={`${path}-${index}`} className="font-thin opacity-70">{path} /</span>
+            <span key={`${path}-${index}`} className="font-light opacity-70 dark:text-zinc-100 text-gray-950">{path} /</span>
           ))}
           <span className="font-semibold">{board?.name}</span>
         </div>

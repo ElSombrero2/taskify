@@ -42,7 +42,7 @@ export const Dropdown = ({ button, position, size, open, children, onClickOutsid
         'shadow rounded-md absolute p-1 ',
         'z-50',
         variants.size[size || 'md'],
-      )}>
+      )} style={{WebkitBackdropFilter: 'blur(16px)'}}>
         {children}
       </div>}
     </div>
