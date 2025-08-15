@@ -11,13 +11,17 @@ type ModalProps = {
 }
 
 export const Modal = ({children, className, open, onBackDropClick, backdropClassName, backdropStyle}: ModalProps) => {
-  const stopPropagation = (e: unknown) => (e as Event).stopPropagation(); 
+  const stopPropagation = (e: unknown) => (e as Event).stopPropagation();
 
   return (
-    <div className={clsx(
-      'transition-all duration-200 fixed w-full h-full border top-0 left-0 p-1 pt-[43px] overflow-hidden pointer-events-none',
-      !open && 'opacity-0',
-    )}>
+    <div
+			role="dialog"
+			aria-hidden="false"
+			className={clsx(
+				'transition-all duration-200 fixed w-full h-full border top-0 left-0 p-1 pt-[43px] overflow-hidden pointer-events-none',
+				!open && 'opacity-0',
+			)}
+		>
       <div
         onClick={() => onBackDropClick && onBackDropClick()}
         style={backdropStyle}

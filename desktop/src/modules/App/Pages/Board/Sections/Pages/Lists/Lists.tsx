@@ -59,7 +59,9 @@ export const Lists = () => {
                 onClick={() => onCardClicked(task)}
               >
                 <td>
-                  <Summary task={task} />
+									<button>
+										 <Summary task={task} />
+									</button>
                 </td>
                 <td>
                   <Extra task={task} />

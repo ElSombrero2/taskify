@@ -36,7 +36,7 @@ export const Dropdown = ({ button, position, size, open, children, onClickOutsid
       <div>
         {button}
       </div>
-      {open && <div className={clsx(
+      {open && <div role="menu" className={clsx(
         'bg-white border border-gray-300 bg-opacity-20 backdrop-blur-lg',
         'dark:bg-gray-800 border dark:border-gray-600 dark:bg-opacity-20 dark:backdrop-blur-xl',
         'shadow rounded-md absolute p-1 ',

@@ -8,7 +8,7 @@ type ItemProps = {
 
 export const Item = ({children, type, ...props}: ItemProps) => {
   return (
-    <label className="radio">
+    <label className="radio" role="menuitem">
       <input type={type} {...props} />
       {children}
     </label>
