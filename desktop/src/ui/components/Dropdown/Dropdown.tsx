@@ -21,8 +21,19 @@ export const Dropdown = ({ button, position, size, open, children, onClickOutsid
         onClickOutside && onClickOutside();
       }
     };
+
+		const closeOnEsc = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') {
+				onClickOutside && onClickOutside();
+			}
+		}
+
     document.body.addEventListener('click', call);
-    return () => document.body.removeEventListener('click', call);
+		document.body.addEventListener('keydown', closeOnEsc);
+    return () => {
+			document.body.removeEventListener('click', call);
+			document.body.removeEventListener('keydown', closeOnEsc);
+		}
   }, []);
 
   return (
@@ -36,7 +47,7 @@ export const Dropdown = ({ button, position, size, open, children, onClickOutsid
       <div>
         {button}
       </div>
-      {open && <div role="menu" className={clsx(
+      {open && <div role="menu" aria-hidden="false" className={clsx(
         'bg-white border border-gray-300 bg-opacity-20 backdrop-blur-lg',
         'dark:bg-gray-800 border dark:border-gray-600 dark:bg-opacity-20 dark:backdrop-blur-xl',
         'shadow rounded-md absolute p-1 ',

@@ -21,6 +21,10 @@ body {
   overflow: hidden;
 }
 
+pre {
+  background: rgb(40, 42, 54) !important;
+}
+
 .main {
   @apply w-full h-full;
 }

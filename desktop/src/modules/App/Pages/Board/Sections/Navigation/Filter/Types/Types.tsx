@@ -5,8 +5,10 @@ import { SpecificTag } from "../../../../../../../../utils/find-level-and-type"
 export const Types = ({ tags }: {tags: SpecificTag[]}) => {
   return (
     <>
-      {tags.map((type) => (
-        <Item type='checkbox'
+      {tags.map((type, index) => (
+        <Item
+					key={`item-${type}-${index}`}
+					type='checkbox'
           name="tags"
         >
           <small className="flex gap-2">

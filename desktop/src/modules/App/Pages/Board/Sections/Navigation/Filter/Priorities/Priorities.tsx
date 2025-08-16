@@ -5,8 +5,10 @@ import clsx from "clsx";
 export const Priorities = ({ tags }: {tags: SpecificTag[]}) => {
   return (
     <>
-      {tags.map((priority) => (
-        <Item type='checkbox'
+      {tags.map((priority, index) => (
+        <Item
+					key={`priority-${priority.key}-${index}`}
+					type='checkbox'
           name="tags"
         >
           <small className="flex gap-2">

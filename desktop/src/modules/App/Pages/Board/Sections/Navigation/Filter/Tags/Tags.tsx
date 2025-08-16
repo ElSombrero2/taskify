@@ -3,9 +3,10 @@ import { Item } from "../../Item/Item"
 export const Tags = ({tags}: { tags: string[] }) => {
   return (
     <>
-      {tags.map((tag) => (
+      {tags.map((tag, index) => (
         <Item
-          defaultChecked
+          key={`tag-${tag}-${index}`}
+					defaultChecked
           type='checkbox'
           name="tags"
         >
