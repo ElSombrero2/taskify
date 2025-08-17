@@ -42,7 +42,7 @@ export const Column = ({children, tasks, state, onCardClicked}: ColumnProps) => 
 	
   return (
     <div
-			data-droppable={state}
+			data-droppable
 			className={`${isDragOver && 'bg-gray-600'} p-1 table-cell rounded-lg min-h-[calc(100vh-266px)]`}
 			onDragEnter={onDragEnter}
 			onDragOver={(e) => e.preventDefault()}
