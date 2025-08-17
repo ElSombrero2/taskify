@@ -1,15 +1,19 @@
 import clsx from "clsx"
 import { Item } from "../../Item/Item"
 import { SpecificTag } from "../../../../../../../../utils/find-level-and-type"
+import { useFilter } from "@/store/filters/filters"
 
-export const Types = ({ tags }: {tags: SpecificTag[]}) => {
-  return (
+export const Types = ({ tags: types }: {tags: SpecificTag[]}) => {
+  const { tags } = useFilter();
+	return (
     <>
-      {tags.map((type, index) => (
+      {types.map((type, index) => (
         <Item
+					value={type.key}
 					key={`item-${type}-${index}`}
 					type='checkbox'
           name="tags"
+					defaultChecked={tags.includes(type.key ?? '')}
         >
           <small className="flex gap-2">
             <span className={clsx(

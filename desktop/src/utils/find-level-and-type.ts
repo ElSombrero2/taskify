@@ -61,7 +61,7 @@ const TicketType: SpecificTagMap = {
     },
     feature: {
         icon: 'fa-solid fa-bookmark',
-        background: 'bg-red-500',
+        background: 'bg-green-500',
         color: 'text-green-500',
         border: 'border-green-500 dark:border-emerald-600',
         label: 'Feature',

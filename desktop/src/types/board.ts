@@ -3,7 +3,7 @@ import { GroupedTasks, Task } from "./task"
 export type Board = {
   name: string,
   tasks: Task[],
-  extra: unknown,
+  extra?: unknown,
 }
 
 export type BoardTuple = [GroupedTasks, Board, string]

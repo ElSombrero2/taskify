@@ -21,10 +21,10 @@ import { Load } from "@/plugins/markdown/loader/loader";
 export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean, onClickExit?: () => void}) => {
 	
 	/*
-		[TODO]: Look at image and video in a modal
+		[TODO]: Show image, video or figma in a modal
 		When a user click on an image, a video or a figma link,
 		a modal appears and focus at the selected media.
-		#ui #low #improvement
+		#ui #low #improvement #v2
 	*/
   return (
     <Modal

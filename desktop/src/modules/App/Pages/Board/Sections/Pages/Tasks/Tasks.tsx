@@ -8,11 +8,13 @@ import { Loader } from "./Loader/Loader"
 import { Details } from "../../Details/Details"
 import { useDetails } from "../../Details/hooks/details"
 import './Tasks.scss'
+import { useFilterableBoard } from "@/hooks/filterable-board"
 
 export const Tasks = () => {
-  const { tasks, board, loading } = useBoard()
+  const { loading } = useBoard()
+	const { tasks, board } = useFilterableBoard()
   const { onCardClicked, task, showDetail, setShowDetail } = useDetails(board);
-		
+	
   return (
     <div
 			className="flex flex-col gap-8 overflow-auto scrollable h-[calc(100vh-266px)]">

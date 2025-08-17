@@ -1,12 +1,15 @@
+import { useFilter } from "@/store/filters/filters"
 import { Item } from "../../Item/Item"
 
 export const Tags = ({tags}: { tags: string[] }) => {
-  return (
+  const { tags: filterTags } = useFilter();
+	return (
     <>
       {tags.map((tag, index) => (
         <Item
+					value={tag}
           key={`tag-${tag}-${index}`}
-					defaultChecked
+					defaultChecked={filterTags.includes(tag)}
           type='checkbox'
           name="tags"
         >

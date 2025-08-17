@@ -7,6 +7,7 @@ import { Outlet, useSearchParams } from "react-router"
 import { invoke } from "@tauri-apps/api"
 import { useListener } from "@/hooks/listener"
 import { appWindow } from "@tauri-apps/api/window"
+import { useFilterableBoard } from "@/hooks/filterable-board"
 
 /*
   [WIP]: Add a board and list sorting strategy
@@ -17,6 +18,8 @@ import { appWindow } from "@tauri-apps/api/window"
 export const Board = () => {
   const { find, reload } = useBoard();
   const [ params ] = useSearchParams();
+
+	const {} = useFilterableBoard();
 
   useListener('file-changed', () => reload(false));
   
@@ -33,7 +36,7 @@ export const Board = () => {
   }, []);
 
   /*
-    [READY]: Create alert for all the additionnal messages
+    [WIP]: Create alert for all the additionnal messages
     Create an alert component that can be wrapped globaly and
     called anywhere inside the application
     based on this model
