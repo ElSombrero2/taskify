@@ -5,13 +5,16 @@ import clsx from "clsx";
 import React, { useState } from "react";
 import { Info } from "./Info/Info";
 import { Text } from "./Text/Text";
-import { Droppable } from "./Droppable/Droppable";
-import { useBoard } from "@/store/board/board";
 import { useTags } from "@/hooks/tag";
 
-export const TaskCard = ({ task, top, onClick }: { task: Task, top?: boolean, onClick?: (task: Task) => void }) => {
+type TaskCardProps =  { 
+	className?: string,
+	task: Task,
+	onClick?: (task: Task) => void,
+}
+
+export const TaskCard = ({ task, onClick, className, }: TaskCardProps) => {
   const [dragged, setDragged] = useState(false);
-  const { board, updateTask } = useBoard();
   const { type } = useTags(task?.tags);
 
   const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
@@ -21,27 +24,15 @@ export const TaskCard = ({ task, top, onClick }: { task: Task, top?: boolean, on
     e.dataTransfer.setData('state', task.state);
   }
 
-  const onDrop = (id: string, target: string) => {
-    const task = board?.tasks.find((t) => t.id === id);
-    if (task) {
-      updateTask(id, task?.info.filename, task?.state, target as TaskState);
-    }
-  };
+	const onDragEnd = () => setDragged(false)
 
   return (
     <div className="flex flex-col">
-      {top && <Droppable
-        onDrop={onDrop}
-        offsetSize="1.5rem"
-        target={task.state}
-        className="h-5 -mt-5"
-        activatedClassName="pb-5"
-      />}
-			<button className="text-left block" onClick={() => onClick && onClick(task)}>
+			<button className={`text-left block ${className}`} onClick={() => onClick && onClick(task)}>
 				<Card
 					draggable
 					onDragStart={onDragStart}
-					onDragEnd={() => setDragged(false)}
+					onDragEnd={onDragEnd}
 					className={clsx(
 						"border-0 border-l-4",
 						type?.border,
@@ -62,14 +53,6 @@ export const TaskCard = ({ task, top, onClick }: { task: Task, top?: boolean, on
 					<Info info={task.info} />
 				</Card>
 			</button>
-			{<Droppable
-        offsetSize="2rem"
-        onDrop={onDrop}
-        target={task.state}
-        disabled={dragged}
-        className="h-3"
-        activatedClassName="py-3 pt-5"
-      />}
     </div>
   );
 };

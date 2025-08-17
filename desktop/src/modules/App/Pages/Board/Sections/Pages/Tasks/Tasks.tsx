@@ -12,14 +12,19 @@ import './Tasks.scss'
 export const Tasks = () => {
   const { tasks, board, loading } = useBoard()
   const { onCardClicked, task, showDetail, setShowDetail } = useDetails(board);
-
+		
   return (
-    <div className="flex flex-col gap-8 overflow-auto scrollable" data-dnd onDragOver={(e) => e.preventDefault()}>
-      <div className="flex w-full gap-10 h-[calc(100vh-266px)]">
+    <div
+			className="flex flex-col gap-8 overflow-auto scrollable h-[calc(100vh-266px)]">
+			<div className="flex w-full gap-10">
         {States.map((state, index) => (
           <Switch condition={!loading} key={`${state}-${index}`} fallback={<Loader />} >
-            <Column onCardClicked={onCardClicked} state={state.type} tasks={tasks?.[state.type]}>
-              <Title className={state.className}>
+            <Column
+							onCardClicked={onCardClicked}
+							state={state.type}
+							tasks={tasks?.[state.type]}
+						>
+              <Title cardClassName="sticky" className={state.className}>
                 <div className="flex items-center w-full justify-between">
                   {state.label}
                   <Pills
