@@ -1,14 +1,19 @@
-import { ReactNode } from "react"
+import { HTMLAttributes, ReactNode } from "react"
 
-export const Repeat = ({children, times}: {children: ReactNode, times: number}) => {
+type RepeatProps = {
+	children: ReactNode;
+	times: number;
+} & HTMLAttributes<HTMLDivElement>;
+
+export const Repeat = ({children, times, ...props}: RepeatProps) => {
   
   return (
-    <>
-    {Array.from(Array(times).keys()).map((i) => (
-      <div key={`repeat-${i}`}>
-        {children}
-      </div>
-    ))}
-    </>
+    <div {...props}>
+			{Array.from(Array(times).keys()).map((i) => (
+				<div key={`repeat-${i}`}>
+					{children}
+				</div>
+			))}
+    </div>
   )
 }

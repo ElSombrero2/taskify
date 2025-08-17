@@ -10,7 +10,7 @@ import { useToggler } from '../../../../../../../hooks/toggler';
 import './Sort.scss'
 
 /*
-  [READY]: Analyze and refactoring
+  [WIP]: Analyze and refactoring
   Make a refactoring for this Sort component
   #task #low
 */

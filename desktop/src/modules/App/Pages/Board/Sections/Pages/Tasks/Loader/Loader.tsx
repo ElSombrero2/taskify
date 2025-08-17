@@ -7,14 +7,14 @@ import { Repeat } from "../../../../../../../../shared/components/Operators/Repe
 export const Loader = () => {
   return (
     <Column>
-      <Card className="min-w-[320px] flex justify-between items-center dark:bg-gray-800 bg-gray-100 p-4">
+      <Card className="min-w-[320px] flex mb-6 justify-between items-center dark:bg-gray-800 bg-gray-100 p-4">
         <div className="flex items-center gap-2">
           <Skeleton className="w-[20px] h-[20px]" />
           <Skeleton className="w-[60px] h-[20px]" />
         </div>
         <Skeleton className="w-[20px] h-[20px]" />
       </Card>
-      <Repeat times={4}>
+      <Repeat times={4} className="flex flex-col gap-3">
         <Card className="min-w-[320px] dark:bg-gray-800 bg-gray-100 flex flex-col gap-3">
           <div className="flex gap-2 items-center">
             <Skeleton className="w-[40px]" />

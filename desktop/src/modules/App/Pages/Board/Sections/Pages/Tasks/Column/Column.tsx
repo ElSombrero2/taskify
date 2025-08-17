@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react"
+import { DragEvent, ReactNode, useState } from "react"
 import { Task, TaskState } from "@/types/task"
 import { TaskCard } from "../Cards/Task/Task"
 import { useBoard } from "@/store/board/board"
@@ -10,33 +10,57 @@ type ColumnProps = {
   onCardClicked?: (task: Task) => void;
 }
 
-export const Column = ({children, tasks, onCardClicked}: ColumnProps) => {
+export const Column = ({children, tasks, state, onCardClicked}: ColumnProps) => {
   const { updateTask, board } = useBoard();
 	const [isDragOver, setIsDragOver] = useState(false);
+	const [currentTask, setCurrentTask] = useState<Task | null>(null);
 
-  /*const onDrop = (e) => {
+  const onDrop = (e: DragEvent<HTMLDivElement>) => {
+    const id = e.dataTransfer.getData('id');
+
     const task = board?.tasks.find((t) => t.id === id);
-    if (task) {
-      updateTask(id, task?.info.filename, task?.state, target as TaskState);
+    if (task && state && task?.state !== state) {
+      updateTask(id, task?.info.filename, task?.state, state as TaskState);
     }
-  };*/
+
+		setIsDragOver(false);
+  };
+
+	const onDragEnter = () => {
+		if (currentTask?.state !== state) {
+			setIsDragOver(true);
+		}
+	}
+
+	const onDragLeave = (e: DragEvent<HTMLDivElement>) => {
+		const target = e.target as HTMLDivElement;
+		
+		if (target.attributes.getNamedItem('data-droppable')) {
+			setIsDragOver(false);
+		}
+	}
 	
   return (
     <div
-			data-droppable
-			className={`flex ${isDragOver && 'bg-gray-600'} flex-col gap-6 p-1 table-cell rounded-lg min-h-[calc(100vh-266px)]`}
-			onDragEnterCapture={() => setIsDragOver(true)}
-			onDrop={() => { console.log('Drop', e)}}
-			onDragLeaveCapture={(e) => (e.target as HTMLDivElement).attributes.getNamedItem('data-droppable')?.value && setIsDragOver(false) }
+			data-droppable={state}
+			className={`${isDragOver && 'bg-gray-600'} p-1 table-cell rounded-lg min-h-[calc(100vh-266px)]`}
+			onDragEnter={onDragEnter}
+			onDragOver={(e) => e.preventDefault()}
+			onDrop={onDrop}
+			onDragLeave={onDragLeave}
 		>
-			{children}
-      <div className={`flex flex-col gap-2 ${isDragOver ? 'hidden' : ''}`}>
+			<div className="mb-6">
+				{children}
+			</div>
+			<div className={`flex flex-col gap-3 ${isDragOver ? 'opacity-15' : ''}`}>
 				{tasks?.map((task, index) => (
 					<div
 						className={`flex flex-col`}
 						key={`${task.id}-${index}`}
 					>
 						<TaskCard
+							onDragStart={setCurrentTask}
+							onDragEnd={() => { setIsDragOver(false); setCurrentTask(null); }}
 							onClick={onCardClicked}
 							task={task}
 						/>

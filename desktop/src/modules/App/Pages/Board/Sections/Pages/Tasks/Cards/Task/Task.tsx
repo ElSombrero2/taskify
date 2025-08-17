@@ -1,4 +1,4 @@
-import { Task, TaskState } from "@/types/task";
+import { Task } from "@/types/task";
 import { Card } from "@/ui/components/Cards/Card/Card";
 import { Divider } from "@/ui/components/Separators/Divider/Divider";
 import clsx from "clsx";
@@ -11,9 +11,11 @@ type TaskCardProps =  {
 	className?: string,
 	task: Task,
 	onClick?: (task: Task) => void,
+	onDragStart?: (task: Task) => void;
+	onDragEnd?: (task: Task) => void;
 }
 
-export const TaskCard = ({ task, onClick, className, }: TaskCardProps) => {
+export const TaskCard = ({ task, onClick, className, onDragStart: triggerOnDragStart, onDragEnd: triggerOnDragEnd }: TaskCardProps) => {
   const [dragged, setDragged] = useState(false);
   const { type } = useTags(task?.tags);
 
@@ -22,9 +24,13 @@ export const TaskCard = ({ task, onClick, className, }: TaskCardProps) => {
     e.dataTransfer.setData(`height:${(e.target as HTMLDivElement).clientHeight}`, '')
     e.dataTransfer.setData('id', task.id);
     e.dataTransfer.setData('state', task.state);
+		triggerOnDragStart && triggerOnDragStart(task);
   }
 
-	const onDragEnd = () => setDragged(false)
+	const onDragEnd = () => {
+		setDragged(false);
+		triggerOnDragEnd && triggerOnDragEnd(task);
+	}
 
   return (
     <div className="flex flex-col">

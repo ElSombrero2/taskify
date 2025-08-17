@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { Board, BoardTuple } from "@/types/board";
 import { GroupedTasks, TaskState } from "@/types/task";
 import { invoke } from "@tauri-apps/api";
+import { delay } from "@/utils/delay";
 
 type BoardState = {
   loading: boolean,
@@ -39,6 +40,7 @@ export const useBoard = create<BoardState>((set, get) => ({
     const { load, reload } = get();
     load(true);
     await invoke('move_task', {id, filename, from, to});
-    reload(true);
+    await delay(1000);
+		reload(true);
   }
 }));
