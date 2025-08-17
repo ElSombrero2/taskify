@@ -2,6 +2,7 @@ import { DragEvent, ReactNode, useState } from "react"
 import { Task, TaskState } from "@/types/task"
 import { TaskCard } from "../Cards/Task/Task"
 import { useBoard } from "@/store/board/board"
+import clsx from "clsx"
 
 type ColumnProps = {
   children: ReactNode;
@@ -26,7 +27,8 @@ export const Column = ({children, tasks, state, onCardClicked}: ColumnProps) => 
 		setIsDragOver(false);
   };
 
-	const onDragEnter = () => {
+	const onDragOver = (e: DragEvent) => {
+		e.preventDefault();
 		if (currentTask?.state !== state) {
 			setIsDragOver(true);
 		}
@@ -43,16 +45,22 @@ export const Column = ({children, tasks, state, onCardClicked}: ColumnProps) => 
   return (
     <div
 			data-droppable
-			className={`${isDragOver && 'bg-gray-600'} p-1 table-cell rounded-lg min-h-[calc(100vh-266px)]`}
-			onDragEnter={onDragEnter}
-			onDragOver={(e) => e.preventDefault()}
+			className={clsx(
+				'table-cell min-h-[calc(100vh-266px)]',
+				`border border-1 p-1 rounded-lg border-dashed transition-[border,background] duration-75`,
+				{
+					'bg-gray-600 bg-opacity-20 dark:bg-opacity-40 border-gray-600': isDragOver,
+					'border-transparent': !isDragOver,
+				},
+			)}
+			onDragOver={onDragOver}
 			onDrop={onDrop}
-			onDragLeave={onDragLeave}
+			onDragLeaveCapture={onDragLeave}
 		>
-			<div className="mb-6">
+			<div className="mb-6 pointer-events-none">
 				{children}
 			</div>
-			<div className={`flex flex-col gap-3 ${isDragOver ? 'opacity-15' : ''}`}>
+			<div className={`flex flex-col gap-3 ${isDragOver ? 'hidden pointer-events-none' : ''}`}>
 				{tasks?.map((task, index) => (
 					<div
 						className={`flex flex-col`}

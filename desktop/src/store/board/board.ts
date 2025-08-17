@@ -37,10 +37,9 @@ export const useBoard = create<BoardState>((set, get) => ({
     path && find(path, loading);
   },
   updateTask: async (id: string, filename: string, from: TaskState, to: TaskState) => {
-    const { load, reload } = get();
+    const { load } = get();
     load(true);
+		await delay(300);
     await invoke('move_task', {id, filename, from, to});
-    await delay(1000);
-		reload(true);
   }
 }));

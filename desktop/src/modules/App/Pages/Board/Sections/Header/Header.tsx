@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from "react-router"
 import { useFilter } from "../../../../../../store/filters/filters"
 
 /*
-  [READY]: Add sort
+  [WIP]: Add sort
   The user can choose in what fields he want to sort all the items
   and can sort in ASC or DESC
   #high #improvement

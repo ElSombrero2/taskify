@@ -9,7 +9,7 @@ import { useListener } from "@/hooks/listener"
 import { appWindow } from "@tauri-apps/api/window"
 
 /*
-  [READY]: Add a board and list sorting strategy
+  [WIP]: Add a board and list sorting strategy
   Create a board filtering and sorting strategy
   for showing all the board elements directly from the store
   #task #medium
@@ -33,7 +33,7 @@ export const Board = () => {
   }, []);
 
   /*
-    [TODO]: Create alert for all the additionnal messages
+    [READY]: Create alert for all the additionnal messages
     Create an alert component that can be wrapped globaly and
     called anywhere inside the application
     based on this model
