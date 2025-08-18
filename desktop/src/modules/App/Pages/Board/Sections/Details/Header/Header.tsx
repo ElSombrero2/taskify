@@ -1,7 +1,7 @@
 import { Info } from "@/types/task"
 
 /*
-    [READY]: Remove a ticket
+    [WIP]: Remove a ticket
     The user can remove a ticket when he want
     and the comment must be removed from the code
     
