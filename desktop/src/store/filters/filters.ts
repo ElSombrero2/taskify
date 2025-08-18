@@ -4,24 +4,24 @@ import { create } from "zustand";
 type FiltersState = {
   query: string | null,
   tags: string[],
-  sort: 'ASC' | 'DESC',
+  order: 'ASC' | 'DESC',
   field: string,
   setFilter: (query: string | null) => void,
-  setSort: (field: string, sort: 'ASC' | 'DESC') => void,
+  setSort: (field: string, order: 'ASC' | 'DESC') => void,
 	addTag: (tag: string) => void;
 	removeTag: (tag: string) => void;
 }
 
 export const useFilter = create<FiltersState>((set, get) => ({
   query: null,
-  sort: 'ASC',
+  order: 'ASC',
   field: 'date',
   tags: [],
   setFilter: (query) => {
     set(state => ({...state, query, }))
   },
-  setSort: (field: string, sort: 'ASC' | 'DESC') => {
-    set(state => ({ ...state, field, sort }))
+  setSort: (field: string, order: 'ASC' | 'DESC') => {
+    set(state => ({ ...state, field, order }))
   },
 	addTag: (tag: string) => {
 		const { tags } = get();

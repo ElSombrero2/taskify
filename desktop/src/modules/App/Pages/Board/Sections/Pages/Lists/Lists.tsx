@@ -1,11 +1,11 @@
 import "./Lists.scss";
-import { useBoard } from "@/store/board/board";
 import { Summary } from "./Summary/Summary";
 import { Extra } from "./Extra/Extra";
 import { Details } from "../../Details/Details";
 import { useDetails } from "../../Details/hooks/details";
 import { Task } from "../../../../../../../types/task";
 import { useFilter } from "../../../../../../../store/filters/filters";
+import { useFilterableBoard } from "@/hooks/filterable-board";
 
 /*
   [DONE]: Change the design of the list
@@ -14,7 +14,7 @@ import { useFilter } from "../../../../../../../store/filters/filters";
   ![image](https://cdn.dribbble.com/userupload/21952779/file/original-8a57756da186e0a0fbebc5e625e241dd.jpg?resize=752x564&vertical=center)
 */
 export const Lists = () => {
-  const { board } = useBoard();
+  const { board } = useFilterableBoard();
   const { onCardClicked, task, showDetail, setShowDetail } = useDetails(board);
   const { query } = useFilter();
 

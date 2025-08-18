@@ -10,7 +10,7 @@ import { useToggler } from '../../../../../../../hooks/toggler';
 import './Sort.scss'
 
 /*
-  [WIP]: Analyze and refactoring
+  [TODO]: Analyze and refactoring
   Make a refactoring for this Sort component
   #task #low
 */
@@ -18,7 +18,7 @@ export const Sort = () => {
   const { toggle, hide, open } = useToggler(false);
   const { fields } = useField();
   const { sort: sortList } = useSort();
-  const { field, sort, setSort } = useFilter();
+  const { field, order, setSort } = useFilter();
   const form = useRef<HTMLFormElement>(null);
 
   const onSort = () => {
@@ -41,14 +41,14 @@ export const Sort = () => {
         size="sm"
         onClick={toggle}
         theme="secondary">
-        {sort === 'ASC' ? <i className="fa-solid fa-arrow-down-short-wide"></i> : <i className="fa-solid fa-arrow-up-short-wide"></i>}
+        {order === 'ASC' ? <i className="fa-solid fa-arrow-down-short-wide"></i> : <i className="fa-solid fa-arrow-up-short-wide"></i>}
         <p className="truncate w-full h-[18px] text-left">
           {'Sort by : '}
           <strong>{field}</strong>
         </p>
       </Button>}
     >
-      <form ref={form} className="flex flex-col gap-1">
+      <form onSubmit={(e) => e.preventDefault()} ref={form} className="flex flex-col gap-1">
         {fields.map((f) => (
             <Item onChange={onSort}
               key={`checkbox-${f.value}`}
@@ -65,7 +65,7 @@ export const Sort = () => {
           <Item onChange={onSort}
             key={`checkbox-${s.value}`}
             type='radio'
-            checked={s.value === sort}
+            checked={s.value === order}
             name="sort"
             value={s.value}
           >

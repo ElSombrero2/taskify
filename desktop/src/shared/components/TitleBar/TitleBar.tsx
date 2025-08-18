@@ -1,6 +1,4 @@
 import { appWindow } from "@tauri-apps/api/window";
-import { useWindow } from "@/hooks/window";
-import { invoke } from "@tauri-apps/api";
 import { useContext, useState } from "react";
 import './TitleBar.scss'
 import clsx from "clsx";
@@ -9,28 +7,19 @@ import { Toggler } from "./Toggler/Toggler";
 import { Theme } from "../../../providers/Theme/Theme";
 import { useListener } from "@/hooks/listener";
 import { useProject } from "@/store/projects/projects";
-import { useNavigate, useSearchParams } from "react-router";
+import { useNavigate } from "react-router";
 
 export const TitleBar = () => {
-  const { isWidget } = useWindow();
   const [maximized, setMaximized] = useState(false);
   const { setTheme, theme } = useContext(Theme);
   const { projects } = useProject();
   const navigate = useNavigate();
-  const [ params ] = useSearchParams();
 
   useListener('tauri://resize', async () => {
     setMaximized(await appWindow.isMaximized());
-    if (!isWidget && !await appWindow.isMinimized()) {
-      await invoke('close_widget');
-    }
   })
 
   const minimize = async () => {
-    const path = params.get('path');
-    if (path) {
-      await invoke('open_widget', { theme, path });
-    }
     await appWindow.minimize();
   }
   const close = async () => await appWindow.close();

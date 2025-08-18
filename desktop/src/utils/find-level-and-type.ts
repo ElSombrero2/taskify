@@ -79,7 +79,7 @@ const findFromTag = (tags: string[], obj: SpecificTagMap) => {
     const keys = Object.keys(obj);
     for (const key of keys) {
         if (tags.includes(key)) {
-            return obj[key];
+            return { ...obj[key], key };
         }
     }
 }

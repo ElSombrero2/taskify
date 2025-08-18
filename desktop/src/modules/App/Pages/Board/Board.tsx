@@ -10,7 +10,7 @@ import { appWindow } from "@tauri-apps/api/window"
 import { useFilterableBoard } from "@/hooks/filterable-board"
 
 /*
-  [WIP]: Add a board and list sorting strategy
+  [DONE]: Add a board and list sorting strategy
   Create a board filtering and sorting strategy
   for showing all the board elements directly from the store
   #task #medium
@@ -40,9 +40,9 @@ export const Board = () => {
     Create an alert component that can be wrapped globaly and
     called anywhere inside the application
     based on this model
-    #medium #improvement
-    ![alert](https://cdn.dribbble.com/userupload/29008886/file/original-6bb07fc79059a953303ac78dcbd88915.png?resize=1024x768&vertical=center)
-
+    Here is an example of UI for alert message 
+		![message](https://cdn.dribbble.com/userupload/37149745/file/original-8545800201eb6e4d4dc715a7deae093b.png?resize=752x535&vertical=center)
+		#medium #improvement
   */
 
   return (
