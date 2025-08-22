@@ -39,7 +39,7 @@ export const Details = ({open, onClickExit, task}: {task?: Task, open?: boolean,
       backdropClassName="backdrop-blur-md"
       backdropStyle={{WebkitBackdropFilter: 'blur(12px)'}}
     >
-      <Header info={task?.info} onClickExit={onClickExit} />
+      <Header id={task?.id} info={task?.info} onClickExit={onClickExit} />
       <div className="max-h-[90vh] overflow-y-scroll">
         <div className="p-4 flex flex-col gap-8">
           <Markdown

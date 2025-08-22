@@ -1,5 +1,4 @@
-use crate::{info::Info, syntax::Syntax};
-use base64::{prelude::BASE64_STANDARD, Engine};
+use crate::{info::Info, syntax::Syntax, utils::hash::hash};
 use git2::{Error, Repository};
 use serde::{Deserialize, Serialize};
 use state::TaskState;
@@ -22,7 +21,14 @@ pub struct Task {
 }
 
 impl Task {
-  pub fn new (title: String, description: Option<String>, state: TaskState, tags: Vec<String>, info: Info, raw: String) -> Self {
+  pub fn new (
+      title: String,
+      description: Option<String>,
+      state: TaskState,
+      tags: Vec<String>,
+      info: Info,
+      raw: String
+    ) -> Self {
     Self { 
       title: title.clone(), description, state, tags, info, raw,
       id: Self::create_id(&title),
@@ -34,7 +40,7 @@ impl Task {
   }
 
   fn create_id (title: &str) -> String {
-    BASE64_STANDARD.encode(title)
+    hash(String::from(title))
   }
 
   pub fn scan(directory: String, syntax: impl Syntax<Task>) -> Vec<Task> {
