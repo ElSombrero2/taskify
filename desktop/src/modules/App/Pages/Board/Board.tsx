@@ -36,7 +36,7 @@ export const Board = () => {
   }, []);
 
   /*
-    [WIP]: Create alert for all the additionnal messages
+    [TESTING]: Create alert for all the additionnal messages
     Create an alert component that can be wrapped globaly and
     called anywhere inside the application
     based on this model

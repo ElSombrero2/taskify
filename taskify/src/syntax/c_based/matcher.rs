@@ -3,6 +3,13 @@ use regex::Regex;
 use crate::{comment::Comment, info::Info, syntax::Syntax, task::{state::TaskState, Task}, utils::{file::get_line, markdown}};
 use super::{utils::{get_state_and_title, get_tags, sanitize}, CBased};
 
+/*
+ *  [DONE]: Allow standard comments
+ *  Allow to create a task with comments
+ *  that starts with *
+ *
+ *  #high #improvement
+*/
 impl CBased {
   fn get_inline_comments (&self, raw_file: &str) -> Vec<Comment> {
     let mut comments: Vec<Comment> = vec![];

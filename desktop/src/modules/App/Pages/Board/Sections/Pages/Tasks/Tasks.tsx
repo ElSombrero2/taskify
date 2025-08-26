@@ -18,7 +18,7 @@ export const Tasks = () => {
   return (
     <div
 			className="flex flex-col gap-8 overflow-auto scrollable h-[calc(100vh-266px)]">
-			<div className="flex w-full gap-10">
+			<div className="flex w-full gap-5">
         {States.map((state, index) => (
           <Switch condition={!loading} key={`switch-${state}-${index}`} fallback={<Loader />} >
             <Column

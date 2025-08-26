@@ -65,6 +65,20 @@ fn another_function() -> u8 {
 }
 ```
 
+The standard comment format is allowed if you use it
+
+```rust
+
+/*
+  * [TODO]: it's a simple task
+  * It's a simple description
+  * in multiple line 
+*/
+fn a_function() {
+    // doStuff
+}
+```
+
 # Usage
 
 Create a **.taskifyignore** file that contains all the

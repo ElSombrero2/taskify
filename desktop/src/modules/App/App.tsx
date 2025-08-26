@@ -7,27 +7,31 @@ import { Tasks } from "./Pages/Board/Sections/Pages/Tasks/Tasks";
 import { Lists } from "./Pages/Board/Sections/Pages/Lists/Lists";
 import "./App.scss";
 import { Docs } from "./Pages/Board/Sections/Pages/Docs/Docs";
+import { Notifications } from "./Notifications/Notifications";
 
 function App() {
   return (
-    <BrowserRouter>
-       <div className="flex p-1 flex-col w-full h-full pt-0">
-        <TitleBar />
-        <div className="main-container">
-          <Sidenav />
-          <div className="overflow-hidden max-h-full w-full">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/board" element={<Board />}>
-                <Route element={<Tasks />} path="main" />
-                <Route element={<Lists />} path="list" />
-                <Route element={<Docs />} path="docs" />
-              </Route>
-            </Routes>
-          </div>
-        </div>
-      </div>
-    </BrowserRouter>
+		<>
+			 <BrowserRouter>
+				<div className="flex p-1 flex-col w-full h-full pt-0">
+					<TitleBar />
+					<div className="main-container">
+						<Sidenav />
+						<div className="overflow-hidden max-h-full w-full">
+							<Routes>
+								<Route path="/" element={<Home />} />
+								<Route path="/board" element={<Board />}>
+									<Route element={<Tasks />} path="main" />
+									<Route element={<Lists />} path="list" />
+									<Route element={<Docs />} path="docs" />
+								</Route>
+							</Routes>
+						</div>
+					</div>
+				</div>
+			</BrowserRouter>
+			<Notifications />
+		</>
   );
 }
 

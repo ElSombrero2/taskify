@@ -10,11 +10,12 @@ pub fn sanitize(str: &str) -> Vec<String> {
   }
   
   let mut res = str_arr.into_iter().map(|s| {
-    let str = s.trim();
+    // Must be trimed on last time
+    let str = s.trim().replacen('*', "", 1);
     if str.is_empty() {
       return String::from(" ");
     }
-    String::from(str)
+    String::from(str.trim())
   }).collect::<Vec<String>>();
   
   while res[0].is_empty() {

@@ -130,3 +130,16 @@ function pow (a: number, b: number) {
 /* [WIP]: Export your module */
 export { }
 ```
+The standard comment format is now supported.  
+You can create your task like this for a multiple lines task
+
+```ts
+/*
+  * [TODO]: it's a simple task
+  * It's a simple description
+  * in multiple line 
+*/
+function myFunction () {
+    // doStuff()
+}
+```
