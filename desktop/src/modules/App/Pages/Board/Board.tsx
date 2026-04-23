@@ -8,6 +8,7 @@ import { invoke } from "@tauri-apps/api"
 import { useListener } from "@/hooks/listener"
 import { appWindow } from "@tauri-apps/api/window"
 import { useFilterableBoard } from "@/hooks/filterable-board"
+import { useNotification } from "../../../../store/notification/notifications"
 
 /*
   [DONE]: Add a board and list sorting strategy
@@ -18,10 +19,21 @@ import { useFilterableBoard } from "@/hooks/filterable-board"
 export const Board = () => {
   const { find, reload } = useBoard();
   const [ params ] = useSearchParams();
+  const { push } = useNotification();
 
 	const {} = useFilterableBoard();
 
-  useListener('file-changed', () => reload(false));
+  useListener('file-changed', ({payload}: any) => {
+    reload(false);
+    const id = payload.tasks.map((t: any) => t.id)?.join('-');
+    push({
+      description: 'Your board is refreshing because a file was updated!',
+      title: 'File changed',
+      duration: 10000,
+      type: 'info',
+      id: id,
+    });
+  });
   
   useEffect(() => {
     const path = params.get('path');

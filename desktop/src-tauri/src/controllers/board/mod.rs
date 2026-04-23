@@ -57,7 +57,7 @@ pub fn start_listen(global_app: AppHandle, path: String) {
           tx.send(Ok(event)).unwrap()
         })
       },
-      move |tasks, files| app.emit_all("file-changed", Payload { tasks, files}).unwrap(),
+      move |tasks, files| app.emit_all("file-changed", Payload { tasks, files }).unwrap(),
       |id| app.unlisten(id),
     );
   });

@@ -11,14 +11,17 @@ export const useNotification = create<NotificationState>((set, get) => ({
 	notifications: [],
 	push: (notification: Notification) => {
 		const { notifications } = get();
-		notifications.push(notification);
-		set((state) => ({ ...state, notifications }));
+		const exists = notifications.find((n) => n.id === notification.id);
+		if (!exists && notification.id.length) {
+			notifications.push(notification);
+			set((state) => ({ ...state, notifications }));
+		}
 	},
 	remove: (id: string) => {
 		const { notifications } = get();
 		set((state) => ({
 			...state,
 			notifications: notifications.filter((n) => n.id !== id),
-		}))
+		}));
 	}
 }));

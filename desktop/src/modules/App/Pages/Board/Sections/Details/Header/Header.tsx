@@ -9,7 +9,7 @@ import { Info } from "@/types/task"
     ![dropdown](https://cdn.dribbble.com/userupload/19998911/file/original-a5ee6e5e498e5d372239aedd5dc492df.jpg?resize=1024x768&vertical=center)
     #medium #improvement
 */
-export const Header = ({onClickExit, info, id}: {id?: string, onClickExit?: () => void, info?: Info}) => {
+export const Header = ({onClickExit, info }: {id?: string, onClickExit?: () => void, info?: Info}) => {
     const getFilename = (filename?: string) => {
         if (filename) {
             const splited = filename.split(

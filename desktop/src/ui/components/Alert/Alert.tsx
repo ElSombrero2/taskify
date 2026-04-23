@@ -43,8 +43,8 @@ export const Alert = ({ id, title, children, position, type, duration, onTimeout
 					variants.type[type ?? 'info'].icon,
 				)}></i>
 			</div>
-			<div className="ml-4 gap-[2px] flex flex-col">
-					<small>
+			<div className="ml-4 gap-[2px] flex flex-col max-w-52">
+					<small className="font-bold">
 						{title}
 					</small>
 					<small className="opacity-70">
